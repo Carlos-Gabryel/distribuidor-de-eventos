@@ -86,11 +86,11 @@ Windows                                  WSL2 (Ubuntu), como root
 | Unidade | Faz | Depende de |
 |---|---|---|
 | `Iniciar Distribuicao.bat` | Prepara o Windows (WSL, `usbipd attach`) e abre a TUI como root. Mensagens em português se a placa faltar ou se o `bind` não tiver sido feito | `usbipd`, `wsl` |
-| `distrib/config.py` | Lê `config.toml` (+ `config.local.toml`): caminho do pokeldn, do Python do venv, do `prod.keys`, idioma preferido do SwSh | — |
+| `distrib/config.py` | Lê `config.toml` (+ `config.local.toml`): caminho do pokeldn, do Python do venv e do `prod.keys` | — |
 | `distrib/radio.py` | Acha a porta serial (`/dev/ttyACM*`, `/dev/ttyUSB*`) e faz o HELLO para confirmar a placa e o firmware | pokeldn (`esp32_wlan`) |
 | `distrib/catalog.py` | Modelo comum: `Event` (id, jogo, nome, tipo, detalhes, variantes, válido?) e o índice salvo em JSON. Busca, filtros, favoritos | — |
 | `distrib/games/base.py` | Contrato de um jogo: `load_catalog()`, `build_job(event, variant) → comando`, `parse_line(linha) → estado` e `mode` (`broadcast` ou `session`) | `catalog` |
-| `distrib/games/swsh.py` | Lê `.wc8`, agrupa por ID do cartão, escolhe a variante pelo idioma e monta o comando do `swsh_gift_host.py` | pokeldn (`swsh.wc8`) |
+| `distrib/games/swsh.py` | Lê `.wc8` (um evento por arquivo) e monta o comando do `swsh_gift_host.py` | pokeldn (`swsh.wc8`) |
 | `distrib/games/frlg.py` | Lê `.pk3` (80 ou 100 bytes), agrupa por evento, faz o rodízio de PIDs e inclui os extras do autor | pokeldn (`frlg.save.mon`, `mevent_pokemon`) |
 | `distrib/runners/frlg_session.py` | **Nosso host de uma sessão FRLG:** recebe um `.pk3` (ou o nome de um extra), monta um `WonderGift` com `givepokemon`, serve **um** console e termina imprimindo uma linha `RESULT {json}` (entregue / equipe cheia / erro) | pokeldn (`frlg.gift.*`, `ldn`) |
 | `distrib/distributor.py` | Supervisor de processo: inicia/para o host, lê a saída linha a linha, expõe o estado (`subindo`, `no ar`, `console conectado`, `entregue`, `erro`), reinicia após queda (até 3 falhas seguidas) e, no FRLG, reinicia após cada console. Nada de interface | `games/*` |
@@ -125,15 +125,19 @@ pokeldn-distrib/
 
 - **Fonte:** `Released/Gen 8/SwSh/Wondercards/*.wc8` no GitHub `projectpokemon/EventsGallery`
   (925 arquivos em 2026-09-28). Fora: "Wild Area Events" (não são presentes) e "HOME Simulated WCs".
-- **Uma entrada por evento:** agrupa pelo ID do cartão (u16 em `+0x08`). As versões de cada idioma
-  viram variantes.
-- **Idioma:** configuração global "idioma preferido" (padrão EN). Ao distribuir, usa a variante
-  nesse idioma, senão a primeira que existir. Os detalhes mostram quais idiomas o cartão traz
-  (blocos de nome/OT não vazios em `+0x030` e `+0x12C`).
-- **Campos lidos do `.wc8`** (offsets de `pokeldn.swsh.wc8.POKEMON`): tipo (`+0x11`, 1 = Pokémon),
-  espécie, forma, nível, shiny (`shiny_type`), Gigantamax, bola, item, TID/SID (fixos ou do
-  jogador), máscara de versão (`+0x0E`: Sword, Shield ou ambos). O nome vem do arquivo, sem o
-  prefixo numérico e o "SWSH -".
+- **Uma entrada por arquivo.** Cada `.wc8` do Events Gallery já é um evento completo, e as
+  versões regionais vêm em arquivos separados ("Jungle Zarude (Japanese Release)",
+  "(Western Release)", "(Korean Release)"). **Não agrupar pelo ID do cartão:** o ID não é
+  único (o `0001` aparece em 134 cartões de competição diferentes). Os 925 incluem as
+  subpastas "Ranked Battles" (700) e "Online Competition" (64), quase só BP e itens, que o
+  filtro "só Pokémon" esconde.
+- **Sem configuração de idioma:** a região faz parte do nome do evento, e o operador escolhe
+  a versão que quer. (Verificado em 2026-09-28: o `.wc8` do "Jungle Zarude (Western Release)"
+  vem com 720 bytes e **já selado**.)
+- **Campos lidos com `pokeldn.swsh.wc8.read(rec)`**, que devolve um dict: `kind` (1 = Pokémon),
+  `species`, `form`, `level`, `shiny_type`, `gigantamax`, `ball`, `held_item`, `tid`/`sid`, `ot`,
+  `card_id`, `region_mask` (máscara de versão: 1 Sword, 2 Shield, 3 ambos) e `sealed`. O nome
+  vem do arquivo, sem o prefixo numérico e o "SWSH -"/"SW -"/"SH -".
 - **Validade:** `wc8.sealed(rec)`; se o checksum não bater, re-sela na importação
   (`wc8.seal`); se o tamanho não for 720, marca inválido e esconde.
 
@@ -142,17 +146,21 @@ pokeldn-distrib/
 - **Fonte:** os `.pk3` em `Released/Gen 3/**` do mesmo repositório (~3.180 arquivos em
   2026-09-28, ENG e JPN). Fora: `.raw`, `.ect`, `.ecb`, `.me3`, `.wc3`, `.sav` (e-Reader e
   cartões de Emerald/RS, que não passam por esta rota).
-- **Uma entrada por evento:** agrupa pela **pasta do evento** (ex.: `ENG/Aura Mew`,
-  `ENG/10th Anniversary Celebration/Top 10 Distribution` + espécie). Cada arquivo é uma
+- **Uma entrada por evento:** agrupa pela **pasta + nome do arquivo sem a etiqueta de PID**
+  (ex.: `RSEFL - WISHMKR Jirachi (1910) (ENG).pk3` e `(4CB7)` viram o evento "WISHMKR Jirachi
+  (ENG)"; na pasta "Top 10 Distribution", cada espécie é um evento). Cada arquivo é uma
   **variante de PID**.
 - **Rodízio de PID:** cada entrega usa a próxima variante do evento, como nas distribuições
   originais. O contador fica em `state/rodizio_pid.json`.
-- **Campos lidos do `.pk3`:** espécie, nível, shiny (calculado de PID/TID/SID), OT, TID, item,
-  golpes, idioma e se é ovo. **Ovos ficam fora na v1.** Espécies acima de 386 ou dados inválidos
-  (checksum) são descartados na importação.
-- **Conversão:** 80 bytes (box) → 100 bytes (party), com status e stats calculados pelo
-  `pokeldn.frlg.save.stats`, criptografado no formato que o `givepokemon` exige, e o byte de mail
-  = `0xFF`. Um `.pk3` de 100 bytes é usado como está, depois de conferido.
+- **Campos lidos com `pokeldn.frlg.save.mon.Mon.from_file(path).decode()`:** espécie, nível,
+  shiny (calculado de PID/TID/SID), OT, TID, item, golpes, idioma e se é ovo. **Ovos ficam fora
+  na v1.** A espécie é o **índice interno da Gen 3**, não o número da Pokédex nacional (Hoenn
+  vai de 277 a 411; o Jirachi é 409), então a validação é "espécie presente em
+  `pokeldn.frlg.save.basestats.BASE_STATS`" + checksum OK. (Verificado em 2026-09-28 com o
+  Lugia 10ANIV e o Jirachi WISHMKR: checksum OK, OT e nível corretos.)
+- **Conversão:** `Mon.from_pk3` já faz tudo: 80 → 100 bytes, cauda de party com stats,
+  criptografia e o byte de mail = `0xFF`. `mevent_pokemon.build_givepokemon_payload(mon)`
+  acrescenta a `struct Mail` vazia.
 - **Extras:** entradas fixas para os presentes do autor que fazem sentido num evento:
   `altering-cave`, `battle-count-card`, `beast-cutscene-share`, `celebi`, `porygon-tm-gift`,
   `solrock-stamp`, `lunatone-stamp`, `master-ball`, `worlds-xp` e `visiting-trainer` (só
@@ -176,9 +184,9 @@ pokeldn-distrib/
    ("Plugue a placa e aperte R").
 2. **Jogo:** Sword/Shield · FireRed/LeafGreen.
 3. **Catálogo:** busca no topo, a vitrine do dia e a lista à esquerda, os detalhes à direita.
-   `Enter` distribuir · `F` vitrine · `I` itens/roupas (SwSh) · `L` idioma (SwSh) · `Esc` voltar.
+   `Enter` distribuir · `F` vitrine · `I` itens/roupas/BP (SwSh) · `Esc` voltar.
 4. **No ar:**
-   - **SwSh:** "● NO AR há mm:ss", evento, idioma, canal, reinícios e a instrução para os
+   - **SwSh:** "● NO AR há mm:ss", evento, canal, reinícios e a instrução para os
      jogadores (Presente Misterioso → Receber presente → Por comunicação local).
    - **FRLG:** "● AGUARDANDO CONSOLE" / "CONSOLE CONECTADO" / "✓ ENTREGUE" (com o PID
      usado), **contador de entregas** e o último "equipe cheia"; volta sozinho para
@@ -214,8 +222,8 @@ Toda a saída dos hosts vai para `logs/AAAA-MM-DD.log`.
 
 ### 9.1 Automáticos (pytest, sem placa)
 
-- **Catálogo SwSh:** leitura dos campos em `.wc8` reais de fixture, agrupamento por ID, escolha
-  de idioma, re-selagem, filtros e busca.
+- **Catálogo SwSh:** leitura dos campos em `.wc8` reais de fixture, nome limpo a partir do arquivo,
+  re-selagem, filtros e busca.
 - **Catálogo FRLG:** leitura de `.pk3` de 80 e 100 bytes, conversão box → party (conferida
   decodificando de volta com `pokeldn.frlg.save.mon.decode_mon`), rodízio de PID, exclusão de ovos.
 - **Distributor:** com um **host falso** (script que imprime as linhas reais de cada estado,
@@ -233,7 +241,7 @@ Toda a saída dos hosts vai para `logs/AAAA-MM-DD.log`.
 1. **Prova de conceito FRLG (bloqueante para a parte FRLG):** um `.pk3` 10ANIV do Events
    Gallery chega na equipe do FireRed, com OT/ID/PID corretos no resumo.
 2. **SwSh com cartão do Events Gallery:** um `.wc8` baixado (não montado por nós) chega no Sword.
-3. **Idiomas SwSh:** um cartão japonês e um inglês no Sword do dono.
+3. **Regiões SwSh:** um cartão "Japanese Release" e um "Western Release" no Sword do dono.
 4. **FRLG equipe cheia:** a mensagem aparece e a próxima tentativa funciona.
 5. **Trocar de evento** com o anúncio no ar (SwSh) e entre consoles (FRLG).
 6. **Desplugar/replugar** a placa com o anúncio no ar.
@@ -243,10 +251,10 @@ Toda a saída dos hosts vai para `logs/AAAA-MM-DD.log`.
 
 - **FRLG com `.pk3` de fora** (seção 3.2): se a prova de conceito falhar, a parte FRLG da v1
   fica só com os extras do autor, e o motivo é registrado.
-- **Idioma do cartão SwSh** num jogo em outro idioma: provavelmente aceito (cartões
+- **Cartão de outra região** num Sword de outro idioma: provavelmente aceito (cartões
   multilíngues), confirmado no teste 9.2.3.
-- **Checksum dos `.wc8` do Events Gallery:** podem vir sem o selo que o jogo exige; a re-selagem
-  cobre isso.
+- **Checksum dos `.wc8`:** o que testamos veio selado; a re-selagem na importação cobre algum
+  que não venha.
 - **Legalidade da origem dos dados:** os arquivos são as distribuições oficiais arquivadas pela
   comunidade. A ferramenta não altera os dados dos Pokémon (só a selagem/criptografia que o
   transporte exige).
