@@ -25,15 +25,9 @@ EXTRAS = (
     ("worlds-xp", "Worlds 26 (FANtastic Mystery Gift)", "Presente do Worlds 26"),
     ("visiting-trainer", "Treinador visitante (só FireRed)", "Treinador da Battle Tower"),
 )
-_PREFIX = re.compile(r"^[A-Z]+ - ")
-_PID_TAG = re.compile(r" \([0-9A-Fa-f]{4,8}\)")
 _STATUS = re.compile(r"Mystery Event script status: (\d+)")
 _HOSTING = re.compile(r"Hosting\. Waiting for the console to join .*channel (\d+)")
 _CONSOLE = ("joined",)          # a prova de conceito (Task 2) confirma ou troca este texto
-
-
-def event_name(path: Path) -> str:
-    return _PID_TAG.sub("", _PREFIX.sub("", path.stem)).strip()
 
 
 def _shiny(d: dict) -> bool:
@@ -74,7 +68,9 @@ class FrlgAdapter:
         out = cfg.catalog_dir / self.game
         out.mkdir(parents=True, exist_ok=True)
         catalog = Catalog(self.game)
-        groups: dict[str, list[tuple[Path, dict]]] = defaultdict(list)
+        # Um evento = mesma pasta, espécie, OT, TID e idioma. Os nomes dos arquivos não servem:
+        # as variantes vêm numeradas por PID ("(1910)") ou por contador ("(001 of 430)").
+        groups: dict[tuple, list[tuple[Path, dict]]] = defaultdict(list)
         for path in sorted(raw_dir.rglob("*.pk3")):
             try:
                 mon = load_mon(path)
@@ -82,14 +78,16 @@ class FrlgAdapter:
                 catalog.invalid += 1
                 continue
             folder = path.parent.relative_to(raw_dir).as_posix()
-            groups[f"{folder}/{event_name(path)}"].append((path, mon.decode()))
+            d = mon.decode()
+            groups[(folder, d["species"], d["otName"], d["otid"] & 0xFFFF,
+                    d["language"])].append((path, d))
         for number, (key, members) in enumerate(sorted(groups.items())):
             files = []
             for variant, (path, _) in enumerate(members):
                 name = f"{number:05d}-{variant:03d}.pk3"
                 shutil.copyfile(path, out / name)
                 files.append(name)
-            catalog.events.append(self._event(key, members, tuple(files)))
+            catalog.events.append(self._event(key[0], members, tuple(files)))
         for slug, name, description in EXTRAS:
             catalog.events.append(Event(
                 game=self.game, key=f"extra:{slug}", name=name, kind="extra",
@@ -98,18 +96,19 @@ class FrlgAdapter:
         save_index(catalog, out / "index.json")
         return catalog
 
-    def _event(self, key: str, members: list, files: tuple[str, ...]) -> Event:
-        folder, _, name = key.rpartition("/")
+    def _event(self, folder: str, members: list, files: tuple[str, ...]) -> Event:
         d = members[0][1]
+        tid = d["otid"] & 0xFFFF
+        language = LANGUAGES.get(d["language"], str(d["language"]))
+        name = f"{d['nickname']} ({d['otName']}, {language})"
         shiny = sum(_shiny(m[1]) for m in members)
         details = (("Espécie", d["nickname"]), ("Nível", str(d["level"])),
-                   ("OT", d["otName"]), ("TID", str(d["otid"] & 0xFFFF)),
-                   ("Idioma", LANGUAGES.get(d["language"], str(d["language"]))),
+                   ("OT", d["otName"]), ("TID", str(tid)), ("Idioma", language),
                    ("Variantes (PID)", str(len(files))),
                    ("Shiny", f"{shiny} de {len(files)} variantes"),
                    ("Pasta", folder))
-        return Event(game=self.game, key=key, name=name, kind="pokemon", details=details,
-                     files=files, sort_key=name)
+        return Event(game=self.game, key=f"{folder}/{name}#{tid}", name=name, kind="pokemon",
+                     details=details, files=files, sort_key=name)
 
     def build_job(self, event: Event, cfg: Config, port: str) -> Job:
         argv = [str(cfg.python), "-u", "-m", "distrib.runners.frlg_session",

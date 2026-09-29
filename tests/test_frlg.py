@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from distrib.games import frlg
 from distrib.games.base import Update
 
@@ -8,19 +6,24 @@ def adapter(cfg):
     return frlg.FrlgAdapter(cfg.state_dir / "rodizio_pid.json")
 
 
-def test_event_name_strips_prefix_and_pid_tag():
-    assert frlg.event_name(Path("RSEFL - WISHMKR Jirachi (1910) (ENG).pk3")) \
-        == "WISHMKR Jirachi (ENG)"
-    assert frlg.event_name(Path("FL - Wish Drowzee Egg (199B613A).pk3")) == "Wish Drowzee Egg"
-    assert frlg.event_name(Path("RSEFL - 10ANNIV Lugia (ENG).pk3")) == "10ANNIV Lugia (ENG)"
+def test_serial_numbered_variants_are_one_event(gallery, cfg, tmp_path):
+    import shutil
+    raw = tmp_path / "raw" / "ENG" / "Toys R Us" / "MYSTRY Mew"
+    raw.mkdir(parents=True)
+    src = gallery / frlg.FRLG_RAW / "ENG/WSHMKR Jirachi"
+    for i, f in enumerate(sorted(src.glob("*.pk3"))):
+        shutil.copyfile(f, raw / f"RSEFL - MYSTRY ({i + 1:03d} of 430) Mew (ENG).pk3")
+    cat = adapter(cfg).build_catalog(tmp_path / "raw", cfg)
+    pokemon = [e for e in cat.events if e.kind == "pokemon"]
+    assert len(pokemon) == 1 and len(pokemon[0].files) == 2
 
 
 def test_catalog_groups_pid_variants_and_skips_eggs(gallery, cfg):
     cat = adapter(cfg).build_catalog(gallery / frlg.FRLG_RAW, cfg)
     pokemon = {e.name: e for e in cat.events if e.kind == "pokemon"}
-    assert set(pokemon) == {"WISHMKR Jirachi (ENG)", "10ANNIV Lugia (ENG)"}
-    assert len(pokemon["WISHMKR Jirachi (ENG)"].files) == 2
-    details = dict(pokemon["10ANNIV Lugia (ENG)"].details)
+    assert set(pokemon) == {"JIRACHI (WISHMKR, ENG)", "LUGIA (10ANNIV, ENG)"}
+    assert len(pokemon["JIRACHI (WISHMKR, ENG)"].files) == 2
+    details = dict(pokemon["LUGIA (10ANNIV, ENG)"].details)
     assert details["OT"] == "10ANNIV"
     assert details["Nível"] == "70"
     assert details["Variantes (PID)"] == "1"
