@@ -1,19 +1,21 @@
 """As telas (Textual). Só conversam com o catálogo, o distributor e as checagens."""
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass
 from datetime import date
 from typing import Callable
 
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.containers import Horizontal
+from textual.containers import Horizontal, Vertical
 from textual.screen import Screen
 from textual.widgets import Footer, Header, Input, OptionList, Static
 from textual.widgets.option_list import Option
 
 from distrib.catalog import Catalog, Event, Favorites, load_index
 from distrib.config import Config
+from distrib.distributor import Status
 
 
 @dataclass
@@ -165,6 +167,74 @@ class CatalogScreen(Screen):
         self.refresh_list()
 
 
+def format_status(status: Status, mode: str, now: float) -> str:
+    if status.state == "no_board":
+        return "⚠ placa desconectada: replugue a placa; volto sozinho quando ela aparecer"
+    if status.state == "failed":
+        return ("✗ PAROU depois de 3 falhas seguidas\n"
+                f"Último erro: {status.detail or '(veja o log em logs/)'}\n"
+                "Aperte T para escolher de novo ou Q para sair.")
+    if status.state == "paused":
+        return "⏸ PAUSADO: aperte P para voltar"
+    if status.state == "starting":
+        head = "… subindo o host"
+    elif mode == "session":
+        head = "● CONSOLE CONECTADO" if status.state == "console" else "● AGUARDANDO CONSOLE"
+    else:
+        elapsed = int(now - status.since) if status.since is not None else 0
+        head = f"● NO AR há {elapsed // 60:02d}:{elapsed % 60:02d}"
+    lines = [head, status.label]
+    if mode == "session":
+        lines.append(f"Entregas: {status.deliveries}")
+        if status.detail:
+            lines.append(f"Última: {status.detail}")
+        if status.last_event:
+            lines.append(f"Resultado da última sessão: {status.last_event}")
+        if status.last_event == "equipe cheia":
+            lines.append("→ peça para o jogador liberar um espaço na equipe e tentar de novo")
+    else:
+        lines.append(f"Canal {status.channel or '?'} · reinícios: {status.restarts}")
+    return "\n".join(lines)
+
+
+class OnAirScreen(Screen):
+    BINDINGS = [Binding("t", "switch", "Trocar evento"), Binding("p", "pause", "Pausar"),
+                Binding("q", "quit_all", "Sair")]
+
+    def __init__(self, adapter, event: Event, distributor):
+        super().__init__()
+        self.adapter, self.event, self.distributor = adapter, event, distributor
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        with Vertical():
+            yield Static("", id="estado")
+            yield Static(self.adapter.instructions, id="instrucoes")
+        yield Footer()
+
+    def on_mount(self) -> None:
+        self.tick()
+        self.set_interval(0.5, self.tick)
+
+    def tick(self) -> None:
+        text = format_status(self.distributor.status(), self.adapter.mode, time.monotonic())
+        self.query_one("#estado", Static).update(text)
+
+    def action_switch(self) -> None:
+        self.app.pop_screen()
+
+    def action_pause(self) -> None:
+        if self.distributor.status().state == "paused":
+            self.distributor.resume()
+        else:
+            self.distributor.pause()
+        self.tick()
+
+    def action_quit_all(self) -> None:
+        self.app.stop_distribution()
+        self.app.exit()
+
+
 class DistribApp(App):
     TITLE = "Distribuidor de Eventos — pokeldn"
     CSS = """
@@ -177,9 +247,24 @@ class DistribApp(App):
         super().__init__()
         self.services = services
         self.last_pick: tuple[str, str] | None = None
+        self.distributor = None
 
     def on_mount(self) -> None:
         self.push_screen(CheckScreen())
 
     def distribute(self, adapter, event: Event) -> None:
         self.last_pick = (adapter.game, event.key)
+        self.stop_distribution()
+        self.distributor = self.services.make_distributor(adapter, event)
+        self.distributor.start()
+        if isinstance(self.screen, OnAirScreen):
+            self.pop_screen()
+        self.push_screen(OnAirScreen(adapter, event, self.distributor))
+
+    def stop_distribution(self) -> None:
+        if self.distributor is not None:
+            self.distributor.stop()
+            self.distributor = None
+
+    def on_unmount(self) -> None:
+        self.stop_distribution()
