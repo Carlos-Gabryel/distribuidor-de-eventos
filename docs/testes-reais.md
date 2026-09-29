@@ -12,7 +12,7 @@ bug em `Known Bugs/pokeldn - bugs.md` no vault, com o trecho do log de `logs/`.
 | 5 | FRLG rodízio de PID | Duas entregas seguidas de um evento com várias variantes → PIDs diferentes (linha "Última" da tela) | 2026-09-28 | **ok**: entregas seguidas do JIRACHI (WISHMKR, ENG) com PIDs diferentes |
 | 6 | Trocar de evento | SwSh no ar → `T` → outro → `Enter`; no FRLG, trocar entre dois consoles | 2026-09-28 | **ok**: T → outro evento → Enter; voltou a "NO AR" com o evento novo |
 | 7 | Placa desplugada | Com o SwSh no ar, desplugar e replugar → "placa desconectada" → volta sozinho | 2026-09-28 | **ok**: desplugada → "placa desconectada"; replugada → voltou a distribuir sozinha após alguns segundos |
-| 8 | Ensaio geral no notebook | Sem internet, a partir do atalho, repetindo os itens 2 e 4 | | pendente |
+| 8 | Ensaio geral no notebook | Sem internet, a partir do atalho, repetindo os itens 2 e 4 | 2026-09-29 | **ok**: instalação do zero no notebook pela linha `irm …/instalar.ps1 | iex` (depois da correção do WSL ausente, commit `ec632f7`); o dono testou a distribuição e tudo funcionou |
 
 ## Observação sobre idiomas (Sword/Shield)
 
