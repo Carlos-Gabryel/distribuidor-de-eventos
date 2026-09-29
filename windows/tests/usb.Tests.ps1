@@ -21,5 +21,6 @@ $b = Get-BoardBusId @('1-5    10c4:ea60  CP2102 USB to UART Bridge Controller (C
 Assert-Eq $b.State 'Not shared' 'not shared'
 Assert-Eq (Get-BoardBusId @('1-4    0d8c:0005  Blue Snowball   Not shared')) $null 'sem placa'
 Assert-Eq (ConvertTo-WslArg 'C:\Gabry\Projects\pokeldn-distrib') 'C:/Gabry/Projects/pokeldn-distrib' 'caminho para wslpath'
+Assert-Eq (Get-BoardBusId @('1-6    1a86:55d4  Serial (COM4)   Shared (forced)')).State 'Shared' 'shared forced'
 Write-Host "$ok ok, $fail falhas"
 if ($fail) { exit 1 }

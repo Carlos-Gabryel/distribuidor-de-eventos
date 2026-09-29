@@ -17,7 +17,15 @@ todo o trabalho de rádio e protocolo. Este projeto só o usa, sem modificá-lo.
 
 ## Instalar
 
-Veja [docs/instalacao.md](docs/instalacao.md): WSL, `prod.keys` e o `windows\instalar.ps1`.
+Num PowerShell, em qualquer PC Windows 10/11 (com internet):
+
+```powershell
+irm https://raw.githubusercontent.com/Carlos-Gabryel/pokeldn-distrib/master/instalar.ps1 | iex
+```
+
+O script instala tudo (WSL, Ubuntu, usbipd, pokeldn, Python, catálogo), pede o seu `prod.keys`
+numa janela e cria o atalho **Distribuidor de Eventos**. Detalhes em
+[docs/instalacao.md](docs/instalacao.md).
 
 ## Usar
 
