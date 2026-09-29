@@ -46,6 +46,31 @@ function ConvertTo-WslArg([string] $WindowsPath) {
     return $WindowsPath -replace '\\', '/'
 }
 
+# Roda um programa externo e devolve {ExitCode; Lines} sem nunca abortar o script.
+# Com $ErrorActionPreference = 'Stop', o PowerShell 5.1 transforma qualquer linha no stderr de um
+# programa redirecionado (2>) em erro fatal: num PC sem WSL, o "wsl -l -q" responde "nao esta
+# instalado" e o instalador morria antes de instalar. Aqui quem decide e o codigo de saida.
+# (Funcao simples de proposito: argumentos como -l e -q vao inteiros para $args.)
+$script:WslExe = 'wsl.exe'
+function Invoke-Native([string] $Exe) {
+    $saved = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try {
+        $lines = @(& $Exe @args 2>&1 | ForEach-Object { "$_" })
+        $code = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $saved
+    }
+    return [pscustomobject]@{ ExitCode = $code; Lines = $lines }
+}
+
+# Distros instaladas; vazio quando o WSL nem existe.
+function Get-DistroList {
+    $r = Invoke-Native $script:WslExe -l -q
+    if ($r.ExitCode -ne 0) { return @() }
+    return $r.Lines
+}
+
 if ($env:DISTRIB_INSTALL_TEST) { return }      # os testes so carregam as funcoes acima
 
 # ---------------------------------------------------------------- preparacao
@@ -103,17 +128,25 @@ Write-Host "Pasta do projeto: $Destino"
 # ---------------------------------------------------------------- 1. WSL + Ubuntu
 
 Say 1 'WSL e Ubuntu'
-$Distro = Select-Distro @(& wsl.exe -l -q 2>$null)
+$rebootMarker = Join-Path $StateDir 'reinicio-wsl'
+$Distro = Select-Distro (Get-DistroList)
 if (-not $Distro) {
-    Info 'Instalando o Ubuntu 24.04 (pode demorar)...'
-    & wsl.exe --install -d Ubuntu-24.04 --no-launch
-    $Distro = Select-Distro @(& wsl.exe -l -q 2>$null)
+    Info 'Instalando o WSL e o Ubuntu 24.04 (pode demorar varios minutos)...'
+    $r = Invoke-Native wsl.exe --install -d Ubuntu-24.04 --no-launch
+    $r.Lines | ForEach-Object { ($_ -replace [char]0, '').Trim() } | Where-Object { $_ } | ForEach-Object { Info $_ }
+    $Distro = Select-Distro (Get-DistroList)
     if (-not $Distro) {
         $launcher = Get-Command ubuntu2404.exe -ErrorAction SilentlyContinue
-        if ($launcher) { & $launcher.Source install --root | Out-Null }
-        $Distro = Select-Distro @(& wsl.exe -l -q 2>$null)
+        if ($launcher) { Invoke-Native $launcher.Source install --root | Out-Null }
+        $Distro = Select-Distro (Get-DistroList)
+    }
+    if (-not $Distro -and (Test-Path $rebootMarker)) {
+        Fail ("o WSL continua sem funcionar mesmo depois de reiniciar. Causa mais comum: a virtualizacao " +
+              "(Intel VT-x / AMD-V / SVM) esta desligada na BIOS do notebook. Ligue-a na BIOS, reinicie e " +
+              "rode o instalador de novo. Mensagem do WSL: " + (($r.Lines | ForEach-Object { $_ -replace [char]0, '' }) -join ' '))
     }
     if (-not $Distro) {
+        New-Item -ItemType File -Force $rebootMarker | Out-Null
         # O Windows precisa reiniciar para ligar o WSL: continuamos sozinhos depois do reinicio.
         Set-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce' 'pokeldn-distrib' `
             "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$Self`" `"$Destino`""
@@ -124,7 +157,8 @@ if (-not $Distro) {
         return
     }
 }
-& wsl.exe --set-default $Distro | Out-Null
+Remove-Item $rebootMarker -ErrorAction SilentlyContinue
+Invoke-Native wsl.exe --set-default $Distro | Out-Null
 Info "distro: $Distro"
 
 $who = Get-WslText 'whoami'
@@ -132,7 +166,7 @@ if ($who -eq 'root') {
     Info 'Criando o usuario Linux "distrib"...'
     Invoke-Wsl -Root 'id -u distrib >/dev/null 2>&1 || useradd -m -s /bin/bash -G sudo,dialout distrib' | Out-Null
     Invoke-Wsl -Root "grep -q '^default=' /etc/wsl.conf 2>/dev/null || { echo '[user]' >> /etc/wsl.conf; echo 'default=distrib' >> /etc/wsl.conf; }" | Out-Null
-    & wsl.exe --terminate $Distro | Out-Null
+    Invoke-Native wsl.exe --terminate $Distro | Out-Null
     $who = Get-WslText 'whoami'
 }
 Info "usuario Linux: $who"

@@ -19,6 +19,17 @@ Assert-Eq (Get-BoardBusId $lines).State 'Shared' 'shared forced'
 Assert-Eq (Get-BoardBusId @('1-5    10c4:ea60  CP2102 (COM3)   Not shared')).BusId '1-5' 'cp2102'
 Assert-Eq (ConvertTo-WslArg 'C:\pokeldn-distrib') 'C:/pokeldn-distrib' 'caminho'
 
+# Notebook sem WSL: o wsl.exe responde "nao esta instalado" no stderr e sai com erro.
+# Com $ErrorActionPreference = 'Stop', o PowerShell 5.1 tratava isso como erro fatal.
+$fake = Join-Path $env:TEMP 'fake-wsl-sem-instalar.cmd'
+Set-Content $fake "@echo O Subsistema do Windows para Linux nao esta instalado. 1>&2`r`n@exit /b 1" -Encoding ASCII
+$script:WslExe = $fake
+$r = Invoke-Native $script:WslExe -l -q
+Assert-Eq $r.ExitCode 1 'codigo de saida do wsl falso'
+Assert-Eq (Select-Distro $r.Lines) $null 'sem distro quando o WSL falta'
+Assert-Eq (@(Get-DistroList).Count) 0 'Get-DistroList vazio sem WSL'
+Remove-Item $fake
+
 $text = Get-Content -Raw -Encoding Byte "$PSScriptRoot\..\..\instalar.ps1"
 Assert-Eq (@($text | Where-Object { $_ -gt 127 }).Count) 0 'instalar.ps1 so ASCII'
 
