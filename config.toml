@@ -1,0 +1,6 @@
+# Padrões. Por máquina, sobrescreva em config.local.toml (ignorado pelo git).
+# "~" é a home do usuário do WSL (DISTRIB_USER_HOME quando roda como root).
+pokeldn_dir = "~/pokeldn"
+python = "~/.venvs/pokeldn/bin/python"
+keys = "~/.switch/prod.keys"
+frlg_idle_timeout = 120
