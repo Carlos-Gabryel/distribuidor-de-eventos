@@ -68,8 +68,8 @@ class FrlgAdapter:
         out = cfg.catalog_dir / self.game
         out.mkdir(parents=True, exist_ok=True)
         catalog = Catalog(self.game)
-        # Um evento = mesma pasta, espécie, OT, TID e idioma. Os nomes dos arquivos não servem:
-        # as variantes vêm numeradas por PID ("(1910)") ou por contador ("(001 of 430)").
+        # Um evento = mesma pasta, espécie, OT e idioma. Nem o nome do arquivo (variantes numeradas
+        # por PID "(1910)" ou contador "(001 of 430)") nem o TID (o PCNY dava um TID por pessoa).
         groups: dict[tuple, list[tuple[Path, dict]]] = defaultdict(list)
         for path in sorted(raw_dir.rglob("*.pk3")):
             try:
@@ -79,15 +79,14 @@ class FrlgAdapter:
                 continue
             folder = path.parent.relative_to(raw_dir).as_posix()
             d = mon.decode()
-            groups[(folder, d["species"], d["otName"], d["otid"] & 0xFFFF,
-                    d["language"])].append((path, d))
+            groups[(folder, d["species"], d["otName"], d["language"])].append((path, d))
         for number, (key, members) in enumerate(sorted(groups.items())):
             files = []
             for variant, (path, _) in enumerate(members):
                 name = f"{number:05d}-{variant:03d}.pk3"
                 shutil.copyfile(path, out / name)
                 files.append(name)
-            catalog.events.append(self._event(key[0], members, tuple(files)))
+            catalog.events.append(self._event(key, members, tuple(files)))
         for slug, name, description in EXTRAS:
             catalog.events.append(Event(
                 game=self.game, key=f"extra:{slug}", name=name, kind="extra",
@@ -96,18 +95,20 @@ class FrlgAdapter:
         save_index(catalog, out / "index.json")
         return catalog
 
-    def _event(self, folder: str, members: list, files: tuple[str, ...]) -> Event:
+    def _event(self, key: tuple, members: list, files: tuple[str, ...]) -> Event:
+        folder, species, ot, _ = key
         d = members[0][1]
-        tid = d["otid"] & 0xFFFF
+        tids = {m[1]["otid"] & 0xFFFF for m in members}
+        tid = str(tids.pop()) if len(tids) == 1 else f"vários ({len(tids)})"
         language = LANGUAGES.get(d["language"], str(d["language"]))
         name = f"{d['nickname']} ({d['otName']}, {language})"
         shiny = sum(_shiny(m[1]) for m in members)
         details = (("Espécie", d["nickname"]), ("Nível", str(d["level"])),
-                   ("OT", d["otName"]), ("TID", str(tid)), ("Idioma", language),
+                   ("OT", d["otName"]), ("TID", tid), ("Idioma", language),
                    ("Variantes (PID)", str(len(files))),
                    ("Shiny", f"{shiny} de {len(files)} variantes"),
                    ("Pasta", folder))
-        return Event(game=self.game, key=f"{folder}/{name}#{tid}", name=name, kind="pokemon",
+        return Event(game=self.game, key=f"{folder}/{species}/{ot}/{d['language']}", name=name, kind="pokemon",
                      details=details, files=files, sort_key=name)
 
     def build_job(self, event: Event, cfg: Config, port: str) -> Job:

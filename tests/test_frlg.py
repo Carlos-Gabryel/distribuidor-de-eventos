@@ -18,6 +18,21 @@ def test_serial_numbered_variants_are_one_event(gallery, cfg, tmp_path):
     assert len(pokemon) == 1 and len(pokemon[0].files) == 2
 
 
+def test_per_person_tids_are_one_event(gallery, cfg, tmp_path):
+    raw = tmp_path / "raw" / "ENG" / "PCNY"
+    raw.mkdir(parents=True)
+    lugia = (gallery / frlg.FRLG_RAW /
+             "ENG/10th Anniversary Celebration/Top 10 Distribution/RSEFL - 10ANNIV Lugia (ENG).pk3")
+    data = bytearray(lugia.read_bytes())
+    for i, tid in enumerate((111, 222)):
+        data[4:6] = tid.to_bytes(2, "little")
+        (raw / f"PCNYc {i:05d} Lugia (ENG).pk3").write_bytes(bytes(data))
+    cat = adapter(cfg).build_catalog(tmp_path / "raw", cfg)
+    pokemon = [e for e in cat.events if e.kind == "pokemon"]
+    assert len(pokemon) == 1 and len(pokemon[0].files) == 2
+    assert dict(pokemon[0].details)["TID"] == "vários (2)"
+
+
 def test_catalog_groups_pid_variants_and_skips_eggs(gallery, cfg):
     cat = adapter(cfg).build_catalog(gallery / frlg.FRLG_RAW, cfg)
     pokemon = {e.name: e for e in cat.events if e.kind == "pokemon"}
