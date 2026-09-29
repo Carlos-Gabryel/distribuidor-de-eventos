@@ -36,7 +36,10 @@ def _shiny(d: dict) -> bool:
 
 
 class Rotation:
-    """Qual variante de PID sai na próxima entrega de cada evento (salvo em disco)."""
+    """Qual variante de PID sai na próxima entrega de cada evento (salvo em disco).
+
+    Só avança quando uma entrega é confirmada: sessões sem console ou sem entrega repetem o PID.
+    """
 
     def __init__(self, path: Path | None):
         self.path = path
@@ -45,13 +48,14 @@ class Rotation:
         except (OSError, ValueError):
             self._next = {}
 
-    def next_file(self, event: Event) -> str:
-        index = self._next.get(event.key, 0) % len(event.files)
-        self._next[event.key] = index + 1
+    def peek(self, event: Event) -> str:
+        return event.files[self._next.get(event.key, 0) % len(event.files)]
+
+    def advance(self, event: Event) -> None:
+        self._next[event.key] = (self._next.get(event.key, 0) + 1) % len(event.files)
         if self.path:
             self.path.parent.mkdir(parents=True, exist_ok=True)
             self.path.write_text(json.dumps(self._next, ensure_ascii=False), encoding="utf-8")
-        return event.files[index]
 
 
 class FrlgAdapter:
@@ -114,14 +118,16 @@ class FrlgAdapter:
     def build_job(self, event: Event, cfg: Config, port: str) -> Job:
         argv = [str(cfg.python), "-u", "-m", "distrib.runners.frlg_session",
                 "--pokeldn", str(cfg.pokeldn_dir)]
+        on_delivered = None
         if event.kind == "extra":
             argv += ["--extra", event.key.removeprefix("extra:")]
         else:
-            argv += ["--pk3", str(cfg.catalog_dir / self.game / self.rotation.next_file(event))]
+            argv += ["--pk3", str(cfg.catalog_dir / self.game / self.rotation.peek(event))]
+            on_delivered = lambda: self.rotation.advance(event)
         argv += ["--keys", str(cfg.keys), "--phy", "auto",
                  "--idle-timeout", str(cfg.frlg_idle_timeout)]
         return Job(argv=tuple(argv), env={"POKELDN_RADIO": f"esp32:{port}"},
-                   cwd=str(cfg.project_dir), label=event.name)
+                   cwd=str(cfg.project_dir), label=event.name, on_delivered=on_delivered)
 
     def parse_line(self, line: str) -> Update | None:
         if line.startswith("[distrib] presente "):

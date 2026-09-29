@@ -61,22 +61,30 @@ def test_extras_exist_in_the_pokeldn_registry():
     assert {slug for slug, _, _ in frlg.EXTRAS} <= set(GIFT_REGISTRY.live_choices)
 
 
-def test_rotation_cycles_variants(gallery, cfg):
+def pk3_of(job):
+    return job.argv[job.argv.index("--pk3") + 1]
+
+
+def test_rotation_advances_only_on_delivery(gallery, cfg):
     a = adapter(cfg)
-    cat = a.build_catalog(gallery / frlg.FRLG_RAW, cfg)
-    jirachi = cat.search("jirachi")[0]
-    firsts = [a.build_job(jirachi, cfg, "/dev/ttyACM0") for _ in range(3)]
-    pk3s = [j.argv[j.argv.index("--pk3") + 1] for j in firsts]
-    assert pk3s[0] != pk3s[1]
-    assert pk3s[0] == pk3s[2]
+    jirachi = a.build_catalog(gallery / frlg.FRLG_RAW, cfg).search("jirachi")[0]
+    first = a.build_job(jirachi, cfg, "/dev/ttyACM0")
+    again = a.build_job(jirachi, cfg, "/dev/ttyACM0")      # sessão sem entrega
+    assert pk3_of(first) == pk3_of(again)
+    again.on_delivered()
+    second = a.build_job(jirachi, cfg, "/dev/ttyACM0")
+    assert pk3_of(second) != pk3_of(first)
+    second.on_delivered()
+    assert pk3_of(a.build_job(jirachi, cfg, "/dev/ttyACM0")) == pk3_of(first)
 
 
 def test_rotation_persists_across_instances(gallery, cfg):
     a = adapter(cfg)
     jirachi = a.build_catalog(gallery / frlg.FRLG_RAW, cfg).search("jirachi")[0]
     first = a.build_job(jirachi, cfg, "/dev/ttyACM0")
+    first.on_delivered()
     second = adapter(cfg).build_job(jirachi, cfg, "/dev/ttyACM0")
-    assert first.argv[first.argv.index("--pk3") + 1] != second.argv[second.argv.index("--pk3") + 1]
+    assert pk3_of(first) != pk3_of(second)
 
 
 def test_build_job_for_pk3_and_extra(gallery, cfg):

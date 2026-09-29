@@ -27,7 +27,7 @@ def wait_for(pred, timeout=5.0):
 def make(tmp_path, mode, factory, find=lambda: "/dev/ttyACM0", **kw):
     parse = SwshAdapter().parse_line if mode == "broadcast" else FrlgAdapter(None).parse_line
     return Distributor(mode, parse, factory, tmp_path / "log.txt", find,
-                       retry_delay=0.05, **kw)
+                       retry_delay=0.05, watch_interval=0.05, **kw)
 
 
 def test_broadcast_goes_on_air(tmp_path):
@@ -126,3 +126,73 @@ def test_pause_and_resume(tmp_path):
     d.resume()
     assert wait_for(lambda: d.status().state == "on_air")
     d.stop()
+
+
+def test_board_lost_mid_run_goes_no_board_then_recovers(tmp_path):
+    t0 = time.monotonic()
+    # porta presente, some de 0.5 s a 1.5 s, depois volta
+    find = lambda: None if 0.5 < time.monotonic() - t0 < 1.5 else "/dev/ttyACM0"
+    d = make(tmp_path, "broadcast", job(0, "advertising comm id 0x1", "sleep:30"), find=find)
+    d.start()
+    assert wait_for(lambda: d.status().state == "on_air")
+    assert wait_for(lambda: d.status().state == "no_board", timeout=3)
+    assert wait_for(lambda: d.status().state == "on_air", timeout=5)
+    assert d.status().restarts == 0
+    d.stop()
+
+
+def test_stop_during_slow_job_factory_leaves_no_process(tmp_path):
+    def slow(port):
+        time.sleep(0.3)
+        return job(0, "advertising comm id 0x1", "sleep:30")(port)
+
+    d = make(tmp_path, "broadcast", slow)
+    d.start()
+    time.sleep(0.1)
+    d.stop()
+    time.sleep(0.5)
+    assert d._proc is None or d._proc.poll() is not None
+    assert not d.running
+
+
+def test_pause_right_before_spawn_does_not_start_a_host(tmp_path):
+    def slow(port):
+        time.sleep(0.3)
+        return job(0, "advertising comm id 0x1", "sleep:30")(port)
+
+    d = make(tmp_path, "broadcast", slow)
+    d.start()
+    time.sleep(0.1)
+    d.pause()
+    time.sleep(0.6)
+    assert d.status().state == "paused"
+    assert d._proc is None or d._proc.poll() is not None
+    d.stop()
+
+
+def test_session_crash_before_air_counts_failure(tmp_path):
+    d = make(tmp_path, "session", job(1, "Traceback (most recent call last):", "RuntimeError: boom"))
+    d.start()
+    assert wait_for(lambda: d.status().state == "failed")
+    assert d.status().restarts == 3
+    d.stop()
+
+
+def test_stop_interrupts_the_host_with_sigint(tmp_path):
+    d = make(tmp_path, "broadcast", job(0, "advertising comm id 0x1", "sleep:30"))
+    d.start()
+    assert wait_for(lambda: d.status().state == "on_air")
+    d.stop()
+    assert "interrompido" in (tmp_path / "log.txt").read_text(encoding="utf-8")
+
+
+def test_on_delivered_runs_once_per_delivery(tmp_path):
+    calls = []
+    factory = lambda port: Job(argv=(sys.executable, FAKE, "0", HOSTING,
+                                     "Mystery Event script status: 2 (success)"),
+                               label="Teste", on_delivered=lambda: calls.append(1))
+    d = make(tmp_path, "session", factory)
+    d.start()
+    assert wait_for(lambda: d.status().deliveries >= 2)
+    d.stop()
+    assert len(calls) == d.status().deliveries >= 2

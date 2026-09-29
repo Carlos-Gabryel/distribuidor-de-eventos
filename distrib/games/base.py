@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Protocol
+from typing import Callable, Protocol
 
 from distrib.catalog import Catalog, Event
 from distrib.config import Config
@@ -17,6 +17,7 @@ class Job:
     env: dict[str, str] = field(default_factory=dict)
     cwd: str = "."
     label: str = ""
+    on_delivered: Callable[[], None] | None = None   # chamado a cada entrega confirmada
 
 
 @dataclass(frozen=True)
