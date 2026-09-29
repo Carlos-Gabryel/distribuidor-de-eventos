@@ -1,5 +1,6 @@
 ﻿# Prepara o Windows e abre o Distribuidor de Eventos como root no WSL.
 $ErrorActionPreference = 'Stop'
+trap { Write-Host "`nErro: $_" -ForegroundColor Red; Read-Host 'Enter para fechar'; exit 1 }
 . "$PSScriptRoot\usb.ps1"
 $project = Split-Path $PSScriptRoot -Parent
 
@@ -31,7 +32,8 @@ $loop = Start-Job -ArgumentList $PSScriptRoot -ScriptBlock {
 }
 
 $userHome = (wsl.exe -- bash -lc 'echo $HOME').Trim()
-$wslProject = (wsl.exe -- wslpath -a "$project").Trim()
+$wslProject = (wsl.exe -- wslpath -a (ConvertTo-WslArg $project)).Trim()
+if (-not $wslProject) { Fail "Não consegui converter o caminho $project para o WSL." }
 $python = (wsl.exe -- python3 "$wslProject/windows/caminho_python.py" "$wslProject").Trim()
 try {
     wsl.exe -u root -- bash -lc "cd '$wslProject' && DISTRIB_USER_HOME='$userHome' '$python' -m distrib"

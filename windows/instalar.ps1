@@ -18,7 +18,7 @@ Write-Host "3/6 pokeldn fixado em $POKELDN_COMMIT"
 wsl.exe -- bash -lc "test -d ~/pokeldn || git -c core.autocrlf=false clone https://github.com/Decryptu/pokeldn ~/pokeldn; cd ~/pokeldn && git config core.autocrlf false && git fetch -q && git checkout -q $POKELDN_COMMIT"
 
 Write-Host '4/6 venv e dependências'
-$wslProject = (wsl.exe -- wslpath -a "$project").Trim()
+$wslProject = (wsl.exe -- wslpath -a (ConvertTo-WslArg $project)).Trim()
 wsl.exe -- bash -lc "test -x ~/.venvs/pokeldn/bin/python || python3 -m venv ~/.venvs/pokeldn; cd ~/pokeldn && ~/.venvs/pokeldn/bin/pip install -q -r requirements.txt && ~/.venvs/pokeldn/bin/pip install -q -r '$wslProject/requirements.txt'"
 $user = (wsl.exe -- whoami).Trim()
 wsl.exe -u root -- usermod -aG dialout $user

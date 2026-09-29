@@ -1,3 +1,4 @@
+$ErrorActionPreference = 'Stop'
 . "$PSScriptRoot\..\usb.ps1"
 $ok = 0; $fail = 0
 function Assert-Eq($got, $want, $name) {
@@ -19,5 +20,6 @@ Assert-Eq $b.State 'Attached' 'cp2102 attached'
 $b = Get-BoardBusId @('1-5    10c4:ea60  CP2102 USB to UART Bridge Controller (COM3)   Not shared')
 Assert-Eq $b.State 'Not shared' 'not shared'
 Assert-Eq (Get-BoardBusId @('1-4    0d8c:0005  Blue Snowball   Not shared')) $null 'sem placa'
+Assert-Eq (ConvertTo-WslArg 'C:\Gabry\Projects\pokeldn-distrib') 'C:/Gabry/Projects/pokeldn-distrib' 'caminho para wslpath'
 Write-Host "$ok ok, $fail falhas"
 if ($fail) { exit 1 }

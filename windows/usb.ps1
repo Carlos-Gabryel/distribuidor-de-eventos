@@ -11,3 +11,8 @@ function Get-BoardBusId([string[]] $UsbipdListLines) {
     }
     return $null
 }
+
+# O wsl.exe engole as barras invertidas de um caminho do Windows; o wslpath aceita "C:/...".
+function ConvertTo-WslArg([string] $WindowsPath) {
+    return $WindowsPath -replace '\\', '/'
+}
