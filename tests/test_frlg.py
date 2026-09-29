@@ -109,3 +109,5 @@ def test_parse_line():
     assert a.parse_line("[distrib] presente distrib-828027a9: LUGIA Nv70 OT 10ANNIV PID 828027a9") \
         == Update(detail="LUGIA Nv70 OT 10ANNIV PID 828027a9")
     assert a.parse_line("[status] mode=0") is None
+    assert a.parse_line("[  870.7s] A console joined the network.") == Update(state="console")
+    assert a.parse_line("[  870.7s] Switch joined the Linux LDN host successfully.") is None

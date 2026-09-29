@@ -27,7 +27,7 @@ EXTRAS = (
 )
 _STATUS = re.compile(r"Mystery Event script status: (\d+)")
 _HOSTING = re.compile(r"Hosting\. Waiting for the console to join .*channel (\d+)")
-_CONSOLE = ("joined",)          # a prova de conceito (Task 2) confirma ou troca este texto
+_CONSOLE = ("A console joined the network",)   # linha real da prova de conceito (2026-09-28)
 
 
 def _shiny(d: dict) -> bool:
