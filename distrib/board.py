@@ -41,7 +41,8 @@ def parse_progress(line: str) -> float | None:
 
 
 def flash(port: str, cfg: Config, on_line: Callable[[str], None],
-          on_progress: Callable[[float], None], popen=subprocess.Popen) -> int:
+          on_progress: Callable[[float], None], popen=None) -> int:
+    popen = popen or runner.popen
     kwargs = {**runner.popen_kwargs(), "stdin": subprocess.DEVNULL}
     proc = popen(runner.command("--module", "distrib.runners.flash", port, str(cfg.firmware_dir)),
                  cwd=str(cfg.pokeldn_dir), env=runner.child_env(managed=False), **kwargs)

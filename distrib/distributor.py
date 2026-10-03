@@ -128,8 +128,8 @@ class Distributor:
         with self._proc_lock:
             if self._stop.is_set() or self._paused.is_set():
                 return None
-            self._proc = subprocess.Popen(job.argv, cwd=job.cwd, env=runner.child_env(job.env),
-                                          **runner.popen_kwargs())
+            self._proc = runner.popen(job.argv, cwd=job.cwd, env=runner.child_env(job.env),
+                                     **runner.popen_kwargs())
             return self._proc
 
     def _watch_board(self, proc: subprocess.Popen) -> None:

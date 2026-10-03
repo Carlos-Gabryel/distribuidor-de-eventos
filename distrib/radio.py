@@ -45,7 +45,8 @@ def find_port(comports=list_ports.comports) -> str | None:
     return boards[0].device if len(boards) == 1 else None
 
 
-def hello(port: str, cfg: Config, run=subprocess.run) -> str:
+def hello(port: str, cfg: Config, run=None) -> str:
+    run = run or runner.run
     try:
         done = run(runner.command("--module", "distrib.runners.hello", port),
                    cwd=str(cfg.pokeldn_dir), env=runner.child_env(managed=False),

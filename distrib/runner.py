@@ -16,10 +16,17 @@ import threading
 from pathlib import Path
 
 from distrib.config import PROJECT_DIR
+from distrib.platform import IS_ANDROID
 from distrib.pokeldn_path import ensure_importable
 
 MANAGED = "DISTRIB_MANAGED_RUN"
 MODES = ("--run", "--module")
+
+if IS_ANDROID:
+    from distrib.platform import inproc
+    popen, run = inproc.InProcPopen, inproc.run
+else:
+    popen, run = subprocess.Popen, subprocess.run
 
 
 def command(*argv: str) -> list[str]:
@@ -55,11 +62,13 @@ def _interrupt_on_stdin_close() -> None:
     signal.raise_signal(signal.SIGINT)
 
 
-def child(argv: list[str], pokeldn_dir: Path) -> None:
-    for stream in (sys.stdout, sys.stderr):
-        if stream is not None:
-            stream.reconfigure(encoding="utf-8", line_buffering=True)
-    if sys.stdin is not None and os.environ.get(MANAGED):
+def child(argv: list[str], pokeldn_dir: Path, inproc: bool = False) -> None:
+    """`inproc=True`: roda numa thread do app; sem reconfigure do stdout nem thread do stdin."""
+    if not inproc:
+        for stream in (sys.stdout, sys.stderr):
+            if stream is not None:
+                stream.reconfigure(encoding="utf-8", line_buffering=True)
+    if not inproc and sys.stdin is not None and os.environ.get(MANAGED):
         threading.Thread(target=_interrupt_on_stdin_close, daemon=True).start()
     ensure_importable(pokeldn_dir)
     mode, target, *args = argv
