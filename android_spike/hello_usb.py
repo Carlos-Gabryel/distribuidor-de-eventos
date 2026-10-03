@@ -39,9 +39,12 @@ class UsbCdcSerial:
         for i in (self.comm_if, self.data_if):
             lib.libusb_detach_kernel_driver(self.h, i)  # no Android costuma falhar; tanto faz
             self._check(lib.libusb_claim_interface(self.h, i), f"claim_interface {i}")
+        self.set_baud(baud)
+        self._check(self._ctrl(0x21, 0x22, 0, self.comm_if, b""), "SET_CONTROL_LINE_STATE")
+
+    def set_baud(self, baud: int):
         line = struct.pack("<IBBB", baud, 0, 0, 8)  # 8N1
         self._check(self._ctrl(0x21, 0x20, 0, self.comm_if, line), "SET_LINE_CODING")
-        self._check(self._ctrl(0x21, 0x22, 0, self.comm_if, b""), "SET_CONTROL_LINE_STATE")
 
     @staticmethod
     def _check(rc, what):
