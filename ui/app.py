@@ -42,12 +42,48 @@ class Shell:
         sidebar = ft.Container(
             width=t.SIDEBAR_WIDTH, bgcolor=t.SIDEBAR, padding=ft.Padding(12, 16, 12, 16),
             border=ft.Border(right=ft.BorderSide(1, t.BORDER)),
-            content=ft.Column([t.brand(), ft.Container(height=12), self.nav,
+            content=ft.Column([ft.WindowDragArea(t.brand()), ft.Container(height=12), self.nav,
                                ft.Container(expand=True), self.board_card], spacing=0, expand=True))
-        page.add(ft.Row([sidebar, ft.Column([self.update_bar, self.body], spacing=0, expand=True)],
+        self.max_icon = ft.Container(content=t.icon("square", 14))
+        self.title_bar = ft.Row([
+            ft.WindowDragArea(ft.Container(height=36), expand=True),
+            self._window_button(t.icon("minus", 16), self._minimize),
+            self._window_button(self.max_icon, self._toggle_max),
+            self._window_button(t.icon("x", 16), self._close, danger=True),
+        ], spacing=0, height=36)
+        page.window.on_event = self._on_window_event
+        page.add(ft.Row([sidebar, ft.Column([self.title_bar, self.update_bar, self.body], spacing=0, expand=True)],
                         spacing=0, expand=True))
         service.subscribe(self._on_snapshot)
         self.in_thread(self._ticker)
+
+    # ---- barra de título própria (a do Windows fica escondida) ----
+    def _window_button(self, content, on_click, danger: bool = False) -> ft.Container:
+        hover = "#C42B1C" if danger else t.HOVER
+
+        def on_hover(e):
+            e.control.bgcolor = hover if e.data in (True, "true") else None
+            e.control.update()
+        return ft.Container(content=content, width=46, height=36, alignment=ft.Alignment.CENTER,
+                            on_click=on_click, on_hover=on_hover)
+
+    def _minimize(self, e=None) -> None:
+        self.page.window.minimized = True
+        self.page.update()
+
+    def _toggle_max(self, e=None) -> None:
+        self.page.window.maximized = not self.page.window.maximized
+        self.page.update()
+
+    def _close(self, e=None) -> None:
+        self.page.run_task(self.page.window.close)
+
+    def _on_window_event(self, e) -> None:
+        if e.type in (ft.WindowEventType.MAXIMIZE, ft.WindowEventType.UNMAXIMIZE):
+            maximized = e.type == ft.WindowEventType.MAXIMIZE
+            self.page.window.maximized = maximized
+            self.max_icon.content = t.icon("copy" if maximized else "square", 14)
+            self.max_icon.update()
 
     # ---- infraestrutura ----
     def ui(self, fn) -> None:
@@ -151,6 +187,7 @@ def run() -> None:
 
     def main(page: ft.Page) -> None:
         t.apply_page(page)
+        page.window.icon = str(ASSETS / "icon.ico")
         Shell(page, service)
         service.start_background(updates=exe is not None)
 

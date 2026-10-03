@@ -6,7 +6,7 @@ VERSION = "1.50.0"
 BASE = f"https://unpkg.com/lucide-static@{VERSION}"
 NAMES = ("gamepad-2", "cpu", "settings", "search", "play", "pause", "square", "download",
          "key-round", "usb", "refresh-cw", "folder-open", "external-link", "check",
-         "triangle-alert", "package", "zap")
+         "triangle-alert", "package", "zap", "minus", "copy", "x")
 OUT = Path(__file__).resolve().parent.parent / "ui" / "assets" / "icons"
 
 

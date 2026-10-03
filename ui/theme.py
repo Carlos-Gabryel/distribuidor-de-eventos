@@ -100,5 +100,7 @@ def apply_page(page: ft.Page) -> None:
     page.theme_mode = ft.ThemeMode.DARK
     page.theme = ft.Theme(color_scheme=ft.ColorScheme(primary=ACCENT, surface=CARD))
     page.padding = 0
+    page.window.title_bar_hidden = True
+    page.window.title_bar_buttons_hidden = True
     page.window.width, page.window.height = 1180, 760
     page.window.min_width, page.window.min_height = 960, 620
