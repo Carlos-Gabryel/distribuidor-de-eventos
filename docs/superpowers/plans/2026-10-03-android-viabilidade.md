@@ -80,7 +80,7 @@ Sem PKHeX (só o selo do `.wc8`) e com L2 `userspace`. Passo 3 adiado: no spike 
 
 **FRLG pelo celular (2026-10-03): ok.** O `unicorn==2.1.4` compilou no Termux. `android_spike/frlg_android.py` (com o `distrib.runners.frlg_session` e o repo clonado em `~/distrib`) entregou o **WISHMKR Jirachi** (`RSEFL - WISHMKR Jirachi (1910) (ENG).pk3`) ao FireRed do dono: `Mystery Event script status: 2 (success)`, `[done] delivery 1 complete`, cerca de 41 s do início ao fim. O quiet passou na hora.
 
-**Veredito (2026-10-03): viável para SwSh e FRLG.** As premissas 1, 2 e 4 passaram, e o `unicorn` roda no Android. Falta: catálogo pré-validado (passo 3) e spec do APK.
+**Veredito (2026-10-03): viável para SwSh e FRLG.** As premissas 1, 2 e 4 passaram, e o `unicorn` roda no Android. **Passo 3 (2026-10-03): feito** (`c4342ab`). O `build/prevalidate_swsh.py` passou os 925 `.wc8` pelo PKHeX em cerca de 5 s: **900 ok, 25 recusados** (tipos de presente sem suporte, ou gênero/natureza/habilidade/shiny/Dynamax inválidos) e 0 ilegíveis. Gera o `android_spike/swsh_validated.json`, indexado pelo sha256 do record. O `android_env` só aceita o que estiver ali (`validated_index.lookup`). Falta: spec do APK.
 
 
 - **3 premissas ok (passos 1, 2 e 4):** escrever a spec do APK. Pontos dela: Flet mobile (`flet build apk`), a serial via plugin Flutter `usb_serial` ou via `pyjnius`/Android USB API em vez do Termux, o empacotamento das dependências nativas para arm64 (verificar o índice de pacotes mobile do Flet e, se faltar, receita própria para `unicorn`), as permissões USB no manifest e o `prod.keys` pelo seletor de arquivos.
