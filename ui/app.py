@@ -25,7 +25,9 @@ class Shell:
         self.page, self.service = page, service
         self.picker = ft.FilePicker()
         self.launcher = ft.UrlLauncher()
+        from ui.views.distribuir import DistribuirView
         self.views = {key: Placeholder(self, label) for key, label, _ in NAV}
+        self.views["distribuir"] = DistribuirView(self)
         self.inicio = Placeholder(self, "Primeira abertura")
         self.current = "distribuir"
         self._shown = None
