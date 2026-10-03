@@ -28,9 +28,9 @@
 2. Ligar a ESP32 no celular pelo OTG e aceitar a permissão USB.
    - Esperado: o app lista o dispositivo como **CDC** (CH9102, VID `1a86`).
    - Se não aparecer, testar outro cabo ou adaptador. Se o LED da placa nem acender, o celular não fornece energia pelo OTG (ver *Bloqueadores*).
-3. Configurar 921600 baud, 8N1, e conectar. O firmware v0.5.0 fala binário, então esperar só bytes "sujos" ou nada. O passo só confere que a porta abre e se mantém aberta por 1 minuto.
+3. Configurar **115200** baud, 8N1 (a placa liga a 115200; o host só passa para 921600 com `CMD_BAUD`, `esp32.py:299`), exibição e envio em HEX, DTR/RTS desligados. Enviar o HELLO `06 01 1B DF 05 A5 00` (COBS + CRC32 de `CMD_HELLO`). A resposta esperada é um frame terminado em `00` do tipo `0x81` (`MSG_INFO`).
 
-**Aceite:** a porta abre a 921600 e a placa continua ligada. **Se falhar:** testar um hub OTG com energia externa. Se ainda falhar, encerrar a prova (premissa 1 derrubada).
+**Aceite:** a placa responde ao HELLO com um `MSG_INFO`. **Se falhar:** testar um hub OTG com energia externa. Se ainda falhar, encerrar a prova (premissa 1 derrubada).
 
 ## Passo 2: host Python no celular via Termux (cerca de 1 sessão)
 
