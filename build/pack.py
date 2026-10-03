@@ -53,7 +53,10 @@ def main() -> int:
             *[f"{src}{os.pathsep}{dest}" for src, dest in data],
             *[f"--pyinstaller-build-args={arg}" for arg in build_args]]
     WORK.mkdir(exist_ok=True)
-    code = subprocess.run(args, cwd=WORK).returncode
+    # o flet pack roda em .pack/ (o -y apaga ./build); o collect-submodules precisa achar os pacotes
+    paths = [ROOT, POKELDN, POKELDN / "bin", POKELDN / "vendor" / "LDN"]
+    env = {**os.environ, "PYTHONPATH": os.pathsep.join(map(str, paths))}
+    code = subprocess.run(args, cwd=WORK, env=env).returncode
     exe = ROOT / "dist" / "Distribuidor.exe"
     if code == 0 and not exe.exists():
         raise SystemExit("O flet pack terminou sem gerar dist/Distribuidor.exe")

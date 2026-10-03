@@ -11,6 +11,7 @@ import flet as ft
 
 from distrib import update
 from distrib.config import load, resource_root
+from distrib.pokeldn_path import ensure_importable
 from distrib.service import Service, Snapshot
 from ui import theme as t
 
@@ -177,6 +178,7 @@ def _log_crashes(cfg) -> None:
 
 def run() -> None:
     cfg = load()
+    ensure_importable(cfg.pokeldn_dir)   # o catálogo importa o pokeldn neste processo
     for folder in (cfg.data_dir, cfg.logs_dir):
         folder.mkdir(parents=True, exist_ok=True)
     exe = Path(sys.executable) if getattr(sys, "frozen", False) else None
