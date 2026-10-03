@@ -21,15 +21,16 @@ NAV = (("distribuir", "Distribuir", "gamepad-2"), ("placa", "Placa", "cpu"),
 
 class Shell:
     def __init__(self, page: ft.Page, service: Service):
-        from ui.views.placeholder import Placeholder
         self.page, self.service = page, service
         self.picker = ft.FilePicker()
         self.launcher = ft.UrlLauncher()
-        from ui.views.distribuir import DistribuirView
-        self.views = {key: Placeholder(self, label) for key, label, _ in NAV}
-        self.views["distribuir"] = DistribuirView(self)
-        self.inicio = Placeholder(self, "Primeira abertura")
         self.current = "distribuir"
+        from ui.views.ajustes import AjustesView
+        from ui.views.distribuir import DistribuirView
+        from ui.views.inicio import InicioView
+        from ui.views.placa import PlacaView
+        self.views = {"distribuir": DistribuirView(self), "placa": PlacaView(self), "ajustes": AjustesView(self)}
+        self.inicio = InicioView(self)
         self._shown = None
         self._pending = False
         self._pending_lock = threading.Lock()
