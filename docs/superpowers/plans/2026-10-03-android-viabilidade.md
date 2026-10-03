@@ -32,6 +32,10 @@
 
 **Aceite:** a placa responde ao HELLO com um `MSG_INFO`. **Se falhar:** testar um hub OTG com energia externa. Se ainda falhar, encerrar a prova (premissa 1 derrubada).
 
+**Resultado (2026-10-03): aprovado.** O celular do dono, com OTG, alimenta a placa. O HELLO respondeu `MSG_INFO` com `pokeldn-radio esp32 version=1.0.0 idf=v6.1` e MACs `8C:94:DF:4C:6C:80/81`. Achados:
+- logo após conectar, a placa repete `MSG_CREDIT` (0x8B) com o total de bytes recebidos;
+- o app pôs `0D 0A` no fim. Lixo antes de um frame estraga o frame seguinte, mas o primeiro HELLO passou.
+
 ## Passo 2: host Python no celular via Termux (cerca de 1 sessão)
 
 O Termux é o jeito mais barato de rodar o host Python no Android antes de pensar em APK.
