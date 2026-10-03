@@ -63,6 +63,13 @@ def child(argv: list[str], pokeldn_dir: Path) -> None:
         threading.Thread(target=_interrupt_on_stdin_close, daemon=True).start()
     ensure_importable(pokeldn_dir)
     mode, target, *args = argv
+    radio_spec = os.environ.get("POKELDN_RADIO", "")
+    if radio_spec.startswith("esp32:") and target != "distrib.runners.hello":
+        from distrib.runners import quiet
+        try:
+            quiet.quiet(radio_spec.removeprefix("esp32:"))
+        except Exception as exc:          # o host tenta mesmo assim e reporta o erro dele
+            print(f"[quiet] erro: {exc}", flush=True)
     if mode == "--run":
         path = pokeldn_dir / target
         sys.argv = [str(path), *args]

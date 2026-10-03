@@ -50,10 +50,10 @@ def hello(port: str, cfg: Config, run=subprocess.run) -> str:
         done = run(runner.command("--module", "distrib.runners.hello", port),
                    cwd=str(cfg.pokeldn_dir), env=runner.child_env(managed=False),
                    stdin=subprocess.DEVNULL, capture_output=True, text=True, encoding="utf-8",
-                   errors="replace", timeout=20,
+                   errors="replace", timeout=75,
                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
     except subprocess.TimeoutExpired as exc:
-        raise RadioError(f"a placa em {port} não respondeu em 20 s") from exc
+        raise RadioError(f"a placa em {port} não respondeu em 75 s") from exc
     if done.returncode != 0:
         lines = done.stderr.strip().splitlines() or done.stdout.strip().splitlines()
         raise RadioError(f"HELLO falhou em {port}: {(lines or ['erro desconhecido'])[-1]}")
