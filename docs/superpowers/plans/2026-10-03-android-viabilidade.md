@@ -68,7 +68,18 @@ Assim o celular não precisa rodar PKHeX (.NET).
 
 **Aceite:** o Zarude chega no Sword. Gravar o log em `tests/fixtures/logs/android_swsh_spike.txt` (UTF-8).
 
+**Resultado (2026-10-03): aprovado.** **100 Poké Balls (`0106 SWSH - Item Poke Ball x100.wc8`) recebidas no Sword do dono, distribuídas pelo celular** (Termux, sem root, ESP32 no OTG). Comando:
+`termux-usb -r -e "python $HOME/swsh_gift_android.py --record $HOME/pokeballs.wc8 --keys $HOME/prod.keys" /dev/bus/usb/001/003`, com o pokeldn v0.5.0 (`37410c1`) clonado em `~/pokeldn`.
+Setup no Termux:
+- `pkg install python git clang make cmake rust libusb termux-api binutils`;
+- `pip install pycryptodome zstandard trio pyserial pyusb` e `pip install -e ~/pokeldn/vendor/LDN`. O último traz a `python-netlink`, que o `ldn/wlan.py` só importa: sem ela, o host falha com `missing dep for host mode: No module named 'netlink'`.
+
+Sem PKHeX (só o selo do `.wc8`) e com L2 `userspace`. Passo 3 adiado: no spike a validação foi trocada pelo selo; no app vira o catálogo pré-validado. `unicorn` e FRLG ainda não testados no celular.
+
 ## Veredito e próximo passo
+
+**Veredito (2026-10-03): viável para SwSh.** As premissas 1, 2 e 4 passaram.
+
 
 - **3 premissas ok (passos 1, 2 e 4):** escrever a spec do APK. Pontos dela: Flet mobile (`flet build apk`), a serial via plugin Flutter `usb_serial` ou via `pyjnius`/Android USB API em vez do Termux, o empacotamento das dependências nativas para arm64 (verificar o índice de pacotes mobile do Flet e, se faltar, receita própria para `unicorn`), as permissões USB no manifest e o `prod.keys` pelo seletor de arquivos.
 - **Alguma falhou:** registrar o motivo aqui e no vault e encerrar a ideia, ou reavaliar a ponte Bluetooth com a 2ª placa.
