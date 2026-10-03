@@ -1,2 +1,15 @@
-textual==8.2.8
+# Executar (Windows)
+flet==1.0.2
+flet-desktop==1.0.2
+esptool==5.4.0
+pyserial==3.5
+pycryptodome==3.23.0
+trio==0.33.0
+zstandard==0.25.0
+-e ./vendor/pokeldn/vendor/LDN
+# Desenvolvimento e empacotamento
 pytest>=8,<9
+flet-cli==1.0.2
+pillow==12.3.0
+# A TUI antiga sai na Task 6
+textual==8.2.8
