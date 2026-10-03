@@ -76,12 +76,32 @@ serial.Serial = FdSerial
 from pokeldn import pokemon  # noqa: E402
 from pokeldn.ldn import esp32  # noqa: E402
 from pokeldn.swsh import wc8  # noqa: E402
+import validated_index  # noqa: E402
+
+
+_INDEX = None
+
+
+def _indice():
+    """Carrega (uma vez) o catálogo pré-validado; None se o JSON não existir."""
+    global _INDEX
+    if _INDEX is None:
+        caminho = os.path.join(HERE, "swsh_validated.json")
+        _INDEX = validated_index.carregar(caminho) if os.path.exists(caminho) else False
+    return _INDEX or None
 
 
 def _validate_offline(data):
     if not wc8.sealed(data):
         raise pokemon.BuilderError("The WC8 size or checksum is invalid.")
-    print("[android] PKHeX pulado: só o selo do .wc8 foi conferido", flush=True)
+    idx = _indice()
+    if idx is None:
+        print("[android] PKHeX pulado: só o selo do .wc8 foi conferido", flush=True)
+        return
+    ok, msg = validated_index.lookup(idx, data)
+    if not ok:
+        raise pokemon.BuilderError(msg)
+    print("[android] aprovado pelo PKHeX no PC: %s" % msg, flush=True)
 
 
 pokemon.SERVICE.validate_gift = _validate_offline

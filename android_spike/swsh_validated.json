@@ -1,0 +1,3730 @@
+{
+ "pokeldn": "v0.5.0",
+ "records": {
+  "000ffde5ee42116f22fdee9357945e1164d8768e7e5bdf9747f581c43ea1076f": {
+   "file": "0813.wc8",
+   "ok": true
+  },
+  "00459a180d949be8287940089d625bed1fcdf7653c26398bc7ccd2a2b5157ce7": {
+   "file": "0229.wc8",
+   "ok": true
+  },
+  "009eb6ad6e1217ac6e5ff1146c8ee37c05183ea30633240b986a27a0371197b6": {
+   "file": "0534.wc8",
+   "ok": true
+  },
+  "00bf6eb4f84c7bd5d92e49cd370d229b26d38eae2553f69d1ffd994425be017c": {
+   "file": "0454.wc8",
+   "ok": true
+  },
+  "01115799528de5eacad51656dccd05dbd2cc043f2e6c38fed1121d54c985c6f4": {
+   "file": "0835.wc8",
+   "ok": true
+  },
+  "01a76216653405713e054e787b93d60de809592ddd264f93a3261acaafd5e94b": {
+   "file": "0371.wc8",
+   "ok": true
+  },
+  "01fb1c2ca8fe2cc219b8c13bf8c061ae7754bdf82bf05c545520b2ee107b98b6": {
+   "file": "0483.wc8",
+   "ok": true
+  },
+  "0225282d350dbd3745d5ce1fa1d8881e579a57772e0b0b5105bd27a78370e0e4": {
+   "file": "0244.wc8",
+   "ok": true
+  },
+  "027b9f1ddf2e0849576ec8711838de80f468ed442367eeb40ae0ca4b38b85199": {
+   "file": "0768.wc8",
+   "ok": true
+  },
+  "028b47c38e72171eb77feaf4d417c9811ec7d290ed1050a433bb2b42ff039800": {
+   "file": "0789.wc8",
+   "ok": true
+  },
+  "02c58fceebb90a4e71319925107c18e17e461b6e3547d6325a0d6bd4cc569602": {
+   "file": "0011.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "02e5dcac99c46fe556c4417e30730395008d679c6853f653430163c9fc108826": {
+   "file": "0358.wc8",
+   "ok": true
+  },
+  "03275ee7f36ef65b9fe3c4736a3c64669e2a4d50730a6c31fa14754b59e4f34c": {
+   "file": "0596.wc8",
+   "ok": true
+  },
+  "03398e7ecbb5fdca6628216e428ce682a9effe44c48984cf7f49f231a23ef069": {
+   "file": "0794.wc8",
+   "ok": true
+  },
+  "033a0b287eaef14452f586159135e1a9048e3b520edeb793eff52d3143c42443": {
+   "file": "0347.wc8",
+   "ok": true
+  },
+  "034409b7087df04569d00095e1f10d74313ac8faac01a28c9d7940c6dea48c6a": {
+   "file": "0200.wc8",
+   "ok": true
+  },
+  "03ba13f93f6c76e1e08eea2013a5418be5f1dd9875b85efa243e4a5907c04353": {
+   "file": "0729.wc8",
+   "ok": true
+  },
+  "03e5fa568069f71c72ef405773f4d13b1d4a847f5b282c0fb4a9893afe6c1679": {
+   "file": "0166.wc8",
+   "ok": true
+  },
+  "03e94fcb4912a9c83b961cb4b981501e7d36fa53a7854c68be78dde4b7d2b6f4": {
+   "file": "0161.wc8",
+   "ok": true
+  },
+  "04d6b5e681a04a9d5e219e0a4861798d773447f0f6d40b153f026777cce0b67f": {
+   "file": "0435.wc8",
+   "ok": true
+  },
+  "055e8595d0b0e56ebec55da54401951ee8f29960737dbfb56683d2b86b906048": {
+   "file": "0143.wc8",
+   "ok": true
+  },
+  "056565b06924a5723835cb42527d1ead674dd8e32a416983b16178687b6e5e5a": {
+   "file": "0356.wc8",
+   "ok": true
+  },
+  "05c53491013efef0cf455b456287070a655f2d4c205640566df7c62f019a3ff0": {
+   "file": "0849.wc8",
+   "ok": true
+  },
+  "05fef2937ed0d7542f249ab15e33b09ae3bd9639547273cee97539735bbafa00": {
+   "file": "0721.wc8",
+   "ok": true
+  },
+  "06e8ab3a4c1f71f8fc5bf0ab4d547b9aa1eebb82c501defa4a889544fa021107": {
+   "file": "0627.wc8",
+   "ok": true
+  },
+  "078c92a0030468a849d03b24a30d794462bece7c40cb7f2a080f0db0a2640bde": {
+   "file": "0268.wc8",
+   "ok": true
+  },
+  "0817453d291710e742c772535d097b01d51de1e9c4fd201a90c086eabbb2ec4d": {
+   "file": "0217.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "0840189248f1c863dba87d1868e1a1ff556fe3ae57852b362d91c23e247fbd3b": {
+   "file": "0663.wc8",
+   "ok": true
+  },
+  "0877ad3441bac86fdf5bb2efa9e1d78757bb6e54b14a062a4d4233a63476dabf": {
+   "file": "0028.wc8",
+   "ok": true
+  },
+  "088d153969bb71cc660d35b5b9d050fa3e4ecc5d2ff0e6eb6c506aa042b5fb7f": {
+   "file": "0896.wc8",
+   "ok": true
+  },
+  "09e25a9800bfdf48ae095daeeb888ca1a30d8ab39485a209694a01a7e13da324": {
+   "file": "0858.wc8",
+   "ok": true
+  },
+  "0a1470ce22e62202a2b6234bc2aed99a4f3c87b6da812b4e999066f733c213d0": {
+   "file": "0181.wc8",
+   "ok": true
+  },
+  "0abbf6eb5f32a44a10374ef109ac4a7368f115b113af53574a5afaca9b41197a": {
+   "file": "0754.wc8",
+   "ok": true
+  },
+  "0aebe09584f92bf2a32df27719062ffabc138000567b7e94768101f96bed1f01": {
+   "file": "0521.wc8",
+   "ok": true
+  },
+  "0af6413e9d7b262033a430e4cfd94870f30c654e05271b27a3f1208067ed3743": {
+   "file": "0240.wc8",
+   "ok": true
+  },
+  "0b034e16d9fb5544fdfe77a1e4fc311b1e4e7092f87e3c1e24d5da53cf766121": {
+   "file": "0428.wc8",
+   "ok": true
+  },
+  "0b272bc49ff3adbe3927f9b9d2dc80bf1d8921bc7481b3a8c8ac8716d75d39fb": {
+   "file": "0083.wc8",
+   "ok": true
+  },
+  "0bb416ecab74f3918a96b5da68c5ceeba3e4ca88caeec899bcb3a3c959d55646": {
+   "file": "0390.wc8",
+   "ok": true
+  },
+  "0bf442e189628490a31e96e5f741982d496b104a3b396169197f89b90ec8012b": {
+   "file": "0396.wc8",
+   "ok": true
+  },
+  "0bfa4bd36a331dbf8079fc21cb7d7fa51a36c7a527edebf5dd5b9e266a0cc570": {
+   "file": "0587.wc8",
+   "ok": true
+  },
+  "0c277d28694f68b0f3799731904f5980d435a1fa18c379695043e8a989b535d2": {
+   "file": "0908.wc8",
+   "ok": true
+  },
+  "0c75186e5cfc8167b528096b30fcda15c01fce840fc596684065be3373a55056": {
+   "file": "0007.wc8",
+   "ok": true
+  },
+  "0cc6c74b5ad19c93c7715fd9e3bbe1114edbd6ca1fddb14041cefe9346c25ab8": {
+   "file": "0157.wc8",
+   "ok": true
+  },
+  "0cc8a4e436a4c0485ecc25e42508acf88fb34a734463d3ecdd59514d237f85e0": {
+   "file": "0491.wc8",
+   "ok": true
+  },
+  "0d4387e074eb406cb4cc75eadfc7910f8071d813018833f41004469143a6f8c7": {
+   "file": "0412.wc8",
+   "ok": true
+  },
+  "0d4520cf9dc321738d87c4a04ffd755e904567839d7ca577dbdf446f33072fd5": {
+   "file": "0625.wc8",
+   "ok": true
+  },
+  "0da85fb36a67081586686c080835a90e706b0dc4c97c6f9af2161e591e748152": {
+   "file": "0030.wc8",
+   "ok": true
+  },
+  "10099699e2dacd43dc80fb5d99ef60c2aa87805c6e20ed2ea4d85965f9f24e40": {
+   "file": "0127.wc8",
+   "ok": true
+  },
+  "10aede7807814603c9d0bc91a4d32ea06e8932d6c16199d72fb0b612be87993d": {
+   "file": "0879.wc8",
+   "ok": true
+  },
+  "110b8e37d4280d03330180247ff93d98613ef4a32dc6e516fecae07723c52c18": {
+   "file": "0241.wc8",
+   "ok": true
+  },
+  "111aa4b5d73379f3833b391224fcdee4ff0a35d4f05414c25604433e3bdb647b": {
+   "file": "0149.wc8",
+   "ok": true
+  },
+  "1142bc297595ef35db180caf13aabbfafd1d577627291c975158e6e26233d591": {
+   "file": "0748.wc8",
+   "ok": true
+  },
+  "11a220aa9396553743a0a536eea5f9a06a02910cf029093e37958db828e67c1e": {
+   "file": "0713.wc8",
+   "ok": true
+  },
+  "121428f2694c86169b13b18506a18fba54632eeab37d22d44eddfe5df170e347": {
+   "file": "0565.wc8",
+   "ok": true
+  },
+  "13b3fd02b23bb0e70b932e11ccafdde4cb191d1ea6d60d47b0b166b7f7f97479": {
+   "file": "0324.wc8",
+   "ok": true
+  },
+  "13c8107a0b33944da42b7fd566c76eff98ea7be702f632ee10422243efee8fdb": {
+   "file": "0688.wc8",
+   "ok": true
+  },
+  "13d90dabcf8f83c68b792dc2cbe33d19d9c07c27f9622d6adcec32d5f4aa49eb": {
+   "file": "0694.wc8",
+   "ok": true
+  },
+  "1457afc66ff0b32412cd3b4cb8c4daf3d6102412bf11deb2fbd1b3579733afac": {
+   "file": "0570.wc8",
+   "ok": true
+  },
+  "14712d69682e14e1e797b7fa188e0e42d83215c0c8e5444fedbbb835848756fb": {
+   "file": "0552.wc8",
+   "ok": true
+  },
+  "15c2f06f924d415a9253c52f39b863b7a6a7211020f300ef1d285515bcc78f62": {
+   "file": "0922.wc8",
+   "ok": true
+  },
+  "1634460b23569e1c14ade2a40ada09f717e4f69cfdaa3a48172cba1c56c44f5f": {
+   "file": "0073.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "163c1fad792c7bac48696e73dc5681fe3378e73a8142419b2ff89073ff51e39b": {
+   "file": "0743.wc8",
+   "ok": true
+  },
+  "17138cd87c01046ab98baa229253ef713b4401cd10563528e5b77ca273c5af50": {
+   "file": "0519.wc8",
+   "ok": true
+  },
+  "17642b4debb84caa955f1308ad0bb514369aeba765971c6fa4a96b1940a4347b": {
+   "file": "0256.wc8",
+   "ok": true
+  },
+  "17dae3dbd67bdfd9da8a5bf615b6512cc38a7473946e111d500cbd1dd528c785": {
+   "file": "0504.wc8",
+   "ok": true
+  },
+  "17e3e2e7fdf14406d32e62bb3ba84db1fb20c494c7f20673b92b59bf98a88f16": {
+   "file": "0780.wc8",
+   "ok": true
+  },
+  "18677e17e6c3acaa700f172a6b57a96217dffe3efb7d1f6fd30f4768a91d2353": {
+   "file": "0639.wc8",
+   "ok": true
+  },
+  "1881cd87b61584fd8df950c1b89577af48e86e17c9be4c08bc71303d04ca1ad8": {
+   "file": "0366.wc8",
+   "ok": true
+  },
+  "18a6552c251a8d5d06a9f34b426f7dc1a63dc04cb466d821cdc8a4b202f12841": {
+   "file": "0363.wc8",
+   "ok": true
+  },
+  "18f8d022a0e6c7e73846a59ad10b1c298c16e48fade65c85444d1f0b59735b34": {
+   "file": "0546.wc8",
+   "ok": true
+  },
+  "19b48160c9221fee53698a2a4afd54e0496fc736dd8e67d00f4a15856ed017bc": {
+   "file": "0158.wc8",
+   "ok": true
+  },
+  "19bfca15219c5d9c65c86f14b97f43040d32d9d87f641064057d7421ceb931a2": {
+   "file": "0818.wc8",
+   "ok": true
+  },
+  "19c74f2cdadd87732d1b9f30d7d62eae16cfa49f6df8805f8e219fd310fce45c": {
+   "file": "0470.wc8",
+   "ok": true
+  },
+  "19f9ac17b71c339bc2de614142ced09462fec0969b7d0fcd1942eb8fb1717f53": {
+   "file": "0595.wc8",
+   "ok": true
+  },
+  "1a43df6a67713e34acccc290544362d1fee26c1b298858b4fba9a722850ab202": {
+   "file": "0394.wc8",
+   "ok": true
+  },
+  "1a8fffebd4b24a51d4546cf4ec4d9322c15c212ea0cfe7c4c20846b6b17b1240": {
+   "file": "0904.wc8",
+   "ok": true
+  },
+  "1a98189a755ca3a0728e6d0196fa44277b82045fef53c0365390f15df5f43369": {
+   "file": "0643.wc8",
+   "ok": true
+  },
+  "1a988aa3a44909c3536b4e660815dfeb9520f66ef50fcaeff0fb789788e99987": {
+   "file": "0300.wc8",
+   "ok": true
+  },
+  "1aad59b32a81d3eb739a1a0ac3a2ad58617bef68917e3ebf9295f9269b7a7bfe": {
+   "file": "0354.wc8",
+   "ok": true
+  },
+  "1acd1a69f43dc813c2a2c531a4bdff847e15d0ac7920da5f49c0df7b12c533b7": {
+   "file": "0171.wc8",
+   "ok": true
+  },
+  "1b2cb464c0fcbe0828f8d2764d8f9f909948da1dcfa388bb69106ad57bcce63a": {
+   "file": "0732.wc8",
+   "ok": true
+  },
+  "1bf9911c354d9cb7e817b9577fd61844e1e318f6012205322c9c7c77c8e6ec81": {
+   "file": "0751.wc8",
+   "ok": true
+  },
+  "1bfed400f1002b4177bd7fc9ede328fb6c4e4e3263536d203c25d1ccc81d2d97": {
+   "file": "0635.wc8",
+   "ok": true
+  },
+  "1c049cc60400094aeb686e67bb4ba9a54a4f757e893b77b534d3822cc0fc8268": {
+   "file": "0331.wc8",
+   "ok": true
+  },
+  "1c34e6e03b2cdba0ad65f0b81b73372502d0108aaecbf714a45f5f6a078bda1a": {
+   "file": "0561.wc8",
+   "ok": true
+  },
+  "1c73746f13e0f2b8c5a0d3d27fc9a59dde8bc27e3f3667fc54a4b6a5734d24ff": {
+   "file": "0853.wc8",
+   "ok": true
+  },
+  "1ca509ab110a3606f4f5f29b2c333846f81bd5f731b364c75fee799709583ecf": {
+   "file": "0261.wc8",
+   "ok": true
+  },
+  "1cb8257b70b3acdd18bfee6bae1f7dc920ede1b0661baea963966572eeebd54c": {
+   "file": "0446.wc8",
+   "ok": true
+  },
+  "1cd0baeae9774cd53ce64b202eb922a3c51a3b0fd044fffc4090ab62d1d78d40": {
+   "file": "0612.wc8",
+   "ok": true
+  },
+  "1cdf4112c823de7b37efe2797a5ff16d24c88d33bb0661334228ecc605b1a17d": {
+   "file": "0273.wc8",
+   "ok": true
+  },
+  "1d01098a6f265f96573b354f1c685deff52434731ad276d7859e74515ec1d392": {
+   "file": "0025.wc8",
+   "ok": true
+  },
+  "1d03f63f21591b1146818001eda4d5a721e68753fffa9b0a4c2d8b172dfdf05b": {
+   "file": "0456.wc8",
+   "ok": true
+  },
+  "1db6fb6faceac940208a0643a5e109430da962a8dec38fdead26b5100852ec97": {
+   "file": "0075.wc8",
+   "ok": true
+  },
+  "1e2ee5507e4375f90cedf7614eb3317dd8232d240a4507de38715199e404a7a0": {
+   "file": "0726.wc8",
+   "ok": true
+  },
+  "1e5ffa94303c19e95d358215e3895cb98fe793c5b23f77e568936fce95543597": {
+   "file": "0912.wc8",
+   "ok": true
+  },
+  "1e64acaa5100f9d7401ed54521c6505d8a8b01e1d2d6dc4409ecefd60920b7d3": {
+   "file": "0536.wc8",
+   "ok": true
+  },
+  "1ee7da495ffa3742668e7b65a2eb4a3decc1b0f2f245fa77a27f822b5d739296": {
+   "file": "0015.wc8",
+   "ok": true
+  },
+  "1f1060b5cd637ca38e238aa31272140c16dabc470f768856023417ce5fafe1e2": {
+   "file": "0865.wc8",
+   "ok": true
+  },
+  "20106c13a0709229e046b9ba8c2a45d0e3eed131aedbf6072b5fa9bc8463e749": {
+   "file": "0051.wc8",
+   "ok": true
+  },
+  "20424ea8e0365877a1e3fe4d37336af728d46526294bc83d408c9a45e8e4f0c8": {
+   "file": "0297.wc8",
+   "ok": true
+  },
+  "205de388f30827785b58a64b0bc43e1288514eed84de8cd4e51f8e4702074b4e": {
+   "file": "0901.wc8",
+   "ok": true
+  },
+  "208f4df08d8154fc6c5ff3c484dd9ae6b6763d2aa5fdc326d2b2aaeab788f6a3": {
+   "file": "0586.wc8",
+   "ok": true
+  },
+  "2151cca16b295fcbcb9e8f3709c315af334db722c3571a00fcdf91665df5d2c2": {
+   "file": "0679.wc8",
+   "ok": true
+  },
+  "215568d9766818ab85f9d4511a3751695fe50cb2ae683045bcad252a8b12d432": {
+   "file": "0455.wc8",
+   "ok": true
+  },
+  "21a36fca118d9965d1a43ef518862102d95dbf16a4839ec06cba6a1de0193bd2": {
+   "file": "0072.wc8",
+   "ok": true
+  },
+  "21dadf8a30c7b14d61d5506eba36532ac8b5298088e1b36930c080af5b5fe26f": {
+   "file": "0179.wc8",
+   "ok": true
+  },
+  "221878d8cbe1078be8795e1baae20c8f79577d9652aeb4fc68b4665470d8e3dd": {
+   "file": "0385.wc8",
+   "ok": true
+  },
+  "22af0abf4fd73c4ada25b112a09205fc31ba24397b608c89d68e9390f6b9ab63": {
+   "file": "0365.wc8",
+   "ok": true
+  },
+  "22eda4ba01dc5754b0f1831244e00908abdd5ea02f87827277bf2431f82a5b7f": {
+   "file": "0737.wc8",
+   "ok": true
+  },
+  "22fd4dea2b2f2bfb68cbbbeae7778b94529949b7cf636806590e9d27637e91af": {
+   "file": "0010.wc8",
+   "ok": true
+  },
+  "23589410bcbe6fe623c2c6a27a608b28e5404f8fa398a71f489ff9664bbf0bc4": {
+   "file": "0807.wc8",
+   "ok": true
+  },
+  "243b6de010f5848ad32a796bc2974409e1c4abbea1c19e3984b4cb20e75816ad": {
+   "file": "0086.wc8",
+   "ok": true
+  },
+  "2456c465ea6888be0070e928253f63ce5b8b95810715f1e65de3f21bcc8927b9": {
+   "file": "0043.wc8",
+   "ok": true
+  },
+  "246c9ef94113ce8a07f9410218f53f37605af231c552c9cfd707d2549233f547": {
+   "file": "0665.wc8",
+   "ok": true
+  },
+  "24b3bd81b121a21375aaa0e1f81202b0a7da7a6c5ddaa80b70eed93571dda6a5": {
+   "file": "0236.wc8",
+   "ok": true
+  },
+  "251eb1e3f9115ca4718e637ead66fe1fb60bc3a9d64e4000a3632c5464108877": {
+   "file": "0842.wc8",
+   "ok": true
+  },
+  "25699047bf42091d6ae410d06cadcaf61fbfd247650d03d368eca9d692c265bd": {
+   "file": "0135.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "25994c4cb3e03971601404b37ec130f6a0fb2154130406e35473e89a571bf076": {
+   "file": "0132.wc8",
+   "ok": true
+  },
+  "25bd0ae89b36e511a22b03688ae8df2825ae14660a7417affa7607ec1297b2af": {
+   "file": "0445.wc8",
+   "ok": true
+  },
+  "260a770efd8a8083e360097bda980e16cb9555510369480af57017db9301856b": {
+   "file": "0223.wc8",
+   "ok": true
+  },
+  "2686ed5e2c66e229059c3d151b48fce0db6fb1c859bca852638495341010dcb7": {
+   "file": "0911.wc8",
+   "ok": true
+  },
+  "26f7642d8d91f771b953f44e2fb7e392d92596115b17b2c3c8d93b69f6e6ce7d": {
+   "file": "0281.wc8",
+   "ok": true
+  },
+  "2718beb501ddd9f370dcdbcc614a363b8ec6aa77ee5e30f45dc2c4eaa993fad9": {
+   "file": "0623.wc8",
+   "ok": true
+  },
+  "2720bfe37fbb0f63fb5d6f409b6ce493e204cee46a748cb87a5484b2dcd32d47": {
+   "file": "0903.wc8",
+   "ok": true
+  },
+  "2785179b2806bfa1ca8b8af1bcc9cf32b1dab3fb3502544082302c94318f597f": {
+   "file": "0372.wc8",
+   "ok": true
+  },
+  "278ba9b8c1d34925e9bb2b7bdaf176c0447e5b82deb0294513ab06acb39a0a7e": {
+   "file": "0766.wc8",
+   "ok": true
+  },
+  "27bee77bc369cbaee8909db4b87d86a398e95f0281fa2d6d82e27c2beac0bd24": {
+   "file": "0173.wc8",
+   "ok": true
+  },
+  "27d632d4ede0a57251cc23209b95b37394230984a10631613f60ae77e14ac096": {
+   "file": "0137.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "28008aee96195770df90f62019454943659e9e25fc6ff5c24351e9593ca61a6d": {
+   "file": "0066.wc8",
+   "ok": true
+  },
+  "2802a3a62dd887e87ca315d041821a3ca7695e5205eba92e4b39c5a7964b782e": {
+   "file": "0039.wc8",
+   "ok": true
+  },
+  "2803501175a0d0a6656925c7cb0703e1f177231c1a24ff67cf5962c06fab1752": {
+   "file": "0485.wc8",
+   "ok": true
+  },
+  "2846fda20324cf98e15622471c2f7399e1506528d2241b04feb7953a64e15c60": {
+   "file": "0444.wc8",
+   "ok": true
+  },
+  "285381f0f8cdcc1a38f0fe71f1e3655cae7ce7ac298c71ed1daec37e4fdca613": {
+   "file": "0571.wc8",
+   "ok": true
+  },
+  "286d6e447379ecf3ada4cd663b222ce0907f1b60a14cac7b7b5874cfb967a06b": {
+   "file": "0812.wc8",
+   "ok": true
+  },
+  "28ad5dd7023a44a86dc3ad6c2a28bdb7761576cb57d565588ebfbd75f5740c08": {
+   "file": "0525.wc8",
+   "ok": true
+  },
+  "28bb4e2aec5af774ef3a02404483ca4bf4626bf3c951521289050c848a73b5bd": {
+   "file": "0535.wc8",
+   "ok": true
+  },
+  "29592878e44f79f3ed96f06f237f33f1ac92e6f0e82718296ee409b022ed3c2d": {
+   "file": "0699.wc8",
+   "ok": true
+  },
+  "29ae99c0bafed6333ce092d7836d938e5a24d92df45887a257fa6fe39759bdb2": {
+   "file": "0788.wc8",
+   "ok": true
+  },
+  "29e557763bafc027c86ad76e0a68ff350fc4eae26d6142e94409bded3b0b57cf": {
+   "file": "0557.wc8",
+   "ok": true
+  },
+  "2a1489c07386062dcf610fad7efbd96cfea2b9cb4e8f32b36f44a2339c82825c": {
+   "file": "0110.wc8",
+   "ok": true
+  },
+  "2a4ebf7214819801bc64104a2fc4a8f1878e4ca2a3976984fecb6b2a0cd3f103": {
+   "file": "0392.wc8",
+   "ok": true
+  },
+  "2a77bf9ff881385c1f406841677efcf1e6544391bdd1948f357628172777c7cd": {
+   "file": "0033.wc8",
+   "ok": true
+  },
+  "2a78a634f4fce2ff0586fcd06cf3bbf145dcc49b25b5eb69f63e09db16d29798": {
+   "file": "0109.wc8",
+   "ok": true
+  },
+  "2bb39712fcddbc7ac66bb21645dbd06f81f70829bf4200d8f866c41084b043cc": {
+   "file": "0670.wc8",
+   "ok": true
+  },
+  "2cab2f9dbd0031ae9966d67d7a06e194f86def1b5fe6e9f38c7b2a0d9c5fdc39": {
+   "file": "0777.wc8",
+   "ok": true
+  },
+  "2d0cb27e9bf5d071854cb1b87432fb7e16d2f4431601acff450702c1b7bd6810": {
+   "file": "0576.wc8",
+   "ok": true
+  },
+  "2d46923674775dde1aa0bf900f371e68213b753171b28aaf7412c949b17550b6": {
+   "file": "0048.wc8",
+   "ok": true
+  },
+  "2dc68ee24cdfb37cc97b677044ba458df11c0dc196e50be07d5f2ac0e5577ce6": {
+   "file": "0187.wc8",
+   "ok": true
+  },
+  "2dc8990cb76227dd78c009f57c048dd203ccef52b5f271502f23600b1f6e4e3b": {
+   "file": "0147.wc8",
+   "ok": true
+  },
+  "2e8412610833ee1d7a224875283141964e36b738f2b13d171cbd9ff34400dd1c": {
+   "file": "0820.wc8",
+   "ok": true
+  },
+  "2f2316479917ad0eb9ececda474dcf1f9309c7aeec3bac859d293fb9260bb898": {
+   "file": "0840.wc8",
+   "ok": true
+  },
+  "2fb7f4efd341ec1f2fff8ee72b215790ade2c0e72f2c11af32ae3aaee763b3cf": {
+   "file": "0701.wc8",
+   "ok": true
+  },
+  "302f0a9a47b877c7d6999768e5c21a3372eb3b9f2f19e53fac4aff1f20260574": {
+   "file": "0041.wc8",
+   "ok": true
+  },
+  "30679357bd40f977c29d34c8e3477a3b6c829a9118b4a81da8e317b834ff7583": {
+   "file": "0018.wc8",
+   "ok": true
+  },
+  "306adba8f5b6fcbb1594df4733cf2542abdf769327c968e7869b64657c56fed1": {
+   "file": "0594.wc8",
+   "ok": true
+  },
+  "30b29868652fc1563115e15206225e072c218e3c36b0eead2b294f614df143e0": {
+   "file": "0198.wc8",
+   "ok": true
+  },
+  "30b9d3663a3d4f144485b80936057340607e07c5f410fcd09bec24e6287d232a": {
+   "file": "0588.wc8",
+   "ok": true
+  },
+  "31fbb59ca2936a29b2801770b6a97ea4d8da5cc77cfeaaebd5b4e80b03a83f3e": {
+   "file": "0603.wc8",
+   "ok": true
+  },
+  "32ca604bc95c2a0610b7aa0d58fbe93f73b3d840755c0547cf1cf358c22a4d02": {
+   "file": "0294.wc8",
+   "ok": true
+  },
+  "33896f55e8bd564e85fb3c6abe372cc9f1830bfeb68f2088ac6a60b24b5d1987": {
+   "file": "0210.wc8",
+   "ok": true
+  },
+  "33915d4f8c935b4f452adbdf6ba825ae59833ff767febb0dbcf3ec33420317cd": {
+   "file": "0389.wc8",
+   "ok": true
+  },
+  "3391645fb9d8e675a4f7fb48365a2395a5cea5b0e4d02feb7823a82050c70493": {
+   "file": "0664.wc8",
+   "ok": true
+  },
+  "339194daecdedd98fd838b5fbc0618deaafe317afe5f7ffcafa5e817103d3584": {
+   "file": "0093.wc8",
+   "ok": true
+  },
+  "342eddc7b8a4fdcbbfc49d3c96ec3b1330cf9a4a66f241a5c6631bee84c6ba93": {
+   "file": "0569.wc8",
+   "ok": true
+  },
+  "34c7e1d38f19d278785657f0dbbce5a4ac5efb3814f2a9c14107d8f57a059165": {
+   "file": "0864.wc8",
+   "ok": true
+  },
+  "34d377e15d82980c6382bdcd5830960ac4bbf915646655a673811de7f8a54d79": {
+   "file": "0313.wc8",
+   "ok": true
+  },
+  "34d41323942f0a58018a45f0afee2680f10a7e3f46577130d1d9c83a950207ec": {
+   "file": "0917.wc8",
+   "ok": true
+  },
+  "34df69250868509d5953eb4c83f12b5d2f44cb1e7920ff6c77d7255fd2004d39": {
+   "file": "0337.wc8",
+   "ok": true
+  },
+  "3506d01d73904b2b3e2756ea1437fd37cf283ef38beaa865b3e32ccaa6e86980": {
+   "file": "0121.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "35448d4fbf4fa96da82f895b15ecf09703c9590184bd201bd16d4cab7d6f3908": {
+   "file": "0381.wc8",
+   "ok": true
+  },
+  "365bc48d24f3856f93f340cf376ed92670ab25d9e103637a53c4ad8c58e869d5": {
+   "file": "0103.wc8",
+   "ok": true
+  },
+  "36c84a57a3fa17841960e325bb3d7b4f365d9239b7bf88eb11263df777f10dc5": {
+   "file": "0772.wc8",
+   "ok": true
+  },
+  "370c831276dcb539e6d324530dae0c502db270910689b091401601d316bb7f27": {
+   "file": "0542.wc8",
+   "ok": true
+  },
+  "372663e7b1c57ab51556e0f08a770c5dcb3f4e96c9fbe9cbb7e5a0a0d2ac682d": {
+   "file": "0087.wc8",
+   "ok": true
+  },
+  "3774d06a862542a5c22fae0b11c0c978bfbaf8c8f86b2923c739bf77be343458": {
+   "file": "0247.wc8",
+   "ok": true
+  },
+  "3823861ec4efa7cfcd1be08904eb7af9ab8d3feb7a10026afac660e3cd846e31": {
+   "file": "0416.wc8",
+   "ok": true
+  },
+  "386257d4524eb9600c6e09e794d522513099e75168686cf9313d18517c9758b2": {
+   "file": "0471.wc8",
+   "ok": true
+  },
+  "38b66a352c94cedc14ef5d876d0f44042499931a4f6f87a32387d93e82f524cf": {
+   "file": "0379.wc8",
+   "ok": true
+  },
+  "38c11096f2ba171aa1c7a271417fb0ef925c9fc76639cd745ee6cf16c0072d40": {
+   "file": "0758.wc8",
+   "ok": true
+  },
+  "397530640153ab0d2f34ab0f831a3d695dada71b214b93da24522b497cd44b92": {
+   "file": "0851.wc8",
+   "ok": true
+  },
+  "3a058073daa786588cff6d279a0b23fbe596482ccbe36dd4524dbb05a70f0b76": {
+   "file": "0668.wc8",
+   "ok": true
+  },
+  "3ab13bce669fa2f149e64cfb7e47010d939ba470cc3a567963fffeab58b5293a": {
+   "file": "0089.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "3af9a8210f38748b1dfb8876bec90e9599cb82fe76b743c10d16fa3d2da4921b": {
+   "file": "0658.wc8",
+   "ok": true
+  },
+  "3b01e99174702c72c213ba5a2128eebbf50a8f5da31f38fed63452915a2fd475": {
+   "file": "0681.wc8",
+   "ok": true
+  },
+  "3b582a83a878e11a94a854a3a2d630799c87650394c52ce3f64ce2b631452237": {
+   "file": "0130.wc8",
+   "ok": true
+  },
+  "3b6ca1959e7b9dc957ce75f92213214e967ca401f7310a330a1fdba718aff73e": {
+   "file": "0707.wc8",
+   "ok": true
+  },
+  "3b7d005d375b4246fcf3bdbfacd4515a75c38d0bb484cee1c8e14d3923153f41": {
+   "file": "0547.wc8",
+   "ok": true
+  },
+  "3ba6cad5e0752c7dc91e3639a9ea1c5f3d36cf02dfb9fa7ffaa66a7ef654c75c": {
+   "file": "0518.wc8",
+   "ok": true
+  },
+  "3be4adedc896e2ff959d4c7e44d5740b17dfa24b62865444383a777689168a6c": {
+   "file": "0380.wc8",
+   "ok": true
+  },
+  "3c7db393fd67f6d88a9999af3d6abe7a522e6397d69e9aa25cde13c2ba7d44c5": {
+   "file": "0003.wc8",
+   "ok": true
+  },
+  "3c9ed3a391327981f3138bc9d81a33b56d62e32e48ee23f4fc3b8250a1d258ec": {
+   "file": "0442.wc8",
+   "ok": true
+  },
+  "3ccb8f7335e7d10a17ad9c70188520fc85b8c92c95f9362533adbc7926e6077b": {
+   "file": "0464.wc8",
+   "ok": true
+  },
+  "3cf68d944969086d83dbd3a751f1ac568b56bd092479aacd10bfc491f5e42af8": {
+   "file": "0000.wc8",
+   "ok": true
+  },
+  "3da2a2c09c5d0f0b27508cf093c6a4afc7fdb649bef4fcadf43f5d59e2b73de4": {
+   "file": "0716.wc8",
+   "ok": true
+  },
+  "3dc4905a09f26cfb9aac8538fbd15070214407e5e66ce584e6001cea5671e33e": {
+   "file": "0050.wc8",
+   "ok": true
+  },
+  "3e253ba8a29585196f608cc077e113929268b1989c292e7a2b9be23306b7717f": {
+   "file": "0434.wc8",
+   "ok": true
+  },
+  "3e43172af4bd953ca24c771b58d51d5e38b35141045cdb9aef1f54939aa6de53": {
+   "file": "0165.wc8",
+   "ok": true
+  },
+  "3e55eda1c36c268d3e0f575c1c2d7888efd2a2da5724800af2a3f22a04cb33f3": {
+   "file": "0382.wc8",
+   "ok": true
+  },
+  "3ecf892ceda97422367f801eb3da8de3ba5b62ff38ca5954b9a761a520983abf": {
+   "file": "0111.wc8",
+   "ok": true
+  },
+  "3f0dd314c3f11fa1c9d1d512d5ee5694ae29a0911bcb9dc2901235b3ff0b8066": {
+   "file": "0691.wc8",
+   "ok": true
+  },
+  "3f750e0f6a3ed84fd6357836cd916acc0dead77a8d18e6d155749ab71204c270": {
+   "file": "0213.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "3f88b38062d6d7ca31d60747655c3eebd4781715704c592bea712250aa385eb9": {
+   "file": "0177.wc8",
+   "ok": true
+  },
+  "3feeefc517a90356e5b523b0684e5d5353af495f7e80263c89b2ce9c7c16494a": {
+   "file": "0163.wc8",
+   "ok": true
+  },
+  "401e12b0f54b07aae76b369adbfe97fd82e58feaf480561c7bdb4d3bb33057ed": {
+   "file": "0791.wc8",
+   "ok": true
+  },
+  "417a796e9f9d91b11ddd7588f39eb7b5339c6fabc3a3b75c71a9f7bd3095d153": {
+   "file": "0693.wc8",
+   "ok": true
+  },
+  "419bb77d6b28f95328f8321b649c7d85b6b3cfab5e80ca4f83e0584675a6159b": {
+   "file": "0712.wc8",
+   "ok": true
+  },
+  "41ae369fca1b0a8b1cb55a2d96d77adcbde90006e4b49ad2a38b8b803d551bf0": {
+   "file": "0270.wc8",
+   "ok": true
+  },
+  "424239ebfe9194f9f83c8bd0365347f206bd7a97a6fc4e1aeb96a147a517a9a6": {
+   "file": "0506.wc8",
+   "ok": true
+  },
+  "424f21bb70b74b3e7ab0c7987bb9b310acc2a4d7c10c07094388e7147387deda": {
+   "file": "0888.wc8",
+   "ok": true
+  },
+  "425d81b4cf0bfa14eac1bc1f7cf271abf9df0d3323afc8f063ba83d09428c6e9": {
+   "file": "0528.wc8",
+   "ok": true
+  },
+  "428c70071890b2d6397787775bcf600053a79ddaf6616c5d2d6b06c5068f1689": {
+   "file": "0400.wc8",
+   "ok": true
+  },
+  "42aad8d32bb723d8552d54a6dfa7d2d0ceaaf45efaf93a3b7d61a5fe31b7901b": {
+   "file": "0642.wc8",
+   "ok": true
+  },
+  "42aec2e975efbbefc9c8a473436f048603884217925227a9d2b02469c94bff71": {
+   "file": "0192.wc8",
+   "ok": true
+  },
+  "42c99e4b3ccc94c338d57a72c9d2f61b65ae531187c950f777f18be8c8ed9401": {
+   "file": "0447.wc8",
+   "ok": true
+  },
+  "438f61b84ebaf5301170671427b000d3f706e91c3139f83f7968391498203a89": {
+   "file": "0894.wc8",
+   "ok": true
+  },
+  "43bc685c53c8876b575add43f4d3a7389825ba1d3a3c158029e64a525bf7a867": {
+   "file": "0516.wc8",
+   "ok": true
+  },
+  "43e860db29a5740887b46e160d6aa4145553943f633f5565b29d26697df036bd": {
+   "file": "0291.wc8",
+   "ok": true
+  },
+  "4406f1caf334e396578d59dd7886b8b35f7e3a1ec6ba1a9247af859fa098f363": {
+   "file": "0498.wc8",
+   "ok": true
+  },
+  "4419bde5c18c5d879afae0598cf04415852f2715ba514bab8fa27128d879c98c": {
+   "file": "0829.wc8",
+   "ok": true
+  },
+  "44b0e2f8258ca4636118f5b331de9c3f436e76d35b62cca5f6229912612f0663": {
+   "file": "0630.wc8",
+   "ok": true
+  },
+  "44b0fbd74b8a920b46ae03a15d056264028c839370f9cb7a5e475b19930b1fe0": {
+   "file": "0164.wc8",
+   "ok": true
+  },
+  "4504cc136c70783ef09928f62784f54bf91b40d2a110b3b0c9ce5c8209ce950d": {
+   "file": "0249.wc8",
+   "ok": true
+  },
+  "45680abd7b072fce6f544ee21f24f57256be9d69fc7c30690cd3815edd06883f": {
+   "file": "0116.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "45caa6a182b96baab7e46bc960acbe2234bdc1fb3cc60273d846be237f98343d": {
+   "file": "0773.wc8",
+   "ok": true
+  },
+  "46d342ee65eb76442a0b57a6d9d960764154ef82b3b75e86929b000ce455dbd4": {
+   "file": "0918.wc8",
+   "ok": true
+  },
+  "46d56a878817d3a8ece0dba772e73f734edb8f87bb3b31e675ce8d6ee331f63c": {
+   "file": "0077.wc8",
+   "ok": true
+  },
+  "46dfe1ecd66cb3c96e4c80ff7d2b83582825b09ea21a16e4144c485526276889": {
+   "file": "0505.wc8",
+   "ok": true
+  },
+  "471ecb8cc9dbd9c1ae4950e3fb4a6cc0ac91f3095d95440247a225e295bdc156": {
+   "file": "0790.wc8",
+   "ok": true
+  },
+  "4743ee20619c1151db30e58f602db7e02ecbc93b95c31d6c1040b2b78bf857fe": {
+   "file": "0477.wc8",
+   "ok": true
+  },
+  "4771b76eb1ad88407fa011035108045102d4b3f28620629ff6f84be3c34bd41a": {
+   "file": "0375.wc8",
+   "ok": true
+  },
+  "47997f4b4cd165c197a1d711e9c9c9ab85918e341884e72c6fc6b6c3af327948": {
+   "file": "0019.wc8",
+   "ok": true
+  },
+  "47bab22f9e429bca70875136017680ecd8c553dcd28e9a0f977d38639551328a": {
+   "file": "0070.wc8",
+   "ok": true
+  },
+  "47e8172eb444355e9b7b1906d70a7765cd8f7b65da42b665dbb7161d70a6b883": {
+   "file": "0496.wc8",
+   "ok": true
+  },
+  "480c8a69c5224889cb9fd8ab26229b2559b49788177f84e8b4b9d9c61e392f51": {
+   "file": "0355.wc8",
+   "ok": true
+  },
+  "481a23d148af273aeafebde16a74f8b07e1aebfc325c41dfd86f0c3f2dfbee5a": {
+   "file": "0193.wc8",
+   "ok": true
+  },
+  "487c0315bffd3016623f057704259904da939b1f63d37a3b345615598a02947c": {
+   "file": "0617.wc8",
+   "ok": true
+  },
+  "489bbd48a81ffb151b99c4c1ab050fa936d35971228df98c9149360d8b3e3774": {
+   "file": "0023.wc8",
+   "ok": true
+  },
+  "48a139ca844b78609ca87868171e52c43cdb53ae22f1b0d581d002c874a76554": {
+   "file": "0255.wc8",
+   "ok": true
+  },
+  "4943962e3757821de59d1298b72ff4f7c90f18558f9e1c7561e005f2cc8fe0d8": {
+   "file": "0207.wc8",
+   "ok": true
+  },
+  "4960a033be7f2d3289f3c6224925b6a395fe7c1aa3a379815b30e0cf49bb5db3": {
+   "file": "0349.wc8",
+   "ok": true
+  },
+  "4975d29893bca63419f30c7b312f4f8c730fec7a55bdd69bae3c57e5fa009905": {
+   "file": "0426.wc8",
+   "ok": true
+  },
+  "497f39ea0e25c4705910b23e7add9ae542d668bcdc5cd9299762818a500aaf3e": {
+   "file": "0562.wc8",
+   "ok": true
+  },
+  "49b2912e607c2db58e15794987d72b352fcdd48d31a5ccb567fb934e9af50b17": {
+   "file": "0275.wc8",
+   "ok": true
+  },
+  "49e25884a35cb93f2db634c9c3b8b3702c9afc6ab1ef1c9d0e8639c4920b5155": {
+   "file": "0205.wc8",
+   "ok": true
+  },
+  "49eeefca658e7693dfdd037b8aebcb5ef024215d1a8e204c2b01ee0ad5168d28": {
+   "file": "0600.wc8",
+   "ok": true
+  },
+  "4ab182cd35ced56906e47074913e0ac0dda10681e6bcc75be47e2c44c0e45f82": {
+   "file": "0646.wc8",
+   "ok": true
+  },
+  "4ab362ae087307a1e1483bc6e1354c988cec455d2f620d989751abd6188e0065": {
+   "file": "0738.wc8",
+   "ok": true
+  },
+  "4ad8f4685d2968fdb9bf3496e9e5c9bead09463da369d28d22a837688ea8c450": {
+   "file": "0320.wc8",
+   "ok": true
+  },
+  "4ae66dc8d9d6e3ddba8645f2649843c865ba4771aa79dc33d3ec396917651fb2": {
+   "file": "0742.wc8",
+   "ok": true
+  },
+  "4b1d05f1a64ceb6adc7f03e51e57454383850a7ad3dae9071dc7088318a774bb": {
+   "file": "0457.wc8",
+   "ok": true
+  },
+  "4b37faa1046256255d7007052b40b5dbf4d25952d086cd80bdda187b393e89f9": {
+   "file": "0136.wc8",
+   "ok": true
+  },
+  "4ba7192faac48bd43e8a7968b3c6ffc9b54fe663bbec085d418e9c679f8bb167": {
+   "file": "0582.wc8",
+   "ok": true
+  },
+  "4bb840fdc0983e760a22026ae2abd4b46a077ebd50f8fe2bbc2c751a7b21307d": {
+   "file": "0606.wc8",
+   "ok": true
+  },
+  "4bb988c67164e28e98334fd35af028fddf0c68615c911a695a741e043f86226d": {
+   "file": "0369.wc8",
+   "ok": true
+  },
+  "4bfcd5e83c6614c71aef022ebfdaef6663f306d67a61730af673024e5aa9bf62": {
+   "file": "0533.wc8",
+   "ok": true
+  },
+  "4c082bde124f39664401a90e211dd97f5635a811448d6acf2d2e57528095ffcb": {
+   "file": "0675.wc8",
+   "ok": true
+  },
+  "4c3d107b90d6576a214bd73ec49b18a462376a13479a1988a5aefb82195d77a3": {
+   "file": "0731.wc8",
+   "ok": true
+  },
+  "4c96825cf501ed117ef1d7ab300983a0f0f9f66cd73f0c938c0b40bb3025f23f": {
+   "file": "0257.wc8",
+   "ok": true
+  },
+  "4de3713cdbb363351b373193ec267da54b3f8c6c0b32b55d175007bc435c160d": {
+   "file": "0233.wc8",
+   "ok": true
+  },
+  "4e74a102bfa42af5368e3285fe1e254fd01b8808a242b4d6422aac71769476bc": {
+   "file": "0170.wc8",
+   "ok": true
+  },
+  "4f5e4cf576d9f4d1729c32ab6244830545931426235a84c8d1617e12cc2ec5b5": {
+   "file": "0090.wc8",
+   "ok": true
+  },
+  "4fab6630da7ebbe07dab5db97d476a798300ba6bd541de7c1e1504d9a03213b4": {
+   "file": "0038.wc8",
+   "ok": true
+  },
+  "5018adae3330132da69c81466b3f29b061bd2857d7faa2b6cb01ba6ab974346a": {
+   "file": "0846.wc8",
+   "ok": true
+  },
+  "501bf79ea920975b58bfd15a664aa3b8ff2e55347cddd501a43d5ed26a8c06c5": {
+   "file": "0357.wc8",
+   "ok": true
+  },
+  "504e0b36c6ce1d6c7a6b13e75f2cfd65b7699a863a891eff339f98970503a232": {
+   "file": "0671.wc8",
+   "ok": true
+  },
+  "509bfbf5b6ba327e53fb3a03a98823c21ccc47457468751e06d3187e5151d315": {
+   "file": "0558.wc8",
+   "ok": true
+  },
+  "50bf89016fecf7365ff597337e7d26a4149cc9a777154ee2b35ad9c0f12c97d7": {
+   "file": "0482.wc8",
+   "ok": true
+  },
+  "516fc1233e3db542b921a1ea8e84b1ad011d30f412bf4b04d55e6e3523fac853": {
+   "file": "0418.wc8",
+   "ok": true
+  },
+  "5214800d55cdc73e87b9867708650a39ca1447c7a19d3ebc77e3d61c7ca6c3df": {
+   "file": "0040.wc8",
+   "ok": true
+  },
+  "52192d946f10a6d7c85e7d0d0d5e8beb5954630623ab081b024ebb003ba70b1f": {
+   "file": "0430.wc8",
+   "ok": true
+  },
+  "5222bdf28b48b62e91353cde2af39be0dcd786e82be3e2bc5773261ad02af73d": {
+   "file": "0530.wc8",
+   "ok": true
+  },
+  "522d615e6e32d232d8f0b80a7cf5215d5ddc4a80d0f7ae5977695ed8f8b8f7f3": {
+   "file": "0148.wc8",
+   "ok": true
+  },
+  "5239a7ef0e47a30a3ca2529b0b9471a8ce02eec0dfc7f05bf686ebe409c5bbc8": {
+   "file": "0278.wc8",
+   "ok": true
+  },
+  "527a75cbf4ce12539e154d756b758ca081538468ef302e90f1da27ce8e11483c": {
+   "file": "0176.wc8",
+   "ok": true
+  },
+  "52c15a477c8e6448c1e842c42de13a45b425af6866349efd9896ff165f2b485e": {
+   "file": "0036.wc8",
+   "ok": true
+  },
+  "530549388cd676c57ce57de196b2f5c0a6fcb322044b6e9adc83289e6722f076": {
+   "file": "0330.wc8",
+   "ok": true
+  },
+  "5371cda68b4cf7f93e0ec5703504e844330b7aae6724bc9d4217c0ab3755fc33": {
+   "file": "0386.wc8",
+   "ok": true
+  },
+  "53bdaef06499e24f68af6af0778281f0620dade122270d2642cd356186f124cc": {
+   "file": "0493.wc8",
+   "ok": true
+  },
+  "545d406a3555d2bb7247a311068facd276bb27cd9b29e880570d7cbef6e59eb9": {
+   "file": "0279.wc8",
+   "ok": true
+  },
+  "547e6d38f04e863284b8862582203ceff2a46091a9bd2168ae69d0b9292499db": {
+   "file": "0290.wc8",
+   "ok": true
+  },
+  "54e6a3ca3fb503e4762ca22c529161be47a3899db0a8a39f5d249b10736bce48": {
+   "file": "0475.wc8",
+   "ok": true
+  },
+  "552c324eaea149d45b12a502fa6a94c1aa736408c653ccad1446a809c43b98ce": {
+   "file": "0415.wc8",
+   "ok": true
+  },
+  "5561176a3dd38f6381e572614d20baa3a385835d76a65c32b067295b31724249": {
+   "file": "0095.wc8",
+   "ok": true
+  },
+  "55b8286d1e325ca354dfd34799e769dad313bd8efd092cf19e1c2a4c850b4e03": {
+   "file": "0567.wc8",
+   "ok": true
+  },
+  "56348c4364a5570e95667e2ae95b2e6a586bf0918789510073c9d55768639ab2": {
+   "file": "0819.wc8",
+   "ok": true
+  },
+  "566855adac81555ff222f7f31fff744c916c56121475310049c4ff1f274a122f": {
+   "file": "0718.wc8",
+   "ok": true
+  },
+  "56957eb54990d01294cb5bf8cfc246c62afa636f44ba204538965828e25db27c": {
+   "file": "0140.wc8",
+   "ok": true
+  },
+  "56c8e9a96dedaf36fb620ee0416a11dcb39d799e32b4624568f6fbd23519128a": {
+   "file": "0573.wc8",
+   "ok": true
+  },
+  "570daa2b24e104700a3c99e4a1fefd9c76f2e2740a9a02dc36a99617a0bfda87": {
+   "file": "0254.wc8",
+   "ok": true
+  },
+  "57158443ef38ce79201cc68bfa22ca13df796124f9439399f7786200dccf000e": {
+   "file": "0655.wc8",
+   "ok": true
+  },
+  "571fdf091216ef83c14eb055a2aa8bff8340f03bad2620c61193de9b77a12eca": {
+   "file": "0101.wc8",
+   "ok": true
+  },
+  "575de22ede82d0b7c3c4c24bbbf5cd6b3fdb21b9b603a49a8c03820386438ccd": {
+   "file": "0037.wc8",
+   "ok": true
+  },
+  "578ad999b1542d9b5272e3aa8e3d3545ef15e80d00c4dd809867f542881f1295": {
+   "file": "0429.wc8",
+   "ok": true
+  },
+  "578aef2b8d7656a25be95b353379d0fad94806b3e438fa141082807f5dc2ef46": {
+   "file": "0580.wc8",
+   "ok": true
+  },
+  "57c163f6827ec1dc71299dc4bfe64df42e4bc9af0bf13ee8539c19191519dede": {
+   "file": "0727.wc8",
+   "ok": true
+  },
+  "588f7054a08b7c8cf6eb6713855166015e0341bd5bd808900b1bec38e5310256": {
+   "file": "0339.wc8",
+   "ok": true
+  },
+  "58d6d351a49142cfd82740da3c6019cd2a6ee423043af18bb072567ded020bf0": {
+   "file": "0656.wc8",
+   "ok": true
+  },
+  "59ae90a0dd176d3a92322bb95983d76fb6a917e81d01e6534b25015e5bc01a26": {
+   "file": "0359.wc8",
+   "ok": true
+  },
+  "59d10628fefc8fff27786541e777ff8d88c84b8b2200c7ae776ca3f99c6c64e3": {
+   "file": "0289.wc8",
+   "ok": true
+  },
+  "59f397c0f939742a62ba45afdf3cc78d0a4a37b902b9269d14e3cc2315d3fd07": {
+   "file": "0277.wc8",
+   "ok": true
+  },
+  "5a0129d93891aefded6d8abceb04d20c136911f8911eed45a5920a6f748dd2a3": {
+   "file": "0406.wc8",
+   "ok": true
+  },
+  "5aa6b52b07c6d99d4065621064f8f9f9aee925323f6a2a927d20599238299d3b": {
+   "file": "0224.wc8",
+   "ok": true
+  },
+  "5ab1a3eb26cd2ee78e7a7beb0db653ac54010c80f6560dce1292920aa18d7dd1": {
+   "file": "0884.wc8",
+   "ok": true
+  },
+  "5b5d08988fe4baa15903313f5b4294cfe676cb24ad6b60f95817735d1c045206": {
+   "file": "0685.wc8",
+   "ok": true
+  },
+  "5b96edff770df218676589accc992afde79b5a1f2f47c3531e6a6f35d0dc54a3": {
+   "file": "0063.wc8",
+   "ok": true
+  },
+  "5bd9c92d68c7a6bf644edc5fa30422c171a80ed6e23958b46435cc66f948cc05": {
+   "file": "0560.wc8",
+   "ok": true
+  },
+  "5bf914867e55a1fcc65a7481b51ca939ae23f72e41236d0f47b5d1a52f01d84c": {
+   "file": "0306.wc8",
+   "ok": true
+  },
+  "5c7b6ced3a7c7ca521001efb7e632416df9b66f2ab0a19e85207c4a7e78594f5": {
+   "file": "0204.wc8",
+   "ok": true
+  },
+  "5caec547e42ba413ba76c96957a5e60b9d28f3414a876e67016018b1715aac00": {
+   "file": "0843.wc8",
+   "ok": true
+  },
+  "5cf89aa57da2767c3860a5a510bdce8bf1a5ef93e8d94aceae8bac4d855fb0f0": {
+   "file": "0088.wc8",
+   "ok": true
+  },
+  "5d0955bc8e46bec8f2c180479e9ad4b0c9068c2dd6975751050d9b871e5e0e89": {
+   "file": "0616.wc8",
+   "ok": true
+  },
+  "5d2b16a7d1e7565eed5f9f13209354ace0e02357dd71b3cf5301b779e02bc4cf": {
+   "file": "0906.wc8",
+   "ok": true
+  },
+  "5d690025d65c8089cd12815428004450f82f47290a4e08b71f347843b06fff47": {
+   "file": "0651.wc8",
+   "ok": true
+  },
+  "5e2e279e28533e23099e155b0a216abb69343b44069ba3ecf658fb0e3cfdb1eb": {
+   "file": "0190.wc8",
+   "ok": true
+  },
+  "5e800537aaf685c57d4edf55ebee7f67d0b033f92eca2e4ee6674f139e6fda6e": {
+   "file": "0672.wc8",
+   "ok": true
+  },
+  "5ea5620eb479c04033b16d6b23081d4b8f8f6daba801202c141ea07f40c036a0": {
+   "file": "0195.wc8",
+   "ok": true
+  },
+  "5ea5d126317b7c411f4dcd7cad79131e52b8b4940ac0c3e3beed79415e84a474": {
+   "file": "0292.wc8",
+   "ok": true
+  },
+  "5eb5c1cb296386324604f12ef4f1174b4cd169c333bbb3434665e2dff0fe6761": {
+   "file": "0263.wc8",
+   "ok": true
+  },
+  "5eceafa6bad5dc4fbe4c0a10260ca87f045def6d6735eb21bd960e158a03ca82": {
+   "file": "0269.wc8",
+   "ok": true
+  },
+  "5f5276debe6821af14a20371d94576344770b88e89f765bc625c94c8345ec43c": {
+   "file": "0622.wc8",
+   "ok": true
+  },
+  "5f54c29634e3a60e1cd5c128ed6377b5e709671095841abd9411373837cd2b71": {
+   "file": "0091.wc8",
+   "ok": true
+  },
+  "60b78b0d994c4c97b40afed8a42f4cff59247ae337a5dbf5b94acf30eba642da": {
+   "file": "0490.wc8",
+   "ok": true
+  },
+  "60e0c45114fece487ddee1cefb7daf2ed220b259983d7b600e6cbc2bb017b793": {
+   "file": "0211.wc8",
+   "ok": true
+  },
+  "6109795d69c341c60aa4e9540156f76d084946405a1f98f50c8fe25f197b2f3e": {
+   "file": "0484.wc8",
+   "ok": true
+  },
+  "612075b46c1fc25bcde5f7d175f1af172cadee8102e52d9e5498c115eaf83275": {
+   "file": "0155.wc8",
+   "ok": true
+  },
+  "617e5aa09805d5a77d1b5b8b4e9300d65e2915fe2e947049278378f71bacc723": {
+   "file": "0750.wc8",
+   "ok": true
+  },
+  "61ff8c98c8789d25b6cdffa39a76b7c784a683fdb7cd7ca1e8656ee55e1204a3": {
+   "file": "0405.wc8",
+   "ok": true
+  },
+  "622b0c347e4a489244c887282715eac6dd1fb72427e9ac5d7d05b98558eea9a6": {
+   "file": "0419.wc8",
+   "ok": true
+  },
+  "627aad9a47fa969d0952b337ef847f4ed58c52cc91fe02eac53b39b45397ea81": {
+   "file": "0774.wc8",
+   "ok": true
+  },
+  "629c52886baf850f73fe0667191be3142c3503f2b903b4b585a26e93c5e89de1": {
+   "file": "0053.wc8",
+   "ok": true
+  },
+  "629c84a233a32a9572744c823248316ddbc1672dccacec7f61346d2bde1c4d15": {
+   "file": "0678.wc8",
+   "ok": true
+  },
+  "62a91c11f1adc9aabf2261a229b73e2b0f4522ecb9e2e76d0771df75fc221483": {
+   "file": "0545.wc8",
+   "ok": true
+  },
+  "62ca1f0c8a6bea6288ca2b1b2e7555366e5c28b846839954ba7ba8225e8c9e9f": {
+   "file": "0046.wc8",
+   "ok": true
+  },
+  "62f4dee2a2216b65a79f2b8e7cc765c35aeca563f2a730a5396bd1a7fced8fd1": {
+   "file": "0760.wc8",
+   "ok": true
+  },
+  "631f1aa76e20e3503c2954934f811202b5499c4c50f648bc2eda0b5d14990a7d": {
+   "file": "0644.wc8",
+   "ok": true
+  },
+  "635d1c3a374db9bd2f62145f392ade53c1132035b772e40aa3a8958a6c81822b": {
+   "file": "0637.wc8",
+   "ok": true
+  },
+  "6369ac8b4a3f6e1e28b569bfa90fae3421261ff5c08e4498cf8dbec38d54b546": {
+   "file": "0068.wc8",
+   "ok": true
+  },
+  "63bf5e71c38a519aac57637b83549847f378735bff849b10473519a385cb3c7c": {
+   "file": "0131.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "63d92569a93a01bf0d4c0684b639748e67053b2481a96511187b3621d57efa6e": {
+   "file": "0433.wc8",
+   "ok": true
+  },
+  "644b6c82c31e8fa70ac18d0fac377e84d367af07eff5d2106d7649aa0122431c": {
+   "file": "0097.wc8",
+   "ok": true
+  },
+  "648956d10fab4e3755b1b07efcdc0c9e9b5905967486de05029083602a555602": {
+   "file": "0736.wc8",
+   "ok": true
+  },
+  "6489fe1d4abea95f05c244c9dc1d15d32a46eabb12973694d0c85bea0d328a22": {
+   "file": "0153.wc8",
+   "ok": true
+  },
+  "64d8268d2ffc28c6ddb7eceb6b9254765a5cca1f03337f4634300d095048b1ec": {
+   "file": "0907.wc8",
+   "ok": true
+  },
+  "652d0b90517a15f9f6acc96a5564394502c9450991b9861c809e92d07f6b1683": {
+   "file": "0676.wc8",
+   "ok": true
+  },
+  "6578b8866a04f602c915688f2307ca6e3f079a25bc0ee21a93da198d6da2b554": {
+   "file": "0867.wc8",
+   "ok": true
+  },
+  "65f0e36400eac55b8d0083aaaa36e1af7ea551f6bbf98e1e80cb718d1eff17f3": {
+   "file": "0801.wc8",
+   "ok": true
+  },
+  "666248b5af316c04c96b2e642700416c1b013a4cda6afc351f39a532650682d2": {
+   "file": "0326.wc8",
+   "ok": true
+  },
+  "6720c51f0a93a16af0ba473c6baf62e1cb8d8831e54d28f99959eb5ffdf23017": {
+   "file": "0146.wc8",
+   "ok": true
+  },
+  "684917f6cfaf69f7932627c9808b6866900cb4f59d45e50acd064019ffef9009": {
+   "file": "0872.wc8",
+   "ok": true
+  },
+  "684e8048b9d51cf9dab24d754154de850208fe312a37754e015964aa20874f7a": {
+   "file": "0480.wc8",
+   "ok": true
+  },
+  "6854dfd5804d18c633bf7edf7e8c7dde789e047247eae098e125b2c32f93a980": {
+   "file": "0845.wc8",
+   "ok": true
+  },
+  "68644ebebae039106c26fab7569c07c30a60d6e801ebf359a83cd5309dfc4857": {
+   "file": "0632.wc8",
+   "ok": true
+  },
+  "68b973abef044ec37c01c9373053607159dfd386f83d400a5e95af726461bfd4": {
+   "file": "0024.wc8",
+   "ok": true
+  },
+  "68fd54fcc08e66357911c962875b483c6eb6d98f3f960b92b29553208c1a7865": {
+   "file": "0626.wc8",
+   "ok": true
+  },
+  "6984f7b3f29ad73faa29918f01a59d2f54f614d6bba499fe8f4c81521ecfda79": {
+   "file": "0624.wc8",
+   "ok": true
+  },
+  "69af0e1f5cec3312391186503c9aae096121516f9f970b4e500ea32cd7f3ecb5": {
+   "file": "0550.wc8",
+   "ok": true
+  },
+  "69fb481e2e98baa7bfb7a21898af68c7cd25dea48b8ce00db130eff892c949ca": {
+   "file": "0001.wc8",
+   "ok": true
+  },
+  "6ad0d5985a369a0962c3197ca45fc65c2fc405e445c86f43fa853a7912073fa9": {
+   "file": "0724.wc8",
+   "ok": true
+  },
+  "6b1834bc1d1f19652a85836e17df2058ff1662723992b63bc6d2474298795296": {
+   "file": "0661.wc8",
+   "ok": true
+  },
+  "6b69433166511897bbd775925c651535d63c8726d6ed64e269868572bfe2f52b": {
+   "file": "0080.wc8",
+   "ok": true
+  },
+  "6c2d8849880a16163b98035970b46056de0ab4bc1d8b928b1bd30bbfb544d225": {
+   "file": "0425.wc8",
+   "ok": true
+  },
+  "6c2db3f878944f0d8ea83e8e410b48baba3bf848ea76534d2b1c2550217a5b40": {
+   "file": "0631.wc8",
+   "ok": true
+  },
+  "6c9aa614b9ba40cd9f670ea0f4ba7c48bf7ddbd1e2f95280de53a47ba53e3a43": {
+   "file": "0120.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "6cb40a8269d7b0d62b6d573360b5622a4b58ca35877158b2725759871ed9a8f3": {
+   "file": "0055.wc8",
+   "ok": true
+  },
+  "6d973c95c0952205c2496d11764a98b9114b4cbfa25958acd993a2a93b7cfc0d": {
+   "file": "0099.wc8",
+   "ok": true
+  },
+  "6dd38d80c3e236a0c3b4f4b6aabe9dfa27e7758ba03ff60c8f8c9eb754c4d095": {
+   "file": "0276.wc8",
+   "ok": true
+  },
+  "6dd8e33bccc2dcb5edadcd9fb70787738426f01721aa00d9f53662521126a7c1": {
+   "file": "0321.wc8",
+   "ok": true
+  },
+  "6e5cc9fa7ee901ec16f6bfc59145a6777b8a66d2b460f62751602dafef090ec7": {
+   "file": "0319.wc8",
+   "ok": true
+  },
+  "6ea258318252f749d61e9bccf75335ca80fe4184192c6036d7980797f7265b02": {
+   "file": "0424.wc8",
+   "ok": true
+  },
+  "6ed743a6b0d10b85f833156fe289c9580d9a474c5d4b35e6de0426493befd74e": {
+   "file": "0763.wc8",
+   "ok": true
+  },
+  "6ef995d4b6d92632c1e7b41fb0e3b204def653fc6ae36096c053ac4ea8f1e900": {
+   "file": "0583.wc8",
+   "ok": true
+  },
+  "6f0d9f965ad9dc8d6f29600f4855a59b242f2e86fb5922546052a434496b011a": {
+   "file": "0407.wc8",
+   "ok": true
+  },
+  "6f278cde090056b2baf340e3b56064b053de5acfbe371144d2edeb13d2577e37": {
+   "file": "0189.wc8",
+   "ok": true
+  },
+  "6fff4f8fed47c91f4e9acf1340f63ea594e7ce37c7fcecf159e2e9a1ce91557d": {
+   "file": "0144.wc8",
+   "ok": true
+  },
+  "7052903630d8421629690738f0331b30d4c5b724c691c0bf32889e5e13f8501e": {
+   "file": "0553.wc8",
+   "ok": true
+  },
+  "708cf65c8e34527e36f441d922f8d25edad967ced6788e4b7b28c5b0bebe61c8": {
+   "file": "0860.wc8",
+   "ok": true
+  },
+  "70cb67b5438a3f72d20f33fe612af69a63b9ae0306ae898ee0e3742b7ed20c73": {
+   "file": "0079.wc8",
+   "ok": true
+  },
+  "70d29ff3797bfc574617889b6b776a2b570f6f77e708f92107502ab312ae922f": {
+   "file": "0427.wc8",
+   "ok": true
+  },
+  "720decaee1099da01f1cfde82894562b1873ef4e2590e06608016c68ecd6095d": {
+   "file": "0252.wc8",
+   "ok": true
+  },
+  "721dd40ed0dbf79dd6983313df85a131774122e7922dca9a62e0b8382d98a2ab": {
+   "file": "0645.wc8",
+   "ok": true
+  },
+  "72407bda2f318ff96eab6295b3c10cf7d7fcf88707aaf5466f5d55d4d8700ae7": {
+   "file": "0059.wc8",
+   "ok": true
+  },
+  "7247737b2b7a645e4ba8d082801aaff9f8a1f9ee526e51a6d32a451a4b1d3e67": {
+   "file": "0260.wc8",
+   "ok": true
+  },
+  "7258ce34fa9cbe64fa1212177faf2e4007e6613a2872938bba751f32d321eae6": {
+   "file": "0607.wc8",
+   "ok": true
+  },
+  "725dbf68bc606bb2f80cd9015e1990b26c64e7590063f8a4423060db44636ade": {
+   "file": "0744.wc8",
+   "ok": true
+  },
+  "725f0558b3b82b151edf6024e55b954c69226d018b951c6ff6855a1f21910573": {
+   "file": "0218.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "7260654e9422a1627d8e6bbe50c84a7699b230a5869211f0d9780f2c0ed779c5": {
+   "file": "0352.wc8",
+   "ok": true
+  },
+  "727cb7fead16e1b165cbfcc28ef4b90d07285a4f89cbceb10f5c199955731f26": {
+   "file": "0403.wc8",
+   "ok": true
+  },
+  "72a2d27824041a51d0f2db65e65e2a567956a22574c10ea2d0299977113de6dc": {
+   "file": "0180.wc8",
+   "ok": true
+  },
+  "72fbbff05fe9f5c651cf49133d8a87f7a5a1c417c026d9c76b6a2133fdb60896": {
+   "file": "0058.wc8",
+   "ok": true
+  },
+  "731c0ae6bc5555b0ae564506dba91dfe4864da6f77ffe42a117830b24ba58718": {
+   "file": "0682.wc8",
+   "ok": true
+  },
+  "73bdddaaca7fbfd162d2fa1c1386131afa0a78ba21d82df85eb7c1b1e7946264": {
+   "file": "0814.wc8",
+   "ok": true
+  },
+  "73ec5eb91562086cff71cdbed394aa0bb971cf73ca16a289c5fcdd34cee306a2": {
+   "file": "0488.wc8",
+   "ok": true
+  },
+  "746637f72244b74bdcae9f068c72c28cc016145111837b18110eb68a222f234a": {
+   "file": "0753.wc8",
+   "ok": true
+  },
+  "746760d4b708a7c0ceed6b33b9323e7062dceb8e0011b741364d6a050ec7b24e": {
+   "file": "0633.wc8",
+   "ok": true
+  },
+  "74f0686dc0b4cb989247bb6b9a0c7267fd1e4564dacd7cb4b6ade4c3dbb972a0": {
+   "file": "0032.wc8",
+   "ok": true
+  },
+  "7510a85d1585f7726965c851aab7efad0b705102a6c4ca4702c31ac81a998496": {
+   "file": "0384.wc8",
+   "ok": true
+  },
+  "75ab7da4b48f0afa3cf1f2dc695c74af7072015902784ae61aab69208427549a": {
+   "file": "0377.wc8",
+   "ok": true
+  },
+  "76354654016647f08972e36cb9bb5e449a674ba7181ea8db50a9f58c0c4df6b6": {
+   "file": "0067.wc8",
+   "ok": true
+  },
+  "763a4f85c120167be2b7edddd61ebf306bdfe56a6bebeb80d19d530061ff5731": {
+   "file": "0652.wc8",
+   "ok": true
+  },
+  "76a07084be1deb78cd2f2b3ca9fe0ec2cc133b2c90e3991621ef315a4ed50e0c": {
+   "file": "0796.wc8",
+   "ok": true
+  },
+  "76c72c9acd8eea2f776b4af309630ed00b67bb6986b6e9871616ca68a18ddc56": {
+   "file": "0828.wc8",
+   "ok": true
+  },
+  "76f4ae8eed61e5d4626f88142777b77fd8f5a70558302895bdd0edab095607b4": {
+   "file": "0108.wc8",
+   "ok": true
+  },
+  "77720ef83243cd24639793b9dc58cfa669497656a66005ff9618d51f1b4cc82e": {
+   "file": "0042.wc8",
+   "ok": true
+  },
+  "777931ab0ea426c364ea89a13d27176a38298f1554ad660fce47fcbb98b89ffd": {
+   "file": "0537.wc8",
+   "ok": true
+  },
+  "77d79902fcd71527f9808257e9cb5d5f6c273b05f0512f1da3dffac7db91418e": {
+   "file": "0191.wc8",
+   "ok": true
+  },
+  "77e9473861f8070aa32ca3395cb9cb00e5ec86fce3a381bd846c91c02af00702": {
+   "file": "0509.wc8",
+   "ok": true
+  },
+  "78431b2576b3142cae44421b74d47ebf8f23103af00521c0510c3572a6641a4d": {
+   "file": "0437.wc8",
+   "ok": true
+  },
+  "78492e2b680a263b60d5ac41ee13b16831abf095c13dd572c94e876285d2ba00": {
+   "file": "0526.wc8",
+   "ok": true
+  },
+  "7866b83372395a4d178d2276a6fc01f6bd191b1b445c835f09d29b5116d663ab": {
+   "file": "0876.wc8",
+   "ok": true
+  },
+  "7880b39470308cb13bbc389c85fabf334fef46c3c7ed8f0e9708609834a4dd1b": {
+   "file": "0874.wc8",
+   "ok": true
+  },
+  "799c6a6421236907eef053262254d80b5f3144a7ad72fb603364829a40e479fb": {
+   "file": "0237.wc8",
+   "ok": true
+  },
+  "7a30ec12cae4114d117db39072d53ea5df2fed00a3adf87b63f948e29dfd43c4": {
+   "file": "0769.wc8",
+   "ok": true
+  },
+  "7ae4d7a1653fb32e93d0761d9ab09d7aa12062fb6316bd0cf984a8a8072dbc99": {
+   "file": "0815.wc8",
+   "ok": true
+  },
+  "7b70cae664df082f0edccfabdf6eaeda5a70f897a54001c00ebe56aa09a88a8a": {
+   "file": "0243.wc8",
+   "ok": true
+  },
+  "7bf773c76cb9042981af313762f6222a840a82346d6623a9536480c2843593df": {
+   "file": "0921.wc8",
+   "ok": true
+  },
+  "7c5ce45f6112499f04a797c87bb4ffbba85a05b816d86343cfb592f54b6f855e": {
+   "file": "0540.wc8",
+   "ok": true
+  },
+  "7c801b0f78b53d842e7ddcab1c6952847bd962ad2c4dadfe4f6961c3d35d2f9a": {
+   "file": "0307.wc8",
+   "ok": true
+  },
+  "7cf5e57c991f1bcdcdd91a9a4240ba172bc2d02ef6fb50dfd4b329adcb00e60c": {
+   "file": "0049.wc8",
+   "ok": true
+  },
+  "7d39d4f1a94768a6f3662ae797d2133c22cf2d119050f23c30e913cbdd5d03dc": {
+   "file": "0452.wc8",
+   "ok": true
+  },
+  "7d9eeeac61fbbd4d4720a095614ca40aecdf59f43291754624f9f3edb351b81b": {
+   "file": "0868.wc8",
+   "ok": true
+  },
+  "7df54144881b204f7ae23950484b35333425fa9b5c80262aa01cbc0eb5aaece5": {
+   "file": "0680.wc8",
+   "ok": true
+  },
+  "7e0efef0d8d8eab5ea2e1dcac0951e0ea90dfdc22a1fb5f6db20dc0c0c55ac23": {
+   "file": "0559.wc8",
+   "ok": true
+  },
+  "7e304e91fd8b2b5a8e473a0ce1932bfbc4ea9677b0242a12a7b48176a20fc576": {
+   "file": "0134.wc8",
+   "ok": true
+  },
+  "7eada352c928e31200f2bf4c93f77696b823bb1b7aa180e29ed13ef406f51adb": {
+   "file": "0889.wc8",
+   "ok": true
+  },
+  "7eccb40b1b01c56f74912190ceaf9c0c06137338fab3a5864d82719ab0d66fda": {
+   "file": "0084.wc8",
+   "ok": true
+  },
+  "7eed1ccda9a79925916c9cd58e6bf977176b000c66ecda8efa8cab66a0028be8": {
+   "file": "0581.wc8",
+   "ok": true
+  },
+  "7f745512ac6b4a5ebb87c3a99d725cd71527a311a0f12f246b54e4c5f519b472": {
+   "file": "0913.wc8",
+   "ok": true
+  },
+  "7f8d35f3c92984b9a6bd26aa33d4514e7e5869aaa83c5a2d1919a2a0041f1194": {
+   "file": "0226.wc8",
+   "ok": true
+  },
+  "7f90c896520440233c555182d5f6013dc438b8a3dc017846727cdf13ecdf3df5": {
+   "file": "0472.wc8",
+   "ok": true
+  },
+  "7fa0de521461719430880ee477ba994492d5016139e831e9f9b328a9d0a868b3": {
+   "file": "0128.wc8",
+   "ok": true
+  },
+  "7fa38ef147d5867a4ae0371a8e8e41c0e243da37f64a842954b725b661c48591": {
+   "file": "0014.wc8",
+   "ok": true
+  },
+  "7fbd104d89efca4d821b9223740957212931c62c2acf10a7a000509793e90380": {
+   "file": "0821.wc8",
+   "ok": true
+  },
+  "802409dc0565aad342f00f3dc4c9659529a54aa4c41d1ee5744552ac04a12e61": {
+   "file": "0574.wc8",
+   "ok": true
+  },
+  "80391d4d9aad7d47b3cf8744e00ee416c4403dd453387538c3a008fb02789649": {
+   "file": "0816.wc8",
+   "ok": true
+  },
+  "80627a8e5f50e784aabe91688fed47cea9ccff3474174106db3cbd8e624c3750": {
+   "file": "0783.wc8",
+   "ok": true
+  },
+  "809d93523ce15f0ef31bf51aa7b1d03b781ad9c1350154d90da282a6eadfed53": {
+   "file": "0909.wc8",
+   "ok": true
+  },
+  "80b381e50cf3a8a7e8f164bd504559019c3a718fb65f710951bb580d4cc32a26": {
+   "file": "0810.wc8",
+   "ok": true
+  },
+  "80e4a5cf9f52c1eea583bc988613d88f480291eb23243fd323bde1c6fc9503d2": {
+   "file": "0284.wc8",
+   "ok": true
+  },
+  "812678432fc85b3c3171b56f5c0e467999b235f6f24749c45ee9691005e5f21a": {
+   "file": "0544.wc8",
+   "ok": true
+  },
+  "8136a4f395d390927573f4dc8a0eaa0cb5fa2fbf5d22aa4e7b72634a531d232d": {
+   "file": "0481.wc8",
+   "ok": true
+  },
+  "813cb2f9d8f4e3f947218c2abf66cceb7f3a6648f053554e3339c5233ad13065": {
+   "file": "0322.wc8",
+   "ok": true
+  },
+  "81497bce85563cd9c6ab3cf2fbf62807720d4fd55a53d9ab8c43561ec13efa7e": {
+   "file": "0524.wc8",
+   "ok": true
+  },
+  "815f7832d69f224ab97628ac5a91156f74ca06d2f861a5ae4df82011f9d6579f": {
+   "file": "0614.wc8",
+   "ok": true
+  },
+  "8167138a2cab2c36d9e1ff25e0233e01fbcbf80e155bcb3721dccb55c4b8bdf3": {
+   "file": "0258.wc8",
+   "ok": true
+  },
+  "818fc5ca15101ee6fbec79c596fbb7889cfe5e6bc630a7438bad885aec4ef3c9": {
+   "file": "0065.wc8",
+   "ok": true
+  },
+  "81d5b611fef2b6a0b219f111119ccd2fddbfa1c245cbe07dfa153065eefc4819": {
+   "file": "0697.wc8",
+   "ok": true
+  },
+  "83018e886d31c7643ac141c38519126899bb8a46ba6e7b111c84a77ff1748a4d": {
+   "file": "0076.wc8",
+   "ok": true
+  },
+  "8338638f552214a0c238d9c9420e7a2b6162360f5f277db9478e0d99aee2fe95": {
+   "file": "0613.wc8",
+   "ok": true
+  },
+  "83d85d105bbfdf7b5c3d2777d7c03ba069b45df2639236482f9b3a368131ee06": {
+   "file": "0373.wc8",
+   "ok": true
+  },
+  "841bc1af9d6a845fb35b2056ab0e6d786207dc423586bbfe4bb800ccba978515": {
+   "file": "0139.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "8420442ff75f4237ef3df1553faff9b129dc27f491b28acffa6ea82ecc11f603": {
+   "file": "0605.wc8",
+   "ok": true
+  },
+  "8430fd951262dcf624405a6d4c2e5ab20457517b8cf8b282d9303829a36336b9": {
+   "file": "0105.wc8",
+   "ok": true
+  },
+  "8489bfb75c7b9dd6735b7fd515b56e0020d288b8b88b1bfb5cd0f023f9504940": {
+   "file": "0924.wc8",
+   "ok": true
+  },
+  "84f6fc28d1369dc4d168bae0ac2cd913bf3ce90ef980c28ae9cfaa3fed55502c": {
+   "file": "0898.wc8",
+   "ok": true
+  },
+  "85242ddc05c4cc455882248f824393d214d189cd16d65b7fb300dc6853b8f430": {
+   "file": "0776.wc8",
+   "ok": true
+  },
+  "8567bb678447659c0cf15ef982da0b5230765c912de1c2fa6724f65d908e8d8c": {
+   "file": "0334.wc8",
+   "ok": true
+  },
+  "85e6d5bcb86328306b677a6b8417deae038f7939a9be0c25ab020e0a8cdcb235": {
+   "file": "0156.wc8",
+   "ok": true
+  },
+  "8628b53adeb5c5a5ae84eec924e87fb9eeac40d0916001e00070dc3275f33125": {
+   "file": "0232.wc8",
+   "ok": true
+  },
+  "86653aa7c56b98d1656ed8b3624d47865d9adc019ad35ef0e65a53b1305f0131": {
+   "file": "0467.wc8",
+   "ok": true
+  },
+  "87b48c2a5d81b0527318945ae5cff9eb7d2ebde271f6d7ef7076841986fd0af6": {
+   "file": "0162.wc8",
+   "ok": true
+  },
+  "883ce3eafac3cdefe8ed11da933ff7f37acfef043df7c9182bba5cf815264b88": {
+   "file": "0122.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "88637008aeb9beb8de656226c7c058913114893a7cbf3937de788003d8c76166": {
+   "file": "0113.wc8",
+   "ok": true
+  },
+  "88b004bade70970d191211b76e8683975c0cca0b77d8b6683e0ba5a7138ba3e4": {
+   "file": "0368.wc8",
+   "ok": true
+  },
+  "89ffc2c3452d9b8b206240072f1ab0d2020a34045bbb4ff66ddd45c98bc9f93a": {
+   "file": "0494.wc8",
+   "ok": true
+  },
+  "8a30c3c4c47d4274fe84d0d0cead77d17e2c00c2e674fbeaabe1957fb73fe362": {
+   "file": "0531.wc8",
+   "ok": true
+  },
+  "8a5aaac430d91b44cd3f1bd2452449ad5a7e8589b1ea3904b6f0eb2d6f9a4d30": {
+   "file": "0022.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "8a7080b1eb6223a52ba4981e35d9d91daf83bc464a7e5c51cb1aa31210d8ba19": {
+   "file": "0597.wc8",
+   "ok": true
+  },
+  "8b49af330eddd52c8f1f8ee63b944865f5f590a81c8c8882e752c149a5ce6587": {
+   "file": "0295.wc8",
+   "ok": true
+  },
+  "8b4f25f4dc28d747292c0bd2619ec4b9ce666e313b17cf39196648102c255acb": {
+   "file": "0667.wc8",
+   "ok": true
+  },
+  "8bc5b8c4a0090a6ef7ab9d4a167fa474c93913ca40fe9048648660b3138845da": {
+   "file": "0893.wc8",
+   "ok": true
+  },
+  "8bf373306ee60f354c4b657c2289c3ebcb32d688bee6bccac6778ebaddf84f5b": {
+   "file": "0465.wc8",
+   "ok": true
+  },
+  "8c02c0330e39be9f0b0f6e325ea71651db08f2a549480f16610c3e47d7d26b1a": {
+   "file": "0611.wc8",
+   "ok": true
+  },
+  "8c1d0f88ad66bbbebb72cbf200923a85c198aa43bc44010f84e2458881eacedb": {
+   "file": "0728.wc8",
+   "ok": true
+  },
+  "8c4a322a3016dfb0c3f563a7f890923f13e0d14d5b5592de73b10dbffc5883d3": {
+   "file": "0848.wc8",
+   "ok": true
+  },
+  "8c835e097ef4e73bf4103508412d1b916ba6938071b2045df241985398d74b6f": {
+   "file": "0246.wc8",
+   "ok": true
+  },
+  "8d2c08983f4923607b4b0a41660bda9cbf0fa05593bffabebeb93a3de21af40c": {
+   "file": "0757.wc8",
+   "ok": true
+  },
+  "8de4ecdc544c5de9c8ba903fc495442bafdcc68832319100bd2ecc124c391add": {
+   "file": "0473.wc8",
+   "ok": true
+  },
+  "8eac598defdce259b3b9e3d921598eb1451bf03a5b8675dff00c115323561fbe": {
+   "file": "0271.wc8",
+   "ok": true
+  },
+  "8eb7cc1d329561f926b215800656fb43d19877474a1d60e89ccaa9bc88a5f292": {
+   "file": "0479.wc8",
+   "ok": true
+  },
+  "8ebee9c054e42d1d0abbf9b12140a874042181c5a06dee049b124024de4d0582": {
+   "file": "0602.wc8",
+   "ok": true
+  },
+  "8f08a513ec3d22d848621655efbfa066b3feff19171d9dbc48078029fd2fb21b": {
+   "file": "0914.wc8",
+   "ok": true
+  },
+  "90012e722cd3b147039f9e0b91c699127a858a725bd2143eae960c3340505332": {
+   "file": "0781.wc8",
+   "ok": true
+  },
+  "9022b05c32c172b04a9007eeb3a30f65ba3901bcc5e276702d6f4b9bcba36815": {
+   "file": "0709.wc8",
+   "ok": true
+  },
+  "902f1f2cfb0a7ff55d1fcd3764ed20ded6b99c37ea10ab582b68d8fe4b12c4ef": {
+   "file": "0212.wc8",
+   "ok": true
+  },
+  "90650856a047593e5bf1c3f74322c08a2580c7c72db7e0c9e89c048735f1ab55": {
+   "file": "0487.wc8",
+   "ok": true
+  },
+  "913b0fe782ae4865f5012da921c8f50494796d683b496e894fced73e99669096": {
+   "file": "0647.wc8",
+   "ok": true
+  },
+  "919b6d966b5cb78814f30f134aba8560ca9b2df25d99008c5a1be6aa9ee8c6e8": {
+   "file": "0615.wc8",
+   "ok": true
+  },
+  "91a50bdfd23ca21881790204eee36bf478705581d420eb2f20eede26b7a97f68": {
+   "file": "0020.wc8",
+   "ok": true
+  },
+  "9212020380e8899a2a77a612d716acbaf49e4588dfdd5cc6e923288753eba336": {
+   "file": "0056.wc8",
+   "ok": true
+  },
+  "925cb2f471d883afdd03dc5d60a58ad530a426ef3b08c0ae812a2a81c3cfa829": {
+   "file": "0653.wc8",
+   "ok": true
+  },
+  "92855bf4c7ec60e7e00a037fb0dfc626141036d1a1b766a66a05f4579a77e544": {
+   "file": "0895.wc8",
+   "ok": true
+  },
+  "92d7438ecf10316e6e0a845e7e8ade5caad8b81ae1be69e6cd12a56dc4263ce0": {
+   "file": "0199.wc8",
+   "ok": true
+  },
+  "930fc657919828bb1fdc1332772222ee0f5d447008b244b4785580a945536048": {
+   "file": "0784.wc8",
+   "ok": true
+  },
+  "93620eb215ff50573e2655c8e5b4bee0e3f7cf8ca6bb21714974799a289dd0f3": {
+   "file": "0641.wc8",
+   "ok": true
+  },
+  "9411700e7fd56e3c5c1dacac4abbda45fb4aae5da472327237231ebcd390370e": {
+   "file": "0329.wc8",
+   "ok": true
+  },
+  "94299406ccddc12d0f24ce70b5b56efe17489aae2af7182574fdb367cd2c7847": {
+   "file": "0745.wc8",
+   "ok": true
+  },
+  "9455aef36f98d6abcbfb60b7eba5092bc01efe857495addcbd1a8089c5d36e81": {
+   "file": "0399.wc8",
+   "ok": true
+  },
+  "945c4faf2b637e67ca2cb49c30e00292bce3c3a30bde2b66f5f56024d5d78b63": {
+   "file": "0185.wc8",
+   "ok": true
+  },
+  "94aeff92735a2f25105abdb9495db539a9aa02a7cc1d16711e1d01ad7082cdf1": {
+   "file": "0340.wc8",
+   "ok": true
+  },
+  "94b6266c13c26a0f75194e9a9484640c11f51601f276fae145edd72a59c0e2f0": {
+   "file": "0035.wc8",
+   "ok": true
+  },
+  "94c3480cd8422e6d361ba3a0c1fa410d82b50ad0c6084dda44448e607043e66a": {
+   "file": "0770.wc8",
+   "ok": true
+  },
+  "94c7fc390fc67fd954a4bbc6f9ed22bda4fd06d3185143034ffa68122f3fd9c2": {
+   "file": "0227.wc8",
+   "ok": true
+  },
+  "94d91847893abe80a62dd8bafc463914806ef0862dda83abfe699809da85229c": {
+   "file": "0572.wc8",
+   "ok": true
+  },
+  "94f4af25680aebb7c476e12ee979b4ac6a0b2105c3c75fd928f70ca8b2ae0cfe": {
+   "file": "0228.wc8",
+   "ok": true
+  },
+  "94f788937c206105f37f3c5d5f75fc89d30f7eae25c04783d89df7822efcc9b5": {
+   "file": "0723.wc8",
+   "ok": true
+  },
+  "955bc8464bfbc253605d7f0189178188a14bec22bc91410c7e18eaab3ed54768": {
+   "file": "0408.wc8",
+   "ok": true
+  },
+  "9593be83df5a48bbf07fd3c26d55b0636f12497391dcf61db3736b2326bf802f": {
+   "file": "0459.wc8",
+   "ok": true
+  },
+  "95acff19317ecd5e367eb5939026e136d3b31773416065e4197f6f1e157f2944": {
+   "file": "0259.wc8",
+   "ok": true
+  },
+  "95ba68197f7cc4cd2b9d09ba5e59b9b932549f27fcb0c8c1a49d04032200fabb": {
+   "file": "0461.wc8",
+   "ok": true
+  },
+  "95c0ae5c6d94f84d1d3b83965c25f6ae6c87a2e086730283dcf827ce35a8c569": {
+   "file": "0833.wc8",
+   "ok": true
+  },
+  "95e7ab094b906938f2ac0ada147b4ec49820840d905eeea788d2d53844571cb3": {
+   "file": "0857.wc8",
+   "ok": true
+  },
+  "95fedd9c30dee475b0b09cb014733bb0b33224a81e279490c1825e707c14cf13": {
+   "file": "0360.wc8",
+   "ok": true
+  },
+  "97e37bfe460e9093d3f4a7357701b5d861544dd182491719dcc12fafb529044f": {
+   "file": "0194.wc8",
+   "ok": true
+  },
+  "97fcd0f0d66b45bfbd11d85be56c20c8557240dbee0aa4544350cfb32806897b": {
+   "file": "0824.wc8",
+   "ok": true
+  },
+  "98228f3fdbd77bd72c87f350b9d7dbefee9217514636e4ef5f1f98d1846eaae9": {
+   "file": "0253.wc8",
+   "ok": true
+  },
+  "9869ca36c85a327cc42bcc206bddebc35d8ddfc09e0cdc059bc2c496713f140c": {
+   "file": "0838.wc8",
+   "ok": true
+  },
+  "988e28f54c520daf51bbe516d8d3f2f706d33dd59046a9687623d81e5680a4bf": {
+   "file": "0167.wc8",
+   "ok": true
+  },
+  "98903949e8ba16bea9c4a9510362212583e98a585b42f4603296a72a202f25af": {
+   "file": "0124.wc8",
+   "ok": true
+  },
+  "98b66fc42292712a685d5eb2d00e2b902a52784e82bf914f31048fd2e07dbaab": {
+   "file": "0590.wc8",
+   "ok": true
+  },
+  "98c2fa14090eae2e0dea42167a549888184ff4366ae6371614ec023b068dea21": {
+   "file": "0436.wc8",
+   "ok": true
+  },
+  "9997403b3ba259ad1f38fd11f153bfe5159e7b21f18a2373aab1b4cc22e7f1bb": {
+   "file": "0761.wc8",
+   "ok": true
+  },
+  "9a51e58110cac00de83580183307032c6aed563588b825e0a22d630cc6b644eb": {
+   "file": "0730.wc8",
+   "ok": true
+  },
+  "9a9d3b2857624b66a576f62040c766bc9fb8eda2199fb618d205ca67bed635ae": {
+   "file": "0468.wc8",
+   "ok": true
+  },
+  "9b58db31e217874102d1fbbee19149dfa948ff51390172284f29a01e8111ee9a": {
+   "file": "0923.wc8",
+   "ok": true
+  },
+  "9b85b5c64ae9b5e05f0426fd251dc2a07bcb91bab12e27c3e1b626cf913a2589": {
+   "file": "0863.wc8",
+   "ok": true
+  },
+  "9b975fa879f6953523c03a2b2e76eebeead9c09b41dc5f0aa48b1a400f2f82c8": {
+   "file": "0538.wc8",
+   "ok": true
+  },
+  "9bd97b7dcfde420789301ae3f9ca8b4a369639191713b6307450f9073ee678f9": {
+   "file": "0431.wc8",
+   "ok": true
+  },
+  "9be3be0401fd244718dfad10834010ffce18cfedc5a6e1824721a04c1a34e413": {
+   "file": "0500.wc8",
+   "ok": true
+  },
+  "9c1b52089669ae90cae5f55b9b49824b572a05c033455612e43d06fe6a253d19": {
+   "file": "0221.wc8",
+   "ok": true
+  },
+  "9c68921694ad1997ba80301895f0c9850a00296643fe834e7f84168de9046e0c": {
+   "file": "0497.wc8",
+   "ok": true
+  },
+  "9c6aac9324928a8572f52685a087063a228556506bae98eff59779eacb1fa302": {
+   "file": "0618.wc8",
+   "ok": true
+  },
+  "9ced8357b31f38e3c75dcf317708ea877a1976c745b92c250b1382e4cd79a818": {
+   "file": "0897.wc8",
+   "ok": true
+  },
+  "9d178cc31209493604dbf773283c700567d75434c098caaeb029fcf331aa6e9d": {
+   "file": "0016.wc8",
+   "ok": true
+  },
+  "9d482106f4ffe25e5b7e64f51f47fc4a70e7f818a3fe6d73afa89cc3394f94cd": {
+   "file": "0118.wc8",
+   "ok": true
+  },
+  "9d8c3aa7cfdd800ebe8daee1c65fab10d7b8812ee4f9c8b90a4cb3c1a78c5065": {
+   "file": "0495.wc8",
+   "ok": true
+  },
+  "9ddeb9ffe088d0c04022eda2a00d30c3cebd94b6cf8b7e17857b50bd5dc4be3b": {
+   "file": "0054.wc8",
+   "ok": true
+  },
+  "9dedad0b0a96c05c3a679bed34bdf039fe3b4f38a9c7d18920669969258f61d0": {
+   "file": "0283.wc8",
+   "ok": true
+  },
+  "9e008cdbc0d3f56e8942959600ba494df64d3ff9c39847633441923ae2e4b364": {
+   "file": "0443.wc8",
+   "ok": true
+  },
+  "9e6e99d13af9b57f6bdb7041969c4a29d0d2152ffc17d40a456cb8ee027b6911": {
+   "file": "0593.wc8",
+   "ok": true
+  },
+  "9ecdbfa53294fefc78739a099122f2d08e78c75f1b419a6d4b51c1e8ee5df00c": {
+   "file": "0620.wc8",
+   "ok": true
+  },
+  "9f08e820a3e5156204a66f191930399cec1fb6b3a4de31a4ee0e3f023443b858": {
+   "file": "0792.wc8",
+   "ok": true
+  },
+  "9f7e3c6a54b05ecd3b671af02ceec82ff872617e9f3bafc42d57cf7b44e7dbf6": {
+   "file": "0673.wc8",
+   "ok": true
+  },
+  "a0ab57f191526bce233332f6690a9aa490700b32c392aaaf067260346ac2687a": {
+   "file": "0346.wc8",
+   "ok": true
+  },
+  "a0dba56d40360a9c1ddffe0249062a770909ada78b6dee9b456129cd5ee1ce51": {
+   "file": "0862.wc8",
+   "ok": true
+  },
+  "a137965b83605654327febdfb841ffe5fb9cc826a01c42b4c40bdea651990e95": {
+   "file": "0549.wc8",
+   "ok": true
+  },
+  "a169a2066946daeb854ffdb0a38747052c9b4d537596eb20bcec9f6aef7782a5": {
+   "file": "0312.wc8",
+   "ok": true
+  },
+  "a1a61745867ced29f61b1621de2f33babe2828b2c9e8ed0a95d99b549a8ed7a0": {
+   "file": "0809.wc8",
+   "ok": true
+  },
+  "a1bb56ac96c14dee2649296574af95a6d07311ea8677d3515d8d6439409ec3ad": {
+   "file": "0513.wc8",
+   "ok": true
+  },
+  "a2245e6cfc171a96692c97304a269226e84b64e3a0efed4fa4cf7d08475b3d4a": {
+   "file": "0026.wc8",
+   "ok": true
+  },
+  "a2282446e7f7e7f03000a201f678e2793e84084a47601767a6d8718045376b2b": {
+   "file": "0786.wc8",
+   "ok": true
+  },
+  "a2607cdfc0ffc46d09a664a1ba8811a76fc5e854f7abbbd7576cfc25abcc8217": {
+   "file": "0362.wc8",
+   "ok": true
+  },
+  "a2897ebff92eb6bd5348b63199be4f9709c77594fa45732ac34ed851ca87e817": {
+   "file": "0692.wc8",
+   "ok": true
+  },
+  "a2d2551c28a800b9aaefe10ce86c22aef501e0dc859fcd46af06b9b22a354b68": {
+   "file": "0112.wc8",
+   "ok": true
+  },
+  "a35f245d141d373956c67f84e1ac4aecb2d602c5ae4c53abbe2c23fdf44a2cba": {
+   "file": "0288.wc8",
+   "ok": true
+  },
+  "a3780f3fe61e476038f1eb4239f0ab4baf6a0a3eb1c17a912dac869dab654bf0": {
+   "file": "0855.wc8",
+   "ok": true
+  },
+  "a384bcdb87f9f88c9337278d3b30b5aa55e36348d01ebd4b595fc9126cda392a": {
+   "file": "0782.wc8",
+   "ok": true
+  },
+  "a394bb8bdf47edf0f7a80a452df7521d3acc4e2e1b75b935ebf4e4ff65b31ab8": {
+   "file": "0566.wc8",
+   "ok": true
+  },
+  "a398ee8fdc54d2f93f3fb800b5124dfebf7b32a794bd31572d7aba7077f72b18": {
+   "file": "0725.wc8",
+   "ok": true
+  },
+  "a432758a276801c3d98f5f3044c9c9740d1e5e16897dc03f78eb201fa9be79ed": {
+   "file": "0706.wc8",
+   "ok": true
+  },
+  "a4455155cbb2a62900a95b022c1b20c099505bab5bc7380b9251ec9e4286a546": {
+   "file": "0395.wc8",
+   "ok": true
+  },
+  "a453bb0af2287f7efbdd6fb8ebfd2952fff80fbaf885c98b89a63513e86fc769": {
+   "file": "0411.wc8",
+   "ok": true
+  },
+  "a4b2839f6a5c867eede35b3d4d7ee36c8e41cd0718db4543bcac9cbd10559c8e": {
+   "file": "0096.wc8",
+   "ok": true
+  },
+  "a4b9e1597e64eb8caa43b3f3271cee409e626a9470aef99427b12f3a805f74d9": {
+   "file": "0239.wc8",
+   "ok": true
+  },
+  "a4d531ca287ce4b7693033ebd036b4ddee3b95dfb0c8a092f3980f17c7eb151b": {
+   "file": "0402.wc8",
+   "ok": true
+  },
+  "a4ecc03dfe422bebdfc9aa9ae9051e040b88c0816404bb20a7246dea32adc89f": {
+   "file": "0071.wc8",
+   "ok": true
+  },
+  "a4f0826de6b7d1df024c887c1a8f1b3cf9366b95a2733e2db22031d944f6aa3c": {
+   "file": "0880.wc8",
+   "ok": true
+  },
+  "a5005f75709ba2f88a1c61f6b447b9fbdb6c96891492fb5912a247b82e2e46ac": {
+   "file": "0314.wc8",
+   "ok": true
+  },
+  "a5865b9c6bce1c78f98d475b4d4f1a02c8d094731f96cd860613939f8e45779e": {
+   "file": "0899.wc8",
+   "ok": true
+  },
+  "a5a8e1e3169a93c0742e8e43f2f26b9eb8b3949fa1b4cfbac3030cd330cd475d": {
+   "file": "0333.wc8",
+   "ok": true
+  },
+  "a68e6770e95b2259fb6c0498003af0084ec496c504c2b0c9d940db9281d68576": {
+   "file": "0875.wc8",
+   "ok": true
+  },
+  "a6cf6a5a36f76229f58d84bc87077f00c3542ac6b37001d7a5c3b09cd1eb667e": {
+   "file": "0225.wc8",
+   "ok": true
+  },
+  "a72dc19f03e365b336788564070fdfb4fc25abbfaf49b2f5c6ca9e256f7efb79": {
+   "file": "0280.wc8",
+   "ok": true
+  },
+  "a79a01722c2265135fc5468929d7b3356d6ee21018ffcab89c4a7cfe0a2a65bc": {
+   "file": "0117.wc8",
+   "ok": true
+  },
+  "a80097a3e2b3493a4335aa9aac0e671d6d49f153bfa96fa639841d009240d7d4": {
+   "file": "0662.wc8",
+   "ok": true
+  },
+  "a81f5232dd431a805a056c9d9475128cc9b083e9573c46f78cb5360c46b9b1e1": {
+   "file": "0765.wc8",
+   "ok": true
+  },
+  "a850a868fbbd94f2816a55fd25a05c647217ba8273670e5b78d0bbf70bf52c20": {
+   "file": "0522.wc8",
+   "ok": true
+  },
+  "a8849f02d2311036407e2e754c2aed8a47aa64ed7fa58619360f7ccc8c722ac2": {
+   "file": "0551.wc8",
+   "ok": true
+  },
+  "a89ab29cbc3815130e3a6889f9e6ab3772a42b25e2a5f88ccea227e1d9197c50": {
+   "file": "0343.wc8",
+   "ok": true
+  },
+  "a8acd1597ba66f559ac5e19bf354672d14ee0e3e47339c0b729c21511e044220": {
+   "file": "0886.wc8",
+   "ok": true
+  },
+  "a970443210dba0200585f8e58b275c436e75d9e30bb72c6adcad8cf35ce5547e": {
+   "file": "0458.wc8",
+   "ok": true
+  },
+  "a974ee2ff5f6e566cff6125b295d0c2a7b20adf1e49f4d1a89d2d793e2b29325": {
+   "file": "0476.wc8",
+   "ok": true
+  },
+  "a9a33c6b6d59485c9bde702a84fe6311ceca5e9707c94d876cad9cfa5f2f0f1f": {
+   "file": "0799.wc8",
+   "ok": true
+  },
+  "a9cb269c8696c6589ed983eccd41ede6679d64243cbd6bbb42e16ed4a22aea7f": {
+   "file": "0844.wc8",
+   "ok": true
+  },
+  "aa0c12c6718e90bf15fa035cc87d303bec03d57523d3a204cb7798c56994d041": {
+   "file": "0230.wc8",
+   "ok": true
+  },
+  "aa23ee0f813cab7a5713c75381275797e7120bc43326b8768266071f2127789c": {
+   "file": "0220.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "aa5923aab2896912bc50628e9b188574d7f6b71a6b90301df8a9c914795f9124": {
+   "file": "0740.wc8",
+   "ok": true
+  },
+  "aa613988d0541f7b49ac751ff1b5e9b8a23073e4e8c5908f8b894992a4de2f84": {
+   "file": "0666.wc8",
+   "ok": true
+  },
+  "aa84cf4c08010c97a7f32a4e9a833e6cb36cb3c61c8e25d3687effa3ca1b366b": {
+   "file": "0304.wc8",
+   "ok": true
+  },
+  "aa958fac975118d77af64f91a5a942dbc5e3e10d91be2974761479271e2176a9": {
+   "file": "0871.wc8",
+   "ok": true
+  },
+  "aaae8c45596d755bf6b6f67b917cbf00f83007dac0ba94aa84ed51274797216c": {
+   "file": "0882.wc8",
+   "ok": true
+  },
+  "aab36a7c9a6fa273eb64504b85cafac7068eb3d47d3f779c476afe0d03a30d08": {
+   "file": "0489.wc8",
+   "ok": true
+  },
+  "ab87fbf96a178f68d1bb6c1f456836a02ba8112448f5be4b4e30592ce8fc2b15": {
+   "file": "0515.wc8",
+   "ok": true
+  },
+  "ab897eb29e95b29e36cd345f641ea6db4e946e8e142c4db06e4f673fffad54d6": {
+   "file": "0267.wc8",
+   "ok": true
+  },
+  "ab9e2a0a212505eb28b105755e2d43029caaf951f33b5701ee2428b469394f03": {
+   "file": "0492.wc8",
+   "ok": true
+  },
+  "aba49a8feed24d4a3ccfdbfad29ab523a3ab0f5cc5541e30e917100b9d86c259": {
+   "file": "0206.wc8",
+   "ok": true
+  },
+  "aba6d3d1d6135e784ee8cf651bd25b5c87e3f813bd1a129f1224487f2d974651": {
+   "file": "0746.wc8",
+   "ok": true
+  },
+  "ac377a109346a74bd3fd4f68ade9dc5073b2973eb85c3a8a8a8fe88d38dbc8e2": {
+   "file": "0183.wc8",
+   "ok": true
+  },
+  "ac8b093315cf0fc344362cb166d41c8e086c0211b97e80b5675d16775d33d282": {
+   "file": "0767.wc8",
+   "ok": true
+  },
+  "ac94622b0cb017a6c6997b5cb5724c975baa60439d009ef1881b3b18ad10cff9": {
+   "file": "0823.wc8",
+   "ok": true
+  },
+  "ad1225d1bf1f4fa84b45bccac70ded57f3540fc09b4f223afc13bb0df1f4a079": {
+   "file": "0285.wc8",
+   "ok": true
+  },
+  "ad4785b27b98beef6a28b789b38f494f40223fb6973ed546e524503d7502a515": {
+   "file": "0527.wc8",
+   "ok": true
+  },
+  "adfa45273667fbc90ab84d1be9f52cbefe8249eb6e253a1af334563e5834bd05": {
+   "file": "0182.wc8",
+   "ok": true
+  },
+  "ae1f5b561515b071218ff9332bee61a6170ffef90595bd4ed664402119ee1f9b": {
+   "file": "0214.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "ae969681acd115507a6bc49721d3c3fc50390f92de6fa6a4e6d65a85a3f3ca37": {
+   "file": "0499.wc8",
+   "ok": true
+  },
+  "aef84ea92a17fdf62a06f9f2fa04f12d3f2929e6f23d1c65293d92a0dd4b26b1": {
+   "file": "0800.wc8",
+   "ok": true
+  },
+  "af309a1d4c0bda14a7154683ea224efaaa30c8a6930afe84f3e7e4bd97e762d9": {
+   "file": "0852.wc8",
+   "ok": true
+  },
+  "af919c0902d7364741835a2632b617cfc5b86b6706f251f77e7ba06cecd60c42": {
+   "file": "0689.wc8",
+   "ok": true
+  },
+  "af9d155d6f07a2f515c057c4f0bcb9d5db05b1f0314acf97d6d8d3ecff1026c6": {
+   "file": "0529.wc8",
+   "ok": true
+  },
+  "afe9f388fca27f3a787c2da52f774dc090fba8a91a23d9e109df416021e8c70a": {
+   "file": "0222.wc8",
+   "ok": true
+  },
+  "aff184b1d1a8fa99868cd2b6bac98c068e87187fff238d3371c73a480b1a9d81": {
+   "file": "0735.wc8",
+   "ok": true
+  },
+  "b07883e6a68c0e0cd4819559c4d5eed7a1a1e34e1515ceb8d6617e8e16d89343": {
+   "file": "0797.wc8",
+   "ok": true
+  },
+  "b0849ac9a3f48340ba6d4d011a05b2e8c631341430c83e3496d39ddd7b0b15f3": {
+   "file": "0081.wc8",
+   "ok": true
+  },
+  "b08fbd4078bdb18dab0e02fc9376b42e770bb553fed39c08c14880779aa1e205": {
+   "file": "0301.wc8",
+   "ok": true
+  },
+  "b0a56d990a5ac8dfbf19373b662e72a9cbecd0903c68afc79cf4b87998276eb5": {
+   "file": "0827.wc8",
+   "ok": true
+  },
+  "b0f4595df7c8112541f2f4de7e040ae422ff50b9b390e98b83801d77d1f0d9a5": {
+   "file": "0514.wc8",
+   "ok": true
+  },
+  "b1234532cc2dc9d8e6200a8e0c32f5ea10eecf6994d8ce0b9f12b3fb90f80a54": {
+   "file": "0502.wc8",
+   "ok": true
+  },
+  "b1c114615f74095880019f59f46b8948326a8af9ee6f9ec3aa84eb20aa246a39": {
+   "file": "0092.wc8",
+   "ok": true
+  },
+  "b21264d3eb81254536682baf4a50a2be1764657d5da24d5842f4840b3bad284f": {
+   "file": "0231.wc8",
+   "ok": true
+  },
+  "b38af4ae98b366a367bb35f2f4006e24f9d26c9156d184a6c869516e785af7f0": {
+   "file": "0303.wc8",
+   "ok": true
+  },
+  "b3a35988e1b54b7c115f808d41fd2387cd9b49e7d77f6d9eae72a6b0d8083ed2": {
+   "file": "0094.wc8",
+   "ok": true
+  },
+  "b3b223dc497edcfd99c2cc8816c5deee1df0805fda07295551719a56581e8875": {
+   "file": "0374.wc8",
+   "ok": true
+  },
+  "b3c170bdba9c2ef6a468b7a8ad0dab8f95014134636bd9b2596d109f7d3c8380": {
+   "file": "0159.wc8",
+   "ok": true
+  },
+  "b45d140f26a20f055dc9b6bc5f13a162c96497d2506db10784783c0aab34dfe4": {
+   "file": "0779.wc8",
+   "ok": true
+  },
+  "b4e6664f9e78aad3bfa2f87145fc0098f71254a8b822b14c8e8cca8700097587": {
+   "file": "0178.wc8",
+   "ok": true
+  },
+  "b52c7b55029467e127da8d6ecc982333fc7cbfc81e268848f690f165952d045f": {
+   "file": "0057.wc8",
+   "ok": true
+  },
+  "b531e1fbe6c8da236ea1d020e5454d0d3278855c69f63c5a929f6bcf4db7ded3": {
+   "file": "0150.wc8",
+   "ok": true
+  },
+  "b538075e37fa5d7d87ced338ba363b7260cde90deee58a1c55d0cf44fa178dc5": {
+   "file": "0414.wc8",
+   "ok": true
+  },
+  "b54e1889b84432d8a8252202bd66e5e3fffbdd6cf85eb2b4b4d4a9f242618d75": {
+   "file": "0413.wc8",
+   "ok": true
+  },
+  "b5840a496032abb228e1ab9253855d2935d5a01353ca7432f02bb2d74d770c4f": {
+   "file": "0601.wc8",
+   "ok": true
+  },
+  "b58fa0bd49e43ae2f46734663b07b2c8dec2fb558fecc151d21566d250733277": {
+   "file": "0045.wc8",
+   "ok": true
+  },
+  "b5b21372898fba714c8c4bfc51d3992797e2d5e4fc9e28cf6be172134a0f0b5f": {
+   "file": "0397.wc8",
+   "ok": true
+  },
+  "b5ce9d7090ee88c0ef2e62cdef89cdc5897bba1f90822fb63fed3432ae9cf8f7": {
+   "file": "0216.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "b5e6041b81e9ad64b8057528f003d0902c5edb4802a67c1fb3b4dbad5eb925cd": {
+   "file": "0104.wc8",
+   "ok": true
+  },
+  "b608257650ab8e462830fb2b1c9d21f72bdbce6f4eb9c689b6ffe0f0b00a4f91": {
+   "file": "0152.wc8",
+   "ok": true
+  },
+  "b61d1a6f6c9c1cd43664e324460bee891704d626f32f908623f52de0040e706d": {
+   "file": "0555.wc8",
+   "ok": true
+  },
+  "b653b83beb884a48f99d4f0f785381f05c4741def366b46b8ec5ac56556945c3": {
+   "file": "0859.wc8",
+   "ok": true
+  },
+  "b6808c0662a3cada135ab4edd38b299da973b54c89ab882c3cd04d1878299a29": {
+   "file": "0125.wc8",
+   "ok": true
+  },
+  "b69b6c8bfd6eec33b1a3a5e83b6d9c5f973610eebcc5ee4365da55c702185e64": {
+   "file": "0188.wc8",
+   "ok": true
+  },
+  "b6cb7f6439e82566b78b86c4a62ec33635ef1c905fd8df07273e4d2ea575b31a": {
+   "file": "0069.wc8",
+   "ok": true
+  },
+  "b6d13711d6bca607c31bd084a5e2f63d0708423f9735b0afccdc6df8bab4b7d7": {
+   "file": "0869.wc8",
+   "ok": true
+  },
+  "b6e99994004ff152b7ff1d162d47bca1c58b97014a4a93e161cfd7d1002f0a6f": {
+   "file": "0628.wc8",
+   "ok": true
+  },
+  "b70a8a31f2754807e250c470cc0003d6672bc8f86dfc420e9b43742330f20942": {
+   "file": "0006.wc8",
+   "ok": true
+  },
+  "b73d9b9835f55b2dd81a58e53b6b103582136127a3e30155b9d32d09cc4721bb": {
+   "file": "0532.wc8",
+   "ok": true
+  },
+  "b7a81102cefc9a69a3bdaa3e4e6d0523075237cda25ce8bf4f38744c5b4fdea2": {
+   "file": "0138.wc8",
+   "ok": true
+  },
+  "b86efd70901405ccf7bd81bd5f8aec26ea52557250b886b5bbb82f2546833d98": {
+   "file": "0826.wc8",
+   "ok": true
+  },
+  "b895a871158dbd83ea7c7978cb9661ce4384e8ca8cfd1f38a65b33e11620cfdc": {
+   "file": "0242.wc8",
+   "ok": true
+  },
+  "b8fc77ea2e91fe1999ba580737d783551aea821ae6ed645b315b6e4739f9aec1": {
+   "file": "0702.wc8",
+   "ok": true
+  },
+  "b94d50f5ac9691ad3d0449a56dbd85a896cf5fd425b25524e47602c7c5becf94": {
+   "file": "0568.wc8",
+   "ok": true
+  },
+  "b99230aa2af7301d712d772884d72b6419b2baf95ab83eec19c4e582865e8bcf": {
+   "file": "0286.wc8",
+   "ok": true
+  },
+  "b9bc3b992503f5347f75d78d101c208f83b4a53b0fe5d8589e380bf1c3f064ad": {
+   "file": "0305.wc8",
+   "ok": true
+  },
+  "b9f8ba7639e9a53a5faa10ad1fefb1bb288a471540f0bc73c62c50c03e827ddf": {
+   "file": "0883.wc8",
+   "ok": true
+  },
+  "ba822715787fcc72434714c06196867e1043b92d4e1afd9ad6af5a8933298b7f": {
+   "file": "0100.wc8",
+   "ok": true
+  },
+  "ba9b4132ac705bb01916fffe9c03e467c6b0998e5c55bc515c13a8da838472d1": {
+   "file": "0169.wc8",
+   "ok": true
+  },
+  "bacb809ab316eebc30e754d4b33da1906588d0186c8e26301460df7b9823981e": {
+   "file": "0141.wc8",
+   "ok": true
+  },
+  "bad23b70a438b973acd6a63803078674c4dd4b48c5fff9873f23a9497271c7fc": {
+   "file": "0310.wc8",
+   "ok": true
+  },
+  "baea2425b7ed2124c5d60ed0b6b220c2ec9c108b33f2a079563abe67c362bf66": {
+   "file": "0520.wc8",
+   "ok": true
+  },
+  "bbe948873d6480c6059430c848d3492723a44c0e3e36fc14374eb4ded1e68438": {
+   "file": "0837.wc8",
+   "ok": true
+  },
+  "bbf00e99d281716944790f6ce034263ca7123bded31400a06073d96480252feb": {
+   "file": "0919.wc8",
+   "ok": true
+  },
+  "bbf40fe4ddbac501f23926f8203a324122002dbaa597dbc874e64fadad0def3f": {
+   "file": "0316.wc8",
+   "ok": true
+  },
+  "bbf5280a850b49e4a34d99799e2add665ba80c423fe6d6e9d807c005c69bd184": {
+   "file": "0674.wc8",
+   "ok": true
+  },
+  "bca623db77c978177511f496ce068da0894f8069e68cd7a56618df4ccae8bfda": {
+   "file": "0393.wc8",
+   "ok": true
+  },
+  "bd50e8c7152dbb0ec514df83ecd4f70b89174c5ffd0f9b819ac63eaa3193cdd5": {
+   "file": "0438.wc8",
+   "ok": true
+  },
+  "bd6f2a07d01b81373004d11b1952ac0afc60502c0c130ed1314bb361a61d4b53": {
+   "file": "0133.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "bd82b75430d7e3d1572f41bfd626968589bb0301def500cfc5c011cd13d7d9fb": {
+   "file": "0733.wc8",
+   "ok": true
+  },
+  "bda950de001cfc105a3b3b4be040769fbf63ef81567437af8fa6dd23145c4cba": {
+   "file": "0311.wc8",
+   "ok": true
+  },
+  "bdbcba496a38b47d916db89eb70196ad6aa0e8214713f8abfddfb7746bf94882": {
+   "file": "0078.wc8",
+   "ok": true
+  },
+  "be1c44fd63560b83a711a8c859e085e11588e208bc99c4ca0a4bb370e2c5d9f0": {
+   "file": "0234.wc8",
+   "ok": true
+  },
+  "be3d340afcef21d35ecfaf7c2bfc0ce80ac8a1bb1c4def114382621766a9b549": {
+   "file": "0432.wc8",
+   "ok": true
+  },
+  "bea6da457ae492385c9b5b413efaea06c54a1a47f18732a8f9bf4669df6f0c0b": {
+   "file": "0410.wc8",
+   "ok": true
+  },
+  "beba3c8030747ee2cd5106b11d313784f83cfcb188b251afe356b24ea7c6e683": {
+   "file": "0027.wc8",
+   "ok": true
+  },
+  "bedfe1ebd62cfc2fb5ed35fc289207030d1bc4a5448a703d215023ba3f55bf90": {
+   "file": "0856.wc8",
+   "ok": true
+  },
+  "bef7e9f9a462bdb670aa2d20c57dcb093b9dd562d48258537c7a87b859b116b7": {
+   "file": "0005.wc8",
+   "ok": true
+  },
+  "bf2238bf7ab99251d095185ca5ce0a4862176f4f945c2ef695f07b8a06f6ab43": {
+   "file": "0151.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "bf482abd804cbda135ee45f12474d7a4b74d5da60460c0a16a094cf2636caee2": {
+   "file": "0687.wc8",
+   "ok": true
+  },
+  "c011d183d651865823a33be79a1ee79c17c66820729e0164e76a29eb56d24b6c": {
+   "file": "0175.wc8",
+   "ok": true
+  },
+  "c0388e68c93ba8c35f10c2c86eddc563f888dd31de5b78ceb4fc3eff925f396e": {
+   "file": "0318.wc8",
+   "ok": true
+  },
+  "c03904e592fe169d9f2f7c4ffe046df6d9aa47afe2f1eb8758d37e68d5eafe4c": {
+   "file": "0804.wc8",
+   "ok": true
+  },
+  "c095707b333d7552a4ac9a121eb8540a2c4cf9c4d4d1125bf499402df0acce35": {
+   "file": "0803.wc8",
+   "ok": true
+  },
+  "c0a46a92e6910492c2cbc326b82d819cc3fab2446faaec86d3094fb27f14bf6a": {
+   "file": "0478.wc8",
+   "ok": true
+  },
+  "c0a6e64535d8ab9b27286ace4a2db22199e7c2503d85dd3d7eeb30c7acd8ec75": {
+   "file": "0517.wc8",
+   "ok": true
+  },
+  "c11a0679997fec56fe1494034cc48e79e23dbbaf11d72620ae4cae24a15e0af9": {
+   "file": "0123.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "c175fcf9b5c087ccbde311dd61cd7e84c8ba3b2adf63c78d2e15cf982641fede": {
+   "file": "0309.wc8",
+   "ok": true
+  },
+  "c1945bbef32b3679fbd7673552c676e2245f006c720f1aea7e2124948789554a": {
+   "file": "0585.wc8",
+   "ok": true
+  },
+  "c1db8ed6d9b015e8189773f23f78dc4a66737dd8f98df88b30003bf6ede4e679": {
+   "file": "0711.wc8",
+   "ok": true
+  },
+  "c1e2c296a1bebcc8f22bcd4313ea185764cc754917b0a467ceccd4eaa8248a8a": {
+   "file": "0834.wc8",
+   "ok": true
+  },
+  "c20c67a2601ab78e104f8fdb98afb29b5ab24ce923e4fe86b96404fb4659e5ff": {
+   "file": "0822.wc8",
+   "ok": true
+  },
+  "c3459e27c576170e2f737fd6e91807bed7c5935973c6b2f37324598d7387ea18": {
+   "file": "0029.wc8",
+   "ok": true
+  },
+  "c36ae438a45e9d8cf2c4a3e8c2be9a514f433593287a143dce1dd8b8922072e8": {
+   "file": "0202.wc8",
+   "ok": true
+  },
+  "c387c775344e8f5df6d148b6e8b450158a9f9bff76777331132356597ab82ff3": {
+   "file": "0798.wc8",
+   "ok": true
+  },
+  "c3e0033739616a6186f3a0c88dee77fc3190923a627d44e929508454c484fb0b": {
+   "file": "0677.wc8",
+   "ok": true
+  },
+  "c3fe282c5c953b4162b8b72ced975449fcc95001ec60161d211dc93a1f3e61dc": {
+   "file": "0599.wc8",
+   "ok": true
+  },
+  "c3ffff2a2a2f1c63b0382e0ca716be31fb8c8b5b13c096539d63886320ed943d": {
+   "file": "0609.wc8",
+   "ok": true
+  },
+  "c40357974751e51ee77ac6a4e614b472326162df7d6c078d192c75eb27f112c2": {
+   "file": "0107.wc8",
+   "ok": true
+  },
+  "c46bcada4ba1c6e56076a31f50ec0638e6dcd46383eb4e1ebfd55b445c137d21": {
+   "file": "0649.wc8",
+   "ok": true
+  },
+  "c4b9ebf25369ddd0967bbb6385460d942b2cde52bbad970ad7368dae0e9ea0ab": {
+   "file": "0870.wc8",
+   "ok": true
+  },
+  "c50c2e2510b69e81a4d3610c7831696b096de5533f3eb161eb27540dc4efbeac": {
+   "file": "0698.wc8",
+   "ok": true
+  },
+  "c55618b0f4e6a82a455c22480065b750ce03911bfcee5b390832a18b17d3f9dc": {
+   "file": "0299.wc8",
+   "ok": true
+  },
+  "c5a788fd9da22f4b15831d5c704a1257c72ddd799123091f3e00cbfaa7f0a4d4": {
+   "file": "0184.wc8",
+   "ok": true
+  },
+  "c5d504e1d5fc5a60b0b2a58a1205612fa3dece60acf837efafe1c33b4c7068f9": {
+   "file": "0610.wc8",
+   "ok": true
+  },
+  "c608c789a9f4c6c01e747df0cfe85edc21c7fa86d82a33cb90f6acf4b927c6c9": {
+   "file": "0640.wc8",
+   "ok": true
+  },
+  "c6528a115a3a5119836fd21ec0d05a7df22082d00ef459f018c494ffc45f0a3b": {
+   "file": "0160.wc8",
+   "ok": true
+  },
+  "c66ecfc85358f5f100098a1e565226147a67d13c6b80ae4bdd100929e8cb27c1": {
+   "file": "0082.wc8",
+   "ok": true
+  },
+  "c67e2ad959e875a2ee9b241c03862526a63214277f3f314f133ba14b9e9ce970": {
+   "file": "0364.wc8",
+   "ok": true
+  },
+  "c6a98640dd096c97a17201d2a0dc60fca79e466391d94e6f97e8a21f5b9d34b6": {
+   "file": "0710.wc8",
+   "ok": true
+  },
+  "c6cb9777e0e93973ba2c6fa22d8cd5ef51b222ea71a635aee33e892c0d8287a2": {
+   "file": "0703.wc8",
+   "ok": true
+  },
+  "c78a611ca54f1894a24a431550a40ad4bd6d0be6a8ebcd9e52e875dfa1a14f08": {
+   "file": "0296.wc8",
+   "ok": true
+  },
+  "c7b9bceb7970b74dc414bf9415a435381d89f9d04afee42b645f48d74611be5a": {
+   "file": "0648.wc8",
+   "ok": true
+  },
+  "c828404dedcf37ff7d35f9f56146b7ff02f7e76c0926f0c5a895cc355aa6e4f3": {
+   "file": "0017.wc8",
+   "ok": true
+  },
+  "c8495538d21934676f7d8dd738a771e5809ae7fbf089c6c65fbfaa86c7108836": {
+   "file": "0686.wc8",
+   "ok": true
+  },
+  "c8e06862ffc308aca4b9c123b27d8f7ac5195f2c045cde06a8ea95b21eaa48ea": {
+   "file": "0556.wc8",
+   "ok": true
+  },
+  "c947524a79a3ee083f4ccd3256fcbcc1d777a223a252d0c250bb2d2a30438a3e": {
+   "file": "0235.wc8",
+   "ok": true
+  },
+  "c9ec75bfe755a996d137e46e64058da6da83152eb195ea5f44da5d390674c13a": {
+   "file": "0775.wc8",
+   "ok": true
+  },
+  "cab0d3bd4e312acf06cbed9442c4fcce55458f2e6c0d334ff10c9b7c9ca68460": {
+   "file": "0700.wc8",
+   "ok": true
+  },
+  "caffc529cdf83cbf1fcb6e5fd69a88b26d611c61b6f70e632365f81db8a3e3d7": {
+   "file": "0114.wc8",
+   "ok": true
+  },
+  "cbfa9e2e66cfb77e3699db79403e98099d8f42dcfa28a478795ee5301d86f04c": {
+   "file": "0636.wc8",
+   "ok": true
+  },
+  "cbfc103ba00d704816eef2c87d3332dcdfa8e136bb09a38c6df576097ff69d72": {
+   "file": "0423.wc8",
+   "ok": true
+  },
+  "cc185e3b2f7cafec8c3ae9139901d9e980e5a33ac853a2155e304b63ed8ab750": {
+   "file": "0060.wc8",
+   "ok": true
+  },
+  "cc197deb54ec9165349489ced3b6de1724131bae8cd3701a053b7ad093ec498a": {
+   "file": "0129.wc8",
+   "ok": true
+  },
+  "cc3b3ef34974abae4f651c8948f6b13a8a283a4fc7fdc12f1477ef2080dc1bb8": {
+   "file": "0420.wc8",
+   "ok": true
+  },
+  "cccef9f0bb333439298c0d352bd065816203c1d735bdee0805833360abb53071": {
+   "file": "0404.wc8",
+   "ok": true
+  },
+  "ccef4d7aef2d5d8f8e8fae2d04735f43285a34ff0ecf8781b34f8f3a61e2f9af": {
+   "file": "0808.wc8",
+   "ok": true
+  },
+  "cd02306cd2c5193d6d15374f8877d2ff77f18b11cd36989c61afc9798973bdb7": {
+   "file": "0539.wc8",
+   "ok": true
+  },
+  "cd58633c42b17fa962415fc44844642daa597eb84251cb4c75069d4a4c218aa8": {
+   "file": "0168.wc8",
+   "ok": true
+  },
+  "cd5d1afea3c70f187ec08638f2f6b8d38fa0fc8d80531031f141639fd399555d": {
+   "file": "0739.wc8",
+   "ok": true
+  },
+  "cdfda61f2ec42bf09cdfa53a1fc8bf19dd2e818baf76b076c725bf0d3e112dc0": {
+   "file": "0383.wc8",
+   "ok": true
+  },
+  "cec987a50cd5a73a97d0784679868835c7167a6d772408896ef46edd9ee2a029": {
+   "file": "0245.wc8",
+   "ok": true
+  },
+  "ced9a96cc838498dce1c5fd927d41a1bc79523cd5ccaab5e5d8bc8ab847e254c": {
+   "file": "0323.wc8",
+   "ok": true
+  },
+  "cee7e3a24101f41b1ed6eeebdef2ec2452c604f7246abd854687d062850a4f06": {
+   "file": "0543.wc8",
+   "ok": true
+  },
+  "cf195be4668246e955db3ec15e203cf103593d71689b08a0c5f7ce8343868922": {
+   "file": "0575.wc8",
+   "ok": true
+  },
+  "cf27320e98c2916601ef663c2b69289a44a12426a4ef36c40ef256ad5f15f435": {
+   "file": "0004.wc8",
+   "ok": true
+  },
+  "cf2937058775dd2ba27492a115e9afd84540c4caf35bce4d79189e7ec905bf8d": {
+   "file": "0460.wc8",
+   "ok": true
+  },
+  "cf63ea571ba88affad9b62c424c0e10c483670e86746f2abe9771ffa8173a8a2": {
+   "file": "0817.wc8",
+   "ok": true
+  },
+  "cf6d9788f4c9721974f8f4d830316462cde4f6551729f943974b35cb1d16d028": {
+   "file": "0353.wc8",
+   "ok": true
+  },
+  "cfeec78b39d7ed19a2c76f5dad692a854678ee5c43ea0e0c4a202afc8a78698d": {
+   "file": "0756.wc8",
+   "ok": true
+  },
+  "cff899dd5627951b4a7568470e5e52da8a1eaac0549b811e08035628e9517ad6": {
+   "file": "0638.wc8",
+   "ok": true
+  },
+  "d04c789dd92b62187fd503a8efe287533ceacdbd5d70f768d69460a330673333": {
+   "file": "0717.wc8",
+   "ok": true
+  },
+  "d08760d61810a9cf8917c7030d86ec2c28d5a0dadd8eebd0d1f370c847d57c26": {
+   "file": "0511.wc8",
+   "ok": true
+  },
+  "d0aa967fbeedfe5b1956f8884cd040268ed72699e6999dc3a3603ec9aaf60763": {
+   "file": "0401.wc8",
+   "ok": true
+  },
+  "d0cd5cd73d23edd5eb89a9e14d48eef15d31ea415aa05b71e742992b1cce9881": {
+   "file": "0905.wc8",
+   "ok": true
+  },
+  "d0d88f1de7b328a28a9cf1fc8623df843127a7dab1e3698580780f2b0495e112": {
+   "file": "0448.wc8",
+   "ok": true
+  },
+  "d107568ec8ee30ae37a984d502f071e199cecacb290852b3af4f84150e57b888": {
+   "file": "0719.wc8",
+   "ok": true
+  },
+  "d12996d1ff55b60aa1b4154fe03265a7ff5c80738f15a2b1fd8a700cfe1ad668": {
+   "file": "0541.wc8",
+   "ok": true
+  },
+  "d17c5a57bbf391b40845291497d70fcd0839dd2578d256107ac9e2a21ea1670a": {
+   "file": "0507.wc8",
+   "ok": true
+  },
+  "d1a88926ecd774ae8e996cc80eb774064217f22e9bea0f85d54af6ddffd8d741": {
+   "file": "0441.wc8",
+   "ok": true
+  },
+  "d1aaaccda0488e5740a73e95b3d0b3e624f2bca5a9a2c3ce55e4c3eab6648ae8": {
+   "file": "0338.wc8",
+   "ok": true
+  },
+  "d24525eda98997e9bb9db53bc0698075d55eeefe5a375ae0244a9f2df3c801b5": {
+   "file": "0839.wc8",
+   "ok": true
+  },
+  "d2621fe212fafa984270ac258a66424072b24f3046daf858e0ff88b8d7e240d0": {
+   "file": "0752.wc8",
+   "ok": true
+  },
+  "d2f44334ebb9efc2f7466d951f6dbb40a0b393368933243061a7e293ab760007": {
+   "file": "0669.wc8",
+   "ok": true
+  },
+  "d3064cee6838b598f40afea8ab5254704961bc96759dd94253a9857a675b815b": {
+   "file": "0598.wc8",
+   "ok": true
+  },
+  "d36bf5570f051fa5251321575d12f64a34e7964aeee80eac7adb85f490d7c4d0": {
+   "file": "0115.wc8",
+   "ok": true
+  },
+  "d3933e003f37603d7f92f807138d9a8500da6732ad6ad3261584a7adca51cc20": {
+   "file": "0578.wc8",
+   "ok": true
+  },
+  "d4150966a10d00469ba086a086ad49eb1ffb053ae728b604626e60e99a076340": {
+   "file": "0762.wc8",
+   "ok": true
+  },
+  "d460cddac6613ce06f274435a12439282313b5e87efa0505d85f33a3348f212f": {
+   "file": "0208.wc8",
+   "ok": true
+  },
+  "d4fd58cb7704d7550ba1d276667b9f7936aa8ac4048d4e88e412b718588b184b": {
+   "file": "0061.wc8",
+   "ok": true
+  },
+  "d59feaca56107b5e3011514bf6161e035809bf4c9a204a702121ef6526314013": {
+   "file": "0126.wc8",
+   "ok": true
+  },
+  "d5ccf2aa66ff290052be901f7dc8955025922311786dcaf720d08a4d0132a93c": {
+   "file": "0336.wc8",
+   "ok": true
+  },
+  "d61fa1bf7363dd967eac999fa84cb33a258e9557a5d1c859ff51a67235f8dc74": {
+   "file": "0892.wc8",
+   "ok": true
+  },
+  "d64f50b8ef0a80c21eb48b205abac8ef3203cb0dfb965547688d44399ae63422": {
+   "file": "0034.wc8",
+   "ok": true
+  },
+  "d65fc99665f5be682e8482ba3a76ea7c0019a68dcb978300fe7af61f842c3e3d": {
+   "file": "0238.wc8",
+   "ok": true
+  },
+  "d6ceef93cf6a7414c30aca1e208d60ab48e6256505a871735bee7dbcfbc16442": {
+   "file": "0771.wc8",
+   "ok": true
+  },
+  "d6e598ad9834cda95013fd5d4bfbbd1f24ba7e52d99981863fc0ec41c790b0f8": {
+   "file": "0265.wc8",
+   "ok": true
+  },
+  "d7367cff4a6353b4633776dc8f1267912be16fc32b9e3d77e57212b8bbe970ef": {
+   "file": "0145.wc8",
+   "ok": true
+  },
+  "d7527c356c444ece39491393e8a1c7ce2baf75a0cc3d9c32ce1dbed4baaf72e5": {
+   "file": "0877.wc8",
+   "ok": true
+  },
+  "d76418cf1c70ff2ff732c1428be6b0403d0aab8d5be0774c40a10d23488a8539": {
+   "file": "0734.wc8",
+   "ok": true
+  },
+  "d78bfacdf6c48e3ccc3f616e2c0327e2e04e00c58bfb4e247f16aea978764485": {
+   "file": "0201.wc8",
+   "ok": true
+  },
+  "d7a270c4a6516d80cb0b551b798d5bd2bae2918b69156916de3777ca1e996db4": {
+   "file": "0564.wc8",
+   "ok": true
+  },
+  "d7b89a384a3c806d514d2859f1dbc7543825ae4150500a04a60b865e49aceff5": {
+   "file": "0409.wc8",
+   "ok": true
+  },
+  "d8706e16389f33a8ea5f8cbb1c94de0c70cf9368d8ac86ed194ea384f81c73e5": {
+   "file": "0793.wc8",
+   "ok": true
+  },
+  "d8d2e225e917d67fbe7f576741b3e5a751698149dd00c1e4c093ce38824f65c7": {
+   "file": "0451.wc8",
+   "ok": true
+  },
+  "d8d67d9ece0cbb8f1351b81e4e6b90379de7045d17e725cac224705f2d769995": {
+   "file": "0052.wc8",
+   "ok": true
+  },
+  "d90f8dd25d837b90e5d9a8897a9c5a0bcb1f70ba1cc3f426e5db429c778d8cf1": {
+   "file": "0508.wc8",
+   "ok": true
+  },
+  "d93c80c341f695ebedaf46f639c99ae72241f0a517b195d93d7e9aa35eaa33e3": {
+   "file": "0850.wc8",
+   "ok": true
+  },
+  "d9a73fd7345e5fb1302d082e3c3ce0a70b6b3637e5003dc459dbb36ba0f26a6a": {
+   "file": "0215.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "d9c1268152b2754d323def7bb598a845b898302179c37fa0a2a36bafb3fc3cd4": {
+   "file": "0013.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "da0348378e1033037750bf5e3167da6615f4580a9c955379d4638f85cba1876a": {
+   "file": "0486.wc8",
+   "ok": true
+  },
+  "da0cb61f7f68eb91d3ca5e993c4fd4c2c24fc92d21f643d9029793a386b81f84": {
+   "file": "0463.wc8",
+   "ok": true
+  },
+  "da65f3e21c9b3db2db86372de2914bf9a0668374c787ee3dd8b00cbae8f60ee6": {
+   "file": "0106.wc8",
+   "ok": true
+  },
+  "da6fe802671183cf627b0bfad243d3d8a545c03d74783c1aa2c7b41d7309078a": {
+   "file": "0417.wc8",
+   "ok": true
+  },
+  "da767541c40ec4b656602fb52ed1764707222a415dd098dc715c3e38abcd8285": {
+   "file": "0708.wc8",
+   "ok": true
+  },
+  "da8ef4ba075e30385eea81e3370c52481190a93b9985e21e67ee0fd2345a588c": {
+   "file": "0462.wc8",
+   "ok": true
+  },
+  "dad2a5785502b5e8f21bbf17163e04b3583448cb63b2416affb9b08b34118d9f": {
+   "file": "0841.wc8",
+   "ok": true
+  },
+  "dade50c8c70a6a5d0cc8bc7724a9ce608a6797c54cb9ea410d83811bc946de78": {
+   "file": "0891.wc8",
+   "ok": true
+  },
+  "dafdc4962d44c322941070edd998f02bfc7bc81ffaa7328b9e43e2dbd34c4707": {
+   "file": "0422.wc8",
+   "ok": true
+  },
+  "db3cc2d6cc69bed107f8ffd47f754a594015bc625b522a237194b60dfa010a92": {
+   "file": "0344.wc8",
+   "ok": true
+  },
+  "dbaede6448e58afde88159dcda8f472d8d701301e05dab96775c850ee346f1eb": {
+   "file": "0902.wc8",
+   "ok": true
+  },
+  "dbce2e3ad222a4be3c250f1275a481eb56a52da2e3e3975c27549362430549e7": {
+   "file": "0825.wc8",
+   "ok": true
+  },
+  "dc0986123806f4e9a4e34e5c9ecdfc50ee1068e4b505fcbee3c59d8b6d0b098e": {
+   "file": "0683.wc8",
+   "ok": true
+  },
+  "dd7a520a709df966823c174eb3b82b188651ff3622ad0f56c5b80995288ebe54": {
+   "file": "0287.wc8",
+   "ok": true
+  },
+  "ddbb41e6c9283b769c395b1f2fe4be387c4ea17dfa9df86b218ae60002ef8f79": {
+   "file": "0388.wc8",
+   "ok": true
+  },
+  "de5924ffc9d6c994b7ecff1e4e10989b2ef2ba57b74021e9d9aa57f0eb6e029e": {
+   "file": "0351.wc8",
+   "ok": true
+  },
+  "de618207fca1f50a05799aa8843a8e17e21d9920b999a299094dc10438042537": {
+   "file": "0910.wc8",
+   "ok": true
+  },
+  "debaab00b91a5a22b457aa8b12d2483f87b13ed7b7b248e1d7b23288d047b364": {
+   "file": "0695.wc8",
+   "ok": true
+  },
+  "dec95a27921cdfaab177645e02bdd262671536f8df4ee63f1a2e7c6e140c75f0": {
+   "file": "0878.wc8",
+   "ok": true
+  },
+  "df28901c08a5ee97038dc1eab708f755e2f2acd5f1412ffcc2a14eb993f470c0": {
+   "file": "0154.wc8",
+   "ok": true
+  },
+  "df42edba539b46df409dc55c3fe2d4a8676ac23f4d8c0e9f750c8a055fc3a22b": {
+   "file": "0832.wc8",
+   "ok": true
+  },
+  "df68f61daea9bfc9931fbe0160cdf7c88cf9c796f4f06e42c169899498bae188": {
+   "file": "0563.wc8",
+   "ok": true
+  },
+  "dfe1449ebdecf7b58b53eef86233b2a50655c0793c3f61d4736cb244cf94dde7": {
+   "file": "0778.wc8",
+   "ok": true
+  },
+  "e009dc90558c83a35a837f3ceaacbcac26a3d3c921ec876b1e6ca38d656e17d5": {
+   "file": "0881.wc8",
+   "ok": true
+  },
+  "e00d71c089e34f2af3c36f715ef713a1309334e7b86b99a5766abc7f3e07fac0": {
+   "file": "0584.wc8",
+   "ok": true
+  },
+  "e032b83e5219578d62e5f5c894c3f755c3ca055d71c65e209e6b40a13d3f9c70": {
+   "file": "0608.wc8",
+   "ok": true
+  },
+  "e052cdd90b29169da71ab1556121416cb080a8c907212f703567f7844507f987": {
+   "file": "0453.wc8",
+   "ok": true
+  },
+  "e110b05e2bd418c6d675255087a8480531238c0b0c5f17b468268b20bdc32a61": {
+   "file": "0657.wc8",
+   "ok": true
+  },
+  "e130467966820498ea8d591deafb563720c095c6b780a59c0ac0acd80ec9dc33": {
+   "file": "0787.wc8",
+   "ok": true
+  },
+  "e137bf91c93fda127451a99d6a2525dca3a4995fc1b5a898bbc95a340b73625b": {
+   "file": "0749.wc8",
+   "ok": true
+  },
+  "e14501a1d83b302f7c04d277cd6fa3774a0ae5765997b22894a4c489dcb77110": {
+   "file": "0250.wc8",
+   "ok": true
+  },
+  "e14b858ff5a980ad20888167d62323fa31747a0be0df7851731191356278e8e6": {
+   "file": "0203.wc8",
+   "ok": true
+  },
+  "e14d6ecfa3a0b0674ccd0fb7392ef42799df95411b73c33839d89e23060e15ec": {
+   "file": "0367.wc8",
+   "ok": true
+  },
+  "e16a236ed0d34ad66d6ae43a3e688cbfeec32de19a2e96502e6ba71399dbcf7b": {
+   "file": "0325.wc8",
+   "ok": true
+  },
+  "e16d4fe70e93e4c237e18233d0e8b25574e04d48baafe187f8901e39a21a5b2c": {
+   "file": "0302.wc8",
+   "ok": true
+  },
+  "e1930430017c3aa06089ba3576722b020ffd51e0b54bda6dd462c53e7f10e357": {
+   "file": "0266.wc8",
+   "ok": true
+  },
+  "e1bd06c235d0bb46e9576dbb612286e4d2258de6c421b6cd469a45a57e01636c": {
+   "file": "0142.wc8",
+   "ok": true
+  },
+  "e23cd8a3bcbf34d626460b09bf85c7836e81818d26e4ae4e6c99c399882e9e95": {
+   "file": "0722.wc8",
+   "ok": true
+  },
+  "e27eceb27a905d00e4340e7ac0c4fe5291babf6bf3e1debb4dd4f96516d36f22": {
+   "file": "0715.wc8",
+   "ok": true
+  },
+  "e280f0199d37717e0e24cd29323231fdf7acd9cfc63980246dc6bbd7958e3e60": {
+   "file": "0174.wc8",
+   "ok": true
+  },
+  "e2adef07ce3c888dde13ba4443783a0a9f646358aa28339a132d756bf4f3cd2d": {
+   "file": "0047.wc8",
+   "ok": true
+  },
+  "e2cbf91a24d1c83ec0bfca8873b266497f531732c10ade563ed529b63fa19543": {
+   "file": "0634.wc8",
+   "ok": true
+  },
+  "e2e35d3314559bb9958ea1d2aec20aab737d6fc6a7f2562d2b6fa0b490868359": {
+   "file": "0251.wc8",
+   "ok": true
+  },
+  "e371855b95e4b9266f85da740326c99676be59beaeb003ca1a1b46b72436cf46": {
+   "file": "0348.wc8",
+   "ok": true
+  },
+  "e3b899f65c7a162e60d50592b80f91e3c95be420ca1d733a6ecf73d905c58087": {
+   "file": "0589.wc8",
+   "ok": true
+  },
+  "e4079cd0e3200cbaac2a7f95a84f1efb8470ae9bb48f1d710297ec05dc319910": {
+   "file": "0705.wc8",
+   "ok": true
+  },
+  "e40bd5594fdaa2825a6f4cdc0f18ce82f336eec867a2308cab28304995bfd2f4": {
+   "file": "0021.wc8",
+   "motivo": "Invalid gift gender, nature, ability, shininess or Dynamax level.",
+   "ok": false
+  },
+  "e4a26ab318ef76024d13c709bc75c337f235ff10d36cc7f762b2fac48be99119": {
+   "file": "0298.wc8",
+   "ok": true
+  },
+  "e4c0929e793d00d6cc870b3fae1d295825a3b84880aa70aa8ff82e4fbd7713f1": {
+   "file": "0119.wc8",
+   "ok": true
+  },
+  "e4eb7d456cbdf24cdc603d66b344de5846f345ae863dd6306d788c5bed2472db": {
+   "file": "0219.wc8",
+   "motivo": "Supported WC8 gifts are Pokemon, bag items and BP.",
+   "ok": false
+  },
+  "e4eb8449c0091c293e9adab369c19650e9ca07a693c2e1c0f505cd9ddb59b7ec": {
+   "file": "0512.wc8",
+   "ok": true
+  },
+  "e5a0e747235e1d749c3c5e10443d0b39e8402f2181616146b7cf038e0307415b": {
+   "file": "0916.wc8",
+   "ok": true
+  },
+  "e5c3a9c90038e1d6f18b91eacbecac5432accb3126e4a76acea01803babc976d": {
+   "file": "0466.wc8",
+   "ok": true
+  },
+  "e5d24da90faec5defc96e203b0c8f8167c6fb1f4db37fdf9dd880dce35563f54": {
+   "file": "0900.wc8",
+   "ok": true
+  },
+  "e5dc87474b1afc01436783191586af3210b0d923b20e07962191e417ce10f0b0": {
+   "file": "0098.wc8",
+   "ok": true
+  },
+  "e65168da16495bdf09a09526fc85df468efbbe332bf55f303583eddb20db8ed2": {
+   "file": "0830.wc8",
+   "ok": true
+  },
+  "e6c10a6d4116efbef2451dbc4b96f115299d7c496fef61e5b8be15e6d5a45376": {
+   "file": "0350.wc8",
+   "ok": true
+  },
+  "e71cab8d2cfdec2af9c587e82b1418689e4737c79cafe3eba0e1bbfa07a1d0da": {
+   "file": "0064.wc8",
+   "ok": true
+  },
+  "e79652a389fc94af9f9533dbb4e97795d2a7772d96ede6fb36ec44eaf16924cc": {
+   "file": "0795.wc8",
+   "ok": true
+  },
+  "e7b66eac30da44ae6164da83d67614a45d4e4e7e1c0711c556fd759973b0c63e": {
+   "file": "0262.wc8",
+   "ok": true
+  },
+  "e7bcce43b10453b04bb1a7dadebae4746e4e0029b6383ca192a925b232af779e": {
+   "file": "0282.wc8",
+   "ok": true
+  },
+  "e7c840a8d74b56bdcbc5376b01ca9720427b9148ef14ae13cf0c8a587376d320": {
+   "file": "0915.wc8",
+   "ok": true
+  },
+  "e7eb1c562aa568c63c8470f894b4af59920c00beeb474c47f643f39cee701267": {
+   "file": "0009.wc8",
+   "ok": true
+  },
+  "e81076a9123bfa760c0209c4c57a5322df120b4c82d2b9260bafe2f52cbaca2d": {
+   "file": "0264.wc8",
+   "ok": true
+  },
+  "ea447de2576789656d6f0c0dcce7d52846fd01e9b2e26e7fb25b4dddb3b6be51": {
+   "file": "0376.wc8",
+   "ok": true
+  },
+  "ea786f688500826cc3ff37b709d7c691b0f597bb74d0f71b54b6c0c3d387e73b": {
+   "file": "0720.wc8",
+   "ok": true
+  },
+  "ea96dda76136d774b97ae48e98f3474200905caad4031b60e2cf2019744e27f2": {
+   "file": "0579.wc8",
+   "ok": true
+  },
+  "eaf2865c9af10901da27ff551adfc4ec01f939d5b41c0e8a5d2f7eed6a7186ba": {
+   "file": "0345.wc8",
+   "ok": true
+  },
+  "eb065364f9d82166bb1f28e77a41d8853959cc730346e596324353b6314bfc07": {
+   "file": "0755.wc8",
+   "ok": true
+  },
+  "eb8242b3730aeabd454cf2f80d5224bf23178bf0c74c218242b4ae020b259fbb": {
+   "file": "0741.wc8",
+   "ok": true
+  },
+  "ebfeff751fa4c83c94fde673d5fdb8792eb52c1a4eebdd4d1618e05eab2fd165": {
+   "file": "0854.wc8",
+   "ok": true
+  },
+  "ec2a80d5e14c6bd3af4435ccf10797aceb3ed7058594f14546338cebdebf23b7": {
+   "file": "0654.wc8",
+   "ok": true
+  },
+  "ec85761bb21348e3437da75e3af889cb566b270827d879c41be0ff176a3bcd7d": {
+   "file": "0449.wc8",
+   "ok": true
+  },
+  "ecf4daeb6b1c1dfe46f9fbca7190115383ed89c46e494377e9cdd5ef84ce215f": {
+   "file": "0866.wc8",
+   "ok": true
+  },
+  "ed6238b85d4359e8fe4d7228255c705a36f7c7b103bd70d7608bcba8069a7249": {
+   "file": "0391.wc8",
+   "ok": true
+  },
+  "edfaa14f27e0d9d8e04bdd4f1b14e967191b4b7572112a574f24876b37df0dbc": {
+   "file": "0785.wc8",
+   "ok": true
+  },
+  "ee95e2ba05a072f17ae479767334d8749e968a6e400bb6c63555dd44500a4b3f": {
+   "file": "0293.wc8",
+   "ok": true
+  },
+  "eee390c5fa72d6e60326fdd221033065f4a6561852fa4e947144582870c13a9c": {
+   "file": "0619.wc8",
+   "ok": true
+  },
+  "ef3ff22a304eff0b2d1e236a1aef9e4b6dead4962c4108577a837b29904be06d": {
+   "file": "0621.wc8",
+   "ok": true
+  },
+  "efc4afff914be4424294e4c42a40369917af643c1a0a20995a42c8d1cb1d6b38": {
+   "file": "0102.wc8",
+   "ok": true
+  },
+  "efd0300594abb2fc080c2612621239fdb1baab476ba25f7f49ca5931114c5bd4": {
+   "file": "0421.wc8",
+   "ok": true
+  },
+  "efe0f0344f2cee86bec8f7328dd0430077df6624501d0606b157a7b85ccc88a5": {
+   "file": "0592.wc8",
+   "ok": true
+  },
+  "eff5d7eb2b3ac269651916e9ad3f3fc26529d4f82b83806504cb84bcba8b5715": {
+   "file": "0604.wc8",
+   "ok": true
+  },
+  "f01f9bb2f3ee84b5e77873aec73dc5620eca8fba429aa39443ecdf6d67d12dfd": {
+   "file": "0684.wc8",
+   "ok": true
+  },
+  "f03a34d75c97632763a2b43b01be9f8955270e58c56aa130e43f576b3c395799": {
+   "file": "0873.wc8",
+   "ok": true
+  },
+  "f04e2cd13ecb0d7012e28bcfbbdd6b8af30afd485ba65e169f3e2479edcf3d80": {
+   "file": "0248.wc8",
+   "ok": true
+  },
+  "f08423233fab8be5b5429c8b96c2db491dd0ebfe3410ba13cf8b5d474d1b7973": {
+   "file": "0044.wc8",
+   "ok": true
+  },
+  "f08cfb06818a423fd20c0a338be8a493afb41e82014541df39ce7814ed145f0b": {
+   "file": "0805.wc8",
+   "ok": true
+  },
+  "f18114202a5e587a13222885ebc86194737155c03418462becada90b836e0170": {
+   "file": "0501.wc8",
+   "ok": true
+  },
+  "f1b4dd35051811fdb531f3eb356262ea41b97e178a90259808daec12964cf1ee": {
+   "file": "0074.wc8",
+   "ok": true
+  },
+  "f1fe86b8473c6ee3e251f243876e4f9cb5238c0e0375fdfdb83a26b79f16bb13": {
+   "file": "0690.wc8",
+   "ok": true
+  },
+  "f2439be70e995ca207c8b5609c84623e5366ef294745f343b68eb7e30e399c9d": {
+   "file": "0341.wc8",
+   "ok": true
+  },
+  "f2905d0530153e14aa67eac86fb5218815313e59a35e926183094f79d325f087": {
+   "file": "0503.wc8",
+   "ok": true
+  },
+  "f2a81b1ed2117503dddba9e687e248b8621c379a1968358b570807367d19ad9b": {
+   "file": "0650.wc8",
+   "ok": true
+  },
+  "f2ced640ae5823283e56edde1f0ad596da9c6230a59743156a21c41d07b38ae2": {
+   "file": "0811.wc8",
+   "ok": true
+  },
+  "f302c3baec36f4289635af5d4592d48ec9a7d8cc268d87451c82b3a7dd3c3679": {
+   "file": "0548.wc8",
+   "ok": true
+  },
+  "f319853e439b1aabba8fee8413c67758223685d7219436ffa298d7189d6893d0": {
+   "file": "0008.wc8",
+   "ok": true
+  },
+  "f32d5a19c01b0572e07f58cf6a40e5edbdaf3102b2e8a4d2ad66013fb774de9d": {
+   "file": "0469.wc8",
+   "ok": true
+  },
+  "f398890211b36793c42b83a839c16efe62ad219d1b925713ffc72afa766297d5": {
+   "file": "0759.wc8",
+   "ok": true
+  },
+  "f3a10d05a6af3723aa42f78ab00d9a3bf613a35aeebdb3bc9876197e871c8631": {
+   "file": "0328.wc8",
+   "ok": true
+  },
+  "f3b54d29a5faf8a06bd70f03bf8edcc426e78d1888c6944549b7606982389b64": {
+   "file": "0696.wc8",
+   "ok": true
+  },
+  "f3eb2a49f554a1bc8496bbf83ad51e750a0e7c6742d5da04d44d999bb3791bc1": {
+   "file": "0342.wc8",
+   "ok": true
+  },
+  "f50ff57bee1c0d61aec9305d6d8a3705824f0775f447255bdd7574c0acccf98b": {
+   "file": "0659.wc8",
+   "ok": true
+  },
+  "f556824e10731ce70381ff3e398fedf2b01326d637dbb2957c2acc3e080ac74b": {
+   "file": "0308.wc8",
+   "ok": true
+  },
+  "f58877e0effabd151e5702cd8cf8ab150cbda0a23256968d628d5527810ac158": {
+   "file": "0378.wc8",
+   "ok": true
+  },
+  "f5ad66c4fb0d3c97767884ffb55c9e6e780647a32cc758553dfbd3cf73efdc86": {
+   "file": "0510.wc8",
+   "ok": true
+  },
+  "f5c16e0aeb0be53b87c34f0f3ee88bb9f1d59342188616fba60d0df2beff4d8a": {
+   "file": "0890.wc8",
+   "ok": true
+  },
+  "f5dcaa5bd900955f8161062b6fcb8447ee3b0e7ff6f520ef41e01684a58bc177": {
+   "file": "0887.wc8",
+   "ok": true
+  },
+  "f605f17ea3178dd761fb9f0a6098dd827fcda9cf7e782ca67e3c8650f61e8481": {
+   "file": "0474.wc8",
+   "ok": true
+  },
+  "f65c57926b47d1fd7451ee4d18800a6597a7d7af046b38ffc26e13260e670a9d": {
+   "file": "0885.wc8",
+   "ok": true
+  },
+  "f668c1d854e37b2c60ae97b8f92a6d08923b5344daa5a2ca65a1eece7df50bd6": {
+   "file": "0714.wc8",
+   "ok": true
+  },
+  "f6d1d34d8abc1947502e2cb867f13c386a3f82bdbcda9b1de28c9cb3119d06dd": {
+   "file": "0335.wc8",
+   "ok": true
+  },
+  "f6f7281af906474f5792ef70fe0a9352f93866c19e52478fd725a89ff3838168": {
+   "file": "0440.wc8",
+   "ok": true
+  },
+  "f701232757aeec0daa6c7115ad81e7ec74b06ab8b1a68c72f6523dd584618f15": {
+   "file": "0861.wc8",
+   "ok": true
+  },
+  "f7164356aa0923d221e90e3e111474097caa864aa242fe455b6b2d9fa129ab5d": {
+   "file": "0031.wc8",
+   "ok": true
+  },
+  "f7179fa4c1fd6e37140a18c0c37ee0f1a82b3123fd30dfd69b7078a99db5a73d": {
+   "file": "0361.wc8",
+   "ok": true
+  },
+  "f743f1ae96bd7a0d1ad74b058206750dee6dc81ca6dd4b1037cfe7c08205b25f": {
+   "file": "0847.wc8",
+   "ok": true
+  },
+  "f7b80c28055c11b1a126551b0bd10522d82fc06af2285a8a752ff22c13808d39": {
+   "file": "0002.wc8",
+   "ok": true
+  },
+  "f7ea0c38ac08da33559ea47570434d6b3610a82332eecc00f203e9567e87b0e1": {
+   "file": "0317.wc8",
+   "ok": true
+  },
+  "f817ba3308b8e18d7b3c93e8db3d075241c5351088e35589fe0c11043baf80cc": {
+   "file": "0062.wc8",
+   "ok": true
+  },
+  "f872c6bd70ca54ff15b9bbedf02aae107596317400bf4bb0d329320b4245f91c": {
+   "file": "0274.wc8",
+   "ok": true
+  },
+  "f8a602ef10b440d2911cc04e5627c51d81e8f404ed1963b5184b8b9d2b76e27a": {
+   "file": "0370.wc8",
+   "ok": true
+  },
+  "f8bf9c59307332ce746fee51bf5dea5f24596b15ef5053e29cfac43fbcbf7186": {
+   "file": "0591.wc8",
+   "ok": true
+  },
+  "f8eaa19c56d1ec5483ed95e53cb8b5b1a0f4661e433300c20a1e45d609c34bc3": {
+   "file": "0085.wc8",
+   "ok": true
+  },
+  "f92b33d00dacc7d42e06ab0427d3282145e4fdd3e71c669e7a8694ab4d2c4791": {
+   "file": "0272.wc8",
+   "ok": true
+  },
+  "f97ff0c3f31aa38a4d930ae09db130e077b0200db808e81261d76f60222486ac": {
+   "file": "0802.wc8",
+   "ok": true
+  },
+  "f9c46af6043a7a63b10a03eaa00d7798e00c325ac727c7226d7e8356a6d5fb74": {
+   "file": "0332.wc8",
+   "ok": true
+  },
+  "fa27071e4df3de67d83060e57aa3dc250002295f41c066be0514f354fe9d02a3": {
+   "file": "0196.wc8",
+   "ok": true
+  },
+  "fa2c5f89220294f3fd20d923d9a6c67962fa79b45c2bfa2902157e82ca61dc20": {
+   "file": "0660.wc8",
+   "ok": true
+  },
+  "fa3efa7c4262963eb88717dba0a195e22205ab4a1e57e1b18e5914d39127ac63": {
+   "file": "0315.wc8",
+   "ok": true
+  },
+  "fa83774f802ac25fd37c8c73c16057cacde56f6902dc4f895af8bb02cf54db8b": {
+   "file": "0806.wc8",
+   "ok": true
+  },
+  "fa8aed283dec7f14ea4aaa7972b52fde986f88b98f1882747a5926a5d173ee91": {
+   "file": "0387.wc8",
+   "ok": true
+  },
+  "fa8dd395256e5034830fc34cbe874b541a05fc9ba6b89e29b99e36c5ae5be570": {
+   "file": "0450.wc8",
+   "ok": true
+  },
+  "fab47c923de13fad4a6488eb42e30e74adaf336361439e0baccc8ca5598f4ffd": {
+   "file": "0704.wc8",
+   "ok": true
+  },
+  "facdf80b4e5ffb928f07ff8f4ae5e08f3d27caeb05a4cb24265e529a4d94dc86": {
+   "file": "0439.wc8",
+   "ok": true
+  },
+  "fb10636d676a81b12084b6e8c4641f27b3bea23c6ed249aa492efc797289eb63": {
+   "file": "0327.wc8",
+   "ok": true
+  },
+  "fb5a630321bfd2db102390b6ced72ba621d844d078fb02b6c1b7be4d2881b927": {
+   "file": "0920.wc8",
+   "ok": true
+  },
+  "fb86ad4e4d2bdea4033e4ace52bc3a19514148fc54ab7cfec26cf8bc3a2755e0": {
+   "file": "0764.wc8",
+   "ok": true
+  },
+  "fbab07fe3c4fada90058677c39a5b74a78097124f0338748fe08b295191a0c79": {
+   "file": "0398.wc8",
+   "ok": true
+  },
+  "fbbc925003dd7f4d9eae9a6e322cf2eb30c5a7c9af135a74e3a788da48655e14": {
+   "file": "0831.wc8",
+   "ok": true
+  },
+  "fbd16c381e3a0136b78d188cdc40070dd13eb8c8a160d1b641a9e9bfafa3eec4": {
+   "file": "0747.wc8",
+   "ok": true
+  },
+  "fbd6b5c221c8eccc84263e961cfeec1da2f4aa9fe52636739f1a6db2470921d3": {
+   "file": "0012.wc8",
+   "ok": true
+  },
+  "fc9f5bdff8e3d0393b2d4fede0494ef2288285f9d3d7b62b0fae61c048a793cd": {
+   "file": "0629.wc8",
+   "ok": true
+  },
+  "fcbf55d4c382243d2b87840a402d070ebc69907ee59bcf76f453ab9a44a4b574": {
+   "file": "0836.wc8",
+   "ok": true
+  },
+  "fcc1c5b0ff67c6cee40715fe777b31fd8177e4fe06e05321cb5e2ef569e8a9d2": {
+   "file": "0186.wc8",
+   "ok": true
+  },
+  "fccf2418df95814a9dd9f2645e89ae99763a3dfc0e624131c31132eabca0286b": {
+   "file": "0577.wc8",
+   "ok": true
+  },
+  "fd2c22b7d2a71bee420a28ca937b7d2aea6260ed5fddf1ae8b1494096b1ba08f": {
+   "file": "0197.wc8",
+   "ok": true
+  },
+  "fe0c737394eccb0a122edc8a02fae18aee88db7e5e38f015a663cc48ab75da02": {
+   "file": "0172.wc8",
+   "ok": true
+  },
+  "fe1d1a6eb4f5be3d006541346cf48f781e9d2f9ea661e2abf7cb3432caf7e20a": {
+   "file": "0209.wc8",
+   "ok": true
+  },
+  "ffa687b29aed15c1023e4b04479e6346535d62175a3b83834aa73d84ee280e1d": {
+   "file": "0554.wc8",
+   "ok": true
+  },
+  "ffd249a946ada129e6bd72fe0ba71a1bbe099233c1982bbd05e98b1e068f7718": {
+   "file": "0523.wc8",
+   "ok": true
+  }
+ }
+}
