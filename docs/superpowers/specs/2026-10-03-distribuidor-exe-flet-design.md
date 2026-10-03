@@ -79,7 +79,7 @@ Assim a lógica é testável sem abrir janela e uma futura troca de interface n�
   Com Python comum (desenvolvimento), `runner.py` usa `sys.executable` no lugar.
 - Processos-filho sem janela (`CREATE_NO_WINDOW`). A saída é lida linha a linha numa thread e vira log.
 - Parada: um processo sem janela no Windows não recebe Ctrl+C. O pai **fecha o stdin** do filho; no
-  filho, uma thread que lê o stdin chama `_thread.interrupt_main()` no EOF, o que gera o mesmo
+  filho, uma thread que lê o stdin chama `signal.raise_signal(SIGINT)` no EOF (no Windows, `_thread.interrupt_main()` não acorda um `sleep`), o que gera o mesmo
   `KeyboardInterrupt` com que os hosts do pokeldn desmontam a rede na placa (mecanismo do upstream,
   reescrito por nós). Sem saída em 15 s → `terminate`; mais 5 s → `kill`. Só vale com
   `DISTRIB_MANAGED_RUN=1` no ambiente do filho.
