@@ -50,7 +50,7 @@ pokeldn-distrib/
     views/distribuir.py jogo → grade → eventos → distribuindo
     views/placa.py      placa e "Preparar placa"
     views/ajustes.py    prod.keys, catálogo, versão, logs, créditos
-    assets/             logo Poké Ball (SVG próprio), ícones de um set MIT
+    assets/             logo Poké Ball (SVG próprio), ícones Lucide (ISC)
   vendor/pokeldn/       submodule do upstream, fixo na tag v0.5.0 (37410c11e4a48c63c1bdeb3b3e0c55be04e0790d)
   build/                pack.py (flet pack) e o download dos firmwares do Release v0.5.0
   tests/
@@ -78,9 +78,11 @@ Assim a lógica é testável sem abrir janela e uma futura troca de interface n�
   e a gravação da placa rodam como **processo-filho do próprio `.exe`**: `Distribuidor.exe --run <alvo> <args>`.
   Com Python comum (desenvolvimento), `runner.py` usa `sys.executable` no lugar.
 - Processos-filho sem janela (`CREATE_NO_WINDOW`). A saída é lida linha a linha numa thread e vira log.
-- Parada: o comportamento atual do `distributor.py` (sinal de interrupção, depois terminate, depois kill)
-  é adaptado ao Windows (`CTRL_BREAK_EVENT` com `CREATE_NEW_PROCESS_GROUP`). O plano começa provando
-  que os hosts do pokeldn desmontam a rede da placa com esse sinal no Windows.
+- Parada: um processo sem janela no Windows não recebe Ctrl+C. O pai **fecha o stdin** do filho; no
+  filho, uma thread que lê o stdin chama `_thread.interrupt_main()` no EOF, o que gera o mesmo
+  `KeyboardInterrupt` com que os hosts do pokeldn desmontam a rede na placa (mecanismo do upstream,
+  reescrito por nós). Sem saída em 15 s → `terminate`; mais 5 s → `kill`. Só vale com
+  `DISTRIB_MANAGED_RUN=1` no ambiente do filho.
 - A placa é passada como `POKELDN_RADIO=esp32:COMx`.
 
 ### 3.3 Dados do usuário
@@ -94,7 +96,7 @@ Em `%LOCALAPPDATA%\Distribuidor\` (sobrevivem às atualizações do `.exe`):
 - Tema escuro, uma cor de destaque (vermelho Poké Ball `#E8445A`), cantos arredondados,
   botões em pílula, verde/vermelho só para estado.
 - Logo: Poké Ball em SVG próprio.
-- Ícones: um set de licença MIT (ex.: Lucide), em SVG.
+- Ícones: Lucide (licença ISC, permissiva como a MIT), em SVG.
 - Fonte padrão do sistema; monoespaçada só no log.
 - Referência visual aprovada: mockup `fluxo-v2.html` do brainstorm (4 etapas).
 
@@ -117,8 +119,11 @@ Linha de caminho clicável no topo: `Distribuir › Sword / Shield › Zarude �
    - Agrupamento: SwSh por `species` do `.wc8`; FRLG pela espécie do `.pk3`. Itens por `kind == "item"`.
 3. **Eventos do Pokémon:** sprite grande, nome, lista de eventos com nome, região
    (Ocidente / Japão / idioma do `.pk3`), nível, OT e destaques; botão "Distribuir" em cada um.
-4. **Distribuindo:** sprite + nome do evento, "Pausar"/"Continuar" e "Parar", contadores
-   (entregues, consoles agora, tempo) e log ao vivo.
+4. **Distribuindo:** sprite + nome do evento, "Pausar"/"Continuar" e "Parar", contadores e log ao vivo.
+   - SwSh (anúncio): **tempo no ar** e **canal**. O host só anuncia o cartão e não sabe quantos
+     consoles o baixaram, então não há "entregues" nem "consoles".
+   - FRLG (sessão): **entregues**, **último resultado** (entregue / equipe cheia / não entregue),
+     **tempo no ar** e se há um console conectado agora.
    - **Pausar** fica nesta tela. **Parar** encerra e volta para a **grade** do jogo.
    - Trocar de aba durante a distribuição não a interrompe; voltar a "Distribuir" reabre esta etapa.
 
@@ -174,7 +179,8 @@ PokeAPI, set de ícones).
 ## 9. Riscos (o plano começa por eles)
 
 1. **Hosts no Windows:** provar que `swsh_gift_host.py` e `frlg_mg_host.py` do v0.5.0 entregam um
-   presente no Windows nativo com a camada `userspace`, e que param limpo com `CTRL_BREAK_EVENT`.
+   presente no Windows nativo com a camada `userspace`, e que param limpo com Ctrl+C (o mesmo
+   `KeyboardInterrupt` que o fechamento do stdin gera).
 2. **`frlg_session.py`:** ele registra nosso presente no `GIFT_REGISTRY` antes de montar o parser do
    `frlg_mg_host.py`, que mudou cerca de 180 linhas desde o `89f761e`. Revalidar.
 3. **Empacotamento:** `flet pack` com o pokeldn, `vendor/LDN`, `esptool` e os firmwares dentro de um
