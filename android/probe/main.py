@@ -12,7 +12,9 @@ def main(page: ft.Page):
         lines = [f"sys.version: {sys.version}", f"sys.platform: {sys.platform}"]
         for k in sorted(os.environ):
             if "FLET" in k.upper() or "ANDROID" in k.upper():
-                lines.append(f"{k}={os.environ[k]}")
+                # valor só de caminhos; das demais, só o nome (pode haver token)
+                shown = os.environ[k] if ("STORAGE" in k or k in ("ANDROID_DATA", "ANDROID_ROOT")) else "<oculto>"
+                lines.append(f"{k}={shown}")
         lines.append(f"cwd: {os.getcwd()}")
         out.value = (out.value + "\n\n" if out.value else "") + "\n".join(lines)
         page.update()
