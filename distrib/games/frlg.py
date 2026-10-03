@@ -7,9 +7,11 @@ import shutil
 from collections import defaultdict
 from pathlib import Path
 
+from distrib import runner
 from distrib.catalog import Catalog, Event, save_index
 from distrib.config import Config
 from distrib.games.base import Job, Update
+from distrib.species import gen3_to_national
 
 FRLG_RAW = "Released/Gen 3"
 LANGUAGES = {1: "JPN", 2: "ENG", 3: "FRE", 4: "ITA", 5: "GER", 7: "SPA"}
@@ -112,12 +114,16 @@ class FrlgAdapter:
                    ("Variantes (PID)", str(len(files))),
                    ("Shiny", f"{shiny} de {len(files)} variantes"),
                    ("Pasta", folder))
-        return Event(game=self.game, key=f"{folder}/{species}/{ot}/{d['language']}", name=name, kind="pokemon",
-                     details=details, files=files, sort_key=name)
+        highlights = [f"Nv {d['level']}"]
+        if shiny == len(files):
+            highlights.append("Shiny")
+        return Event(game=self.game, key=f"{folder}/{species}/{ot}/{d['language']}", name=name,
+                     kind="pokemon", details=details, files=files, sort_key=name,
+                     species=gen3_to_national(species), highlights=tuple(highlights),
+                     region=language)
 
     def build_job(self, event: Event, cfg: Config, port: str) -> Job:
-        argv = [str(cfg.python), "-u", "-m", "distrib.runners.frlg_session",
-                "--pokeldn", str(cfg.pokeldn_dir)]
+        argv = ["--module", "distrib.runners.frlg_session", "--pokeldn", str(cfg.pokeldn_dir)]
         on_delivered = None
         if event.kind == "extra":
             argv += ["--extra", event.key.removeprefix("extra:")]
@@ -126,8 +132,8 @@ class FrlgAdapter:
             on_delivered = lambda: self.rotation.advance(event)
         argv += ["--keys", str(cfg.keys), "--phy", "auto",
                  "--idle-timeout", str(cfg.frlg_idle_timeout)]
-        return Job(argv=tuple(argv), env={"POKELDN_RADIO": f"esp32:{port}"},
-                   cwd=str(cfg.project_dir), label=event.name, on_delivered=on_delivered)
+        return Job(argv=tuple(runner.command(*argv)), env={"POKELDN_RADIO": f"esp32:{port}"},
+                   cwd=str(cfg.pokeldn_dir), label=event.name, on_delivered=on_delivered)
 
     def parse_line(self, line: str) -> Update | None:
         if line.startswith("[distrib] presente "):

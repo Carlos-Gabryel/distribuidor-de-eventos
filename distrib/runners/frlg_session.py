@@ -1,4 +1,4 @@
-"""Host de UMA sessão do Mystery Gift do FireRed/LeafGreen (rodar como root).
+"""Host de UMA sessão do Mystery Gift do FireRed/LeafGreen (processo-filho do app).
 
     python -m distrib.runners.frlg_session --pokeldn DIR --pk3 ARQ [args do frlg_mg_host]
     python -m distrib.runners.frlg_session --pokeldn DIR --extra altering-cave [args…]
@@ -18,6 +18,9 @@ from distrib.pokeldn_path import ensure_importable
 
 
 def load_host(pokeldn_dir: Path):
+    bin_dir = str(pokeldn_dir / "bin")
+    if bin_dir not in sys.path:
+        sys.path.insert(0, bin_dir)
     spec = importlib.util.spec_from_file_location(
         "frlg_mg_host", pokeldn_dir / "bin" / "frlg_mg_host.py")
     module = importlib.util.module_from_spec(spec)

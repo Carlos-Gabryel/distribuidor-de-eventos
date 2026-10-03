@@ -1,3 +1,7 @@
+from pathlib import Path
+
+import pytest
+
 from distrib.games import frlg
 from distrib.games.base import Update
 
@@ -88,17 +92,40 @@ def test_rotation_persists_across_instances(gallery, cfg):
 
 
 def test_build_job_for_pk3_and_extra(gallery, cfg):
+    from distrib import runner
     a = adapter(cfg)
     cat = a.build_catalog(gallery / frlg.FRLG_RAW, cfg)
-    job = a.build_job(cat.search("lugia")[0], cfg, "/dev/ttyACM0")
-    assert job.argv[:4] == (str(cfg.python), "-u", "-m", "distrib.runners.frlg_session")
-    assert job.argv[job.argv.index("--pokeldn") + 1] == str(cfg.pokeldn_dir)
-    assert job.argv[job.argv.index("--idle-timeout") + 1] == str(cfg.frlg_idle_timeout)
-    assert job.env["POKELDN_RADIO"] == "esp32:/dev/ttyACM0"
-    assert job.cwd == str(cfg.project_dir)
+    job = a.build_job(cat.search("lugia")[0], cfg, "COM5")
+    rest = job.argv[len(runner.command()):]
+    assert rest[:2] == ("--module", "distrib.runners.frlg_session")
+    assert rest[rest.index("--pokeldn") + 1] == str(cfg.pokeldn_dir)
+    assert rest[rest.index("--idle-timeout") + 1] == str(cfg.frlg_idle_timeout)
+    assert job.env["POKELDN_RADIO"] == "esp32:COM5"
+    assert job.cwd == str(cfg.pokeldn_dir)
     extra = cat.get("extra:altering-cave")
-    job = a.build_job(extra, cfg, "/dev/ttyACM0")
+    job = a.build_job(extra, cfg, "COM5")
     assert job.argv[job.argv.index("--extra") + 1] == "altering-cave"
+
+
+def test_catalog_fills_species_and_highlights(gallery, cfg):
+    cat = adapter(cfg).build_catalog(gallery / frlg.FRLG_RAW, cfg)
+    lugia = cat.search("lugia")[0]
+    assert lugia.species == 249
+    assert "Nv 70" in lugia.highlights
+    assert lugia.region == "ENG"
+    assert cat.get("extra:altering-cave").species == 0
+
+
+FRLG_LOG = Path(__file__).parent / "fixtures" / "logs" / "frlg_v050.txt"
+
+
+@pytest.mark.skipif(not FRLG_LOG.exists(), reason="log real do FRLG ainda não gravado (Task 2)")
+def test_parse_real_v050_log(fixtures):
+    a = frlg.FrlgAdapter(None)
+    lines = FRLG_LOG.read_text(encoding="utf-8-sig", errors="replace").splitlines()
+    states = [u.state for u in map(a.parse_line, lines) if u and u.state]
+    assert "on_air" in states and "console" in states and "delivered" in states
+    assert "error" not in states
 
 
 def test_parse_line():

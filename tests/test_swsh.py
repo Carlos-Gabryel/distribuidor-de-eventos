@@ -58,16 +58,39 @@ def test_subfolder_goes_into_the_name(gallery, cfg, tmp_path):
 
 
 def test_build_job(gallery, cfg):
+    from distrib import runner
     event = build(gallery, cfg).search("zarude")[0]
-    job = A.build_job(event, cfg, "/dev/ttyACM0")
-    assert job.env["POKELDN_RADIO"] == "esp32:/dev/ttyACM0"
-    assert job.argv[0] == str(cfg.python)
-    assert job.argv[1:3] == ("-u", str(cfg.pokeldn_dir / "bin" / "swsh_gift_host.py"))
-    assert "--no-validate" in job.argv
-    record = job.argv[job.argv.index("--record") + 1]
-    assert record == str(cfg.catalog_dir / "swsh" / event.files[0])
-    assert job.argv[job.argv.index("--keys") + 1] == str(cfg.keys)
+    job = A.build_job(event, cfg, "COM5")
+    assert job.env["POKELDN_RADIO"] == "esp32:COM5"
+    assert list(job.argv[:len(runner.command())]) == runner.command()
+    rest = job.argv[len(runner.command()):]
+    assert rest[:2] == ("--run", "bin/swsh_gift_host.py")
+    assert "--no-validate" in rest
+    assert rest[rest.index("--record") + 1] == str(cfg.catalog_dir / "swsh" / event.files[0])
+    assert rest[rest.index("--keys") + 1] == str(cfg.keys)
     assert job.cwd == str(cfg.pokeldn_dir)
+
+
+def test_catalog_fills_species_highlights_and_region(gallery, cfg):
+    zarude = build(gallery, cfg).search("zarude")[0]
+    assert zarude.species == 893
+    assert "Nv 60" in zarude.highlights
+    assert zarude.region == "Ocidente"
+
+
+def test_region_of():
+    assert swsh.region_of("Jungle Zarude (Western Release)") == "Ocidente"
+    assert swsh.region_of("ポケセン Eevee (Ver 1. Dynamic PID)") == "Japão"
+    assert swsh.region_of("Korean Pikachu") == "Coreia"
+    assert swsh.region_of("Item Poke Ball x100") == ""
+
+
+def test_parse_real_v050_log(fixtures):
+    lines = (fixtures / "logs" / "swsh_v050.txt").read_text(encoding="utf-8-sig", errors="replace").splitlines()
+    updates = [u for u in map(A.parse_line, lines) if u]
+    assert any(u.channel for u in updates)
+    assert any(u.state == "on_air" for u in updates)
+    assert not any(u.state == "error" for u in updates)
 
 
 def test_parse_line():
