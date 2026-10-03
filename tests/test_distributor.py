@@ -24,7 +24,7 @@ def wait_for(pred, timeout=5.0):
     return False
 
 
-def make(tmp_path, mode, factory, find=lambda: "/dev/ttyACM0", **kw):
+def make(tmp_path, mode, factory, find=lambda: "COM5", **kw):
     parse = SwshAdapter().parse_line if mode == "broadcast" else FrlgAdapter(None).parse_line
     return Distributor(mode, parse, factory, tmp_path / "log.txt", find,
                        retry_delay=0.05, watch_interval=0.05, **kw)
@@ -102,7 +102,7 @@ def test_no_board_waits_without_counting_failures(tmp_path):
     assert wait_for(lambda: d.status().state == "no_board")
     time.sleep(0.3)
     assert d.status().restarts == 0
-    present["port"] = "/dev/ttyACM0"
+    present["port"] = "COM5"
     assert wait_for(lambda: d.status().state == "on_air")
     d.stop()
 
@@ -131,7 +131,7 @@ def test_pause_and_resume(tmp_path):
 def test_board_lost_mid_run_goes_no_board_then_recovers(tmp_path):
     t0 = time.monotonic()
     # porta presente, some de 0.5 s a 1.5 s, depois volta
-    find = lambda: None if 0.5 < time.monotonic() - t0 < 1.5 else "/dev/ttyACM0"
+    find = lambda: None if 0.5 < time.monotonic() - t0 < 1.5 else "COM5"
     d = make(tmp_path, "broadcast", job(0, "advertising comm id 0x1", "sleep:30"), find=find)
     d.start()
     assert wait_for(lambda: d.status().state == "on_air")
@@ -196,3 +196,24 @@ def test_on_delivered_runs_once_per_delivery(tmp_path):
     assert wait_for(lambda: d.status().deliveries >= 2)
     d.stop()
     assert len(calls) == d.status().deliveries >= 2
+
+
+def test_on_line_gets_each_log_line_with_time(tmp_path):
+    seen = []
+    d = make(tmp_path, "broadcast", job(0, "advertising comm id 0x1", "sleep:5"), on_line=seen.append)
+    d.start()
+    assert wait_for(lambda: any("advertising comm id" in line for line in seen))
+    d.stop()
+    line = next(line for line in seen if "advertising" in line)
+    assert line[2] == ":" and line[5] == ":"        # "HH:MM:SS texto"
+
+
+def test_stop_terminates_a_host_that_ignores_stdin(tmp_path):
+    d = make(tmp_path, "broadcast", job(0, "deaf", "advertising comm id 0x1", "sleep:30"),
+             stop_grace=0.3)
+    d.start()
+    assert wait_for(lambda: d.status().state == "on_air")
+    started = time.monotonic()
+    d.stop()
+    assert time.monotonic() - started < 8
+    assert d.status().state == "idle"

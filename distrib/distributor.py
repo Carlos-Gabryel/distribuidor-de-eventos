@@ -1,8 +1,6 @@
 """Mantém o host no ar: sobe o processo, lê o log, reinicia quando cai. Nada de interface."""
 from __future__ import annotations
 
-import os
-import signal
 import subprocess
 import threading
 import time
@@ -11,6 +9,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Callable
 
+from distrib import runner
 from distrib.games.base import Job, Update
 
 EVENT_TEXT = {"delivered": "entregue", "party_full": "equipe cheia",
@@ -35,11 +34,12 @@ class Distributor:
     def __init__(self, mode: str, parse_line: Callable[[str], Update | None],
                  job_factory: Callable[[str], Job], log_path: Path,
                  find_port: Callable[[], str | None], max_failures: int = 3,
-                 retry_delay: float = 3.0, watch_interval: float = 1.0, clock=time.monotonic):
+                 retry_delay: float = 3.0, watch_interval: float = 1.0, clock=time.monotonic,
+                 on_line: Callable[[str], None] | None = None, stop_grace: float = 15.0):
         self.mode, self.parse_line, self.job_factory = mode, parse_line, job_factory
         self.log_path, self.find_port = log_path, find_port
         self.max_failures, self.retry_delay, self.clock = max_failures, retry_delay, clock
-        self.watch_interval = watch_interval
+        self.watch_interval, self.on_line, self.stop_grace = watch_interval, on_line, stop_grace
         self._lock = threading.Lock()           # protege o Status
         self._proc_lock = threading.Lock()      # protege criar/matar o processo do host
         self._status = Status()
@@ -92,18 +92,29 @@ class Distributor:
             self._status = replace(self._status, **changes)
 
     def _log(self, line: str) -> None:
+        stamped = f"{datetime.now():%H:%M:%S} {line}"
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
         with open(self.log_path, "a", encoding="utf-8") as f:
-            f.write(f"{datetime.now():%H:%M:%S} {line}\n")
+            f.write(stamped + "\n")
+        if self.on_line is not None:
+            self.on_line(stamped)
 
     def _kill(self) -> None:
-        # SIGINT primeiro: os hosts do pokeldn só desmontam a rede na placa no KeyboardInterrupt.
+        # Fechar o stdin vira KeyboardInterrupt no filho (distrib.runner): é assim que os hosts do
+        # pokeldn desmontam a rede na placa. Um processo sem janela no Windows não recebe Ctrl+C.
         with self._proc_lock:
             proc = self._proc
             if proc is None or proc.poll() is not None:
                 return
-            for send, wait in ((lambda: proc.send_signal(signal.SIGINT), 5),
-                               (proc.terminate, 5), (proc.kill, None)):
+
+            def close_stdin():
+                try:
+                    if proc.stdin is not None:
+                        proc.stdin.close()
+                except OSError:
+                    pass
+
+            for send, wait in ((close_stdin, self.stop_grace), (proc.terminate, 5), (proc.kill, None)):
                 send()
                 try:
                     proc.wait(timeout=wait)
@@ -117,10 +128,8 @@ class Distributor:
         with self._proc_lock:
             if self._stop.is_set() or self._paused.is_set():
                 return None
-            env = {**os.environ, **job.env}
-            self._proc = subprocess.Popen(job.argv, cwd=job.cwd, env=env,
-                                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                          text=True, bufsize=1)
+            self._proc = subprocess.Popen(job.argv, cwd=job.cwd, env=runner.child_env(job.env),
+                                          **runner.popen_kwargs())
             return self._proc
 
     def _watch_board(self, proc: subprocess.Popen) -> None:
