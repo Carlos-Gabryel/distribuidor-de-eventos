@@ -1,73 +1,35 @@
-# Distribuidor de Eventos (pokeldn-distrib)
+# Distribuidor de Eventos
 
-Uma interface de terminal para **distribuir Pokémon de evento que não podem mais ser recebidos**
-em encontros, a partir de um notebook Windows com uma placa ESP32 no USB. Os consoles recebem
-sem nenhuma modificação.
+Distribui eventos de **Mystery Gift** para **Pokémon Sword/Shield** e **FireRed/LeafGreen** num
+Switch, usando uma placa **ESP32** como rádio (via [pokeldn](https://github.com/Decryptu/pokeldn)).
+Um programa só para Windows 10/11: sem WSL, sem instalação.
 
-- **Sword/Shield:** os 925 Wonder Cards arquivados pelo Events Gallery. O notebook anuncia o
-  cartão e **vários consoles recebem ao mesmo tempo** (Presente Misterioso → Receber presente →
-  Por comunicação local).
-- **FireRed/LeafGreen:** os Pokémon de evento da Gen 3 (10ANIV, Aura Mew, WISHMKR Jirachi…),
-  entregues **byte a byte** (OT, ID e PID originais) direto na equipe, **um console por vez**
-  (MYSTERY GIFT → WONDER CARDS → FRIEND), com rodízio de PID entre as entregas. Também traz os
-  presentes montados pelo pokeldn (Altering Cave, Battle Count Card…).
+## Como usar
 
-Depende do [pokeldn](https://github.com/Decryptu/pokeldn), fixado no commit `89f761e`, que faz
-todo o trabalho de rádio e protocolo. Este projeto só o usa, sem modificá-lo.
+1. Baixe o `Distribuidor.exe` da [última versão](https://github.com/Carlos-Gabryel/pokeldn-distrib/releases/latest).
+2. Abra. Se o Windows mostrar "O Windows protegeu o computador", clique em **Mais informações →
+   Executar assim mesmo** (o programa não é assinado).
+3. Na primeira abertura: escolha o seu `prod.keys` (extraído do seu próprio Switch), baixe os
+   eventos e plugue a placa. Placa nova ou que não responde: aba **Placa → Preparar placa**.
+4. **Distribuir → escolha o jogo → o Pokémon → o evento.** No console:
+   - Sword/Shield: Presente Misterioso → Receber presente → Por comunicação local (vários consoles juntos).
+   - FireRed/LeafGreen: MYSTERY GIFT → WONDER CARDS → FRIEND (um console por vez).
 
-## Instalar
-
-Num PowerShell, em qualquer PC Windows 10/11 (com internet):
-
-```powershell
-irm https://raw.githubusercontent.com/Carlos-Gabryel/pokeldn-distrib/master/instalar.ps1 | iex
-```
-
-O script instala tudo (WSL, Ubuntu, usbipd, pokeldn, Python, catálogo), pede o seu `prod.keys`
-numa janela e cria o atalho **Distribuidor de Eventos**. Detalhes em
-[docs/instalacao.md](docs/instalacao.md).
-
-## Usar
-
-1. Plugue a placa e abra o atalho **Distribuidor de Eventos** (ou `Iniciar Distribuicao.bat`).
-2. A checagem mostra placa, `prod.keys` e catálogos. `Enter` continua, `R` checa de novo.
-3. Escolha o jogo, digite a busca e aperte `Enter` para ir à lista (`Tab` alterna entre busca e
-   lista). Escolha o evento e aperte `Enter`.
-4. Na tela **No ar**: `T` troca de evento (o atual continua no ar até você escolher outro),
-   `P` pausa/retoma, `Q` sai.
-
-No catálogo: `F` marca/desmarca o evento na **vitrine do dia** (aparece no topo), `I` mostra
-também itens, roupas e BP (Sword/Shield), `Esc` volta.
-
-## Linha de comando
-
-```bash
-python -m distrib                       # a interface
-python -m distrib checar                # placa, prod.keys e catálogos
-python -m distrib atualizar-catalogo    # baixa o Events Gallery de novo (swsh, frlg ou ambos)
-```
-
-Os logs de cada dia ficam em `logs/AAAA-MM-DD.log`; a vitrine e o rodízio de PID em `state/`.
+O programa se atualiza sozinho. Seus dados ficam em `%LOCALAPPDATA%\Distribuidor`.
 
 ## Desenvolvimento
 
-Os testes rodam no WSL, com o venv do pokeldn:
-
 ```bash
-~/.venvs/pokeldn/bin/python -m pytest
+git clone --recurse-submodules https://github.com/Carlos-Gabryel/pokeldn-distrib
+py -3.14 -m venv .venv && .venv/Scripts/python.exe -m pip install -r requirements.txt
+.venv/Scripts/python.exe -m pytest -q
+.venv/Scripts/python.exe main.py
+.venv/Scripts/python.exe build/fetch_firmware.py && .venv/Scripts/python.exe build/pack.py
 ```
 
-O design está em `docs/superpowers/specs/` e o plano em `docs/superpowers/plans/`.
+## Licença e créditos
 
-## Créditos
-
-- [pokeldn](https://github.com/Decryptu/pokeldn), de Decryptu (AGPLv3): LDN, Pia e os protocolos
-  dos jogos.
-- [Events Gallery](https://github.com/projectpokemon/EventsGallery), do Project Pokémon: o
-  arquivo das distribuições oficiais.
-- [kinnay/LDN](https://github.com/kinnay/LDN): a biblioteca LDN que o pokeldn usa.
-
-## Licença
-
-O código deste repositório é [MIT](LICENSE). O [pokeldn](https://github.com/Decryptu/pokeldn),
-baixado pelo instalador direto do repositório do autor, segue sob a licença dele (AGPL-3.0).
+O código deste repositório é [MIT](LICENSE). O `.exe` inclui o
+[pokeldn](https://github.com/Decryptu/pokeldn) e os firmwares dele, sob a licença do autor
+(AGPL-3.0), sem modificação. Eventos: [Events Gallery](https://github.com/projectpokemon/EventsGallery),
+do Project Pokémon. Sprites e nomes: [PokeAPI](https://pokeapi.co). Ícones: [Lucide](https://lucide.dev) (ISC).
