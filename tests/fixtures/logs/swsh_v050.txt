@@ -1,0 +1,14 @@
+[quiet] ok em 0.1s
+record 720 bytes, checksum 0x0ac8, 3 fragments
+[host] --phy auto -> esp32 (POKELDN_RADIO)
+[host] preflight: the ESP32 board hosts (POKELDN_RADIO)
+Wi-Fi compatibility active: TX=mac80211/hardware; RX=driver-decrypted retained-CCMP normalization.
+Creating the LDN network (hosting)...
+[esp32] ap noise interval 100
+[esp32] ap lmacConfMib 16..27: 00 02 00 00 20 20 2a 09 00 01 00 00
+[esp32] slow command 0x06: 198 ms
+[esp32] reader held 199 ms
+[host] AP up: ssid=3499fdec21ee73d66ff627a6e4b74680 ch=11 us=169.254.23.1/76b3327723d3 bcast=169.254.23.255 comm_id=0x0100abf008968000 beacon=384B
+Hosting. Waiting for the console to join (ssid=3499fdec..., channel 11).
+advertising comm id 0x0100abf008968000, scene 0, protocol 1, walking 3 fragments every 0.5s
+

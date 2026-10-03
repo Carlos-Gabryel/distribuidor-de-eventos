@@ -3722,3 +3722,23 @@ gh release view v2.0.0 --repo Carlos-Gabryel/pokeldn-distrib --json assets -q '.
 ```
 Expected: o último comando mostra `sha256:...` (é o que a atualização automática confere).
 - [ ] **Step 5:** Teste 10 (atualização): subir `__version__` para `2.0.1`, gerar, publicar `v2.0.1` e confirmar que a v2.0.0 se atualiza sozinha.
+
+---
+
+## Emendas da Task 2 (2026-10-03, placa real)
+
+Resultado: SwSh nativo no Windows **ok** (Jungle Zarude recebido no Sword). FRLG nativo **pendente** (Task 2, Step 4).
+
+1. **PKHeX obrigatório.** O `swsh_gift_host.py` do v0.5.0 valida todo cartão com o serviço .NET `services/pkhex`. No desenvolvimento: `dotnet publish vendor/pokeldn/services/pkhex -c Release -r win-x64 -o vendor/pokeldn/services/pkhex/dist -warnaserror` (o .NET SDK 10 já está instalado; a saída é ignorada pelo git do pokeldn). Task 16: rodar esse passo no `build/pack.py` e incluir `(POKELDN/"services"/"pkhex"/"dist", "vendor/pokeldn/services/pkhex/dist")` no `--add-data`. O `.exe` gerado é autônomo, então quem usa o app não precisa de .NET.
+2. **Firmware precisa ser o v0.5.0** (o host novo usa `CMD_BAUD 0x02`). O `firmware/pokeldn-radio.bin` do Release foi gravado na placa do dono.
+3. **Aquietar a placa antes de cada host (novo: `distrib/runners/quiet.py`, entra na Task 8).**
+   - Depois de uma sessão, a placa fica em **921600** (o host não volta).
+   - Parada em 115200, a placa repassa frames LDN do ar e a fila passa dos 5 s do HELLO do `open_serial`.
+   - Solução provada em duas sessões seguidas (ver `tests/fixtures/logs/quiet_then_host_task2.py`):
+     - tentar 921600 (HELLO 1,5 s); se não responder, 115200 (HELLO até 60 s);
+     - em ambos, mandar antes `CMD_CHANNEL 13` sem esperar resposta;
+     - depois do HELLO, `CMD_CHANNEL 13` com RESULT, e `CMD_BAUD 115200` se estava em 921600;
+     - sempre `Radio.close()` num `finally` (o `open_serial` vaza a porta quando falha).
+   - Integração: o `runner.child` (ou um wrapper `--module distrib.runners.session`) roda o quiet antes do `runpy` do host; o `frlg_session` também.
+   - O `distrib.runners.hello` deve usar o mesmo quiet e terminar em 115200 (hoje usa `open_serial` com `fast_baud` padrão e deixa a placa em 921600).
+4. **Log:** o `Tee-Object` do PowerShell grava UTF-16; o `swsh_v050.txt` já foi convertido para UTF-8. O Ctrl+C derruba o Tee antes de `stopping/served`, então a parada limpa fica para o aceite (no app, pelo fechamento do stdin).
