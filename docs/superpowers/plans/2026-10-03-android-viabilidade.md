@@ -50,6 +50,8 @@ O Termux é o jeito mais barato de rodar o host Python no Android antes de pensa
 
 **Aceite:** o HELLO responde com a info do firmware (a mesma string que o `.exe` mostra no cartão da placa). **Se o `unicorn` não compilar:** anotar e seguir. O SwSh sem a checagem NSO não precisa dele, e o FRLG fica pendente, como já está no Windows.
 
+**Resultado parcial (2026-10-03):** o `android_spike/hello_usb.py` (branch `android-spike`; serial CDC-ACM em ctypes direto na libusb via `libusb_wrap_sys_device`) rodou com `termux-usb -r -e "python hello_usb.py" /dev/bus/usb/001/003`. Descritor: `comm_if=0 data_if=1 ep_in=0x82 ep_out=0x02`. O HELLO respondeu já na 1ª tentativa. `pycryptodome`, `zstandard`, `trio`, `pyserial` e `pyusb` instalaram no Termux (Python 3.14.6). Falta: `unicorn` e o host do pokeldn rodando sobre o adaptador.
+
 ## Passo 3: catálogo SwSh pré-validado no PC (cerca de meia sessão, executável por Sonnet)
 
 Assim o celular não precisa rodar PKHeX (.NET).
