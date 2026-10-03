@@ -1,10 +1,14 @@
-import dataclasses
+import os
+import tempfile
 from pathlib import Path
 
-import pytest
+# Antes de importar qualquer coisa do distrib: os testes nunca tocam no %LOCALAPPDATA% real.
+os.environ.setdefault("DISTRIB_DATA_DIR", tempfile.mkdtemp(prefix="distrib-tests-"))
 
-from distrib import config as configmod
-from distrib.pokeldn_path import ensure_importable
+import pytest  # noqa: E402
+
+from distrib import config as configmod  # noqa: E402
+from distrib.pokeldn_path import ensure_importable  # noqa: E402
 
 FIXTURES = Path(__file__).parent / "fixtures"
 CFG = configmod.load()
@@ -23,5 +27,4 @@ def gallery() -> Path:
 
 @pytest.fixture
 def cfg(tmp_path) -> configmod.Config:
-    return dataclasses.replace(CFG, catalog_dir=tmp_path / "catalog",
-                               state_dir=tmp_path / "state", logs_dir=tmp_path / "logs")
+    return configmod.load(data_dir=tmp_path / "data")
