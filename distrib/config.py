@@ -1,4 +1,4 @@
-"""Configuração e caminhos do Windows: os dados do usuário ficam em %LOCALAPPDATA%\Distribuidor."""
+"""Configuração e caminhos do Windows: os dados do usuário ficam em %LOCALAPPDATA%\\Distribuidor."""
 from __future__ import annotations
 
 import os
