@@ -66,3 +66,8 @@ O design está em `docs/superpowers/specs/` e o plano em `docs/superpowers/plans
 - [Events Gallery](https://github.com/projectpokemon/EventsGallery), do Project Pokémon: o
   arquivo das distribuições oficiais.
 - [kinnay/LDN](https://github.com/kinnay/LDN): a biblioteca LDN que o pokeldn usa.
+
+## Licença
+
+O código deste repositório é [MIT](LICENSE). O [pokeldn](https://github.com/Decryptu/pokeldn),
+baixado pelo instalador direto do repositório do autor, segue sob a licença dele (AGPL-3.0).
