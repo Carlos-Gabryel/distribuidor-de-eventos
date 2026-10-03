@@ -103,6 +103,7 @@ Um app Flet mínimo e separado (`android/probe/main.py` + `android/probe/pyproje
   - define `POKELDN_L2=userspace`;
   - troca `pokemon.SERVICE.validate_gift` pelo lookup no `swsh_validated.json`, que fica em `cfg.data_dir` (baixado) com fallback para o embutido;
   - chama `install_serial_shim()`.
+- **Revisão do B1 (Opus):** o `InProcPopen` passa o `cwd` do job como `pokeldn_dir` do `runner.child` e não faz `chdir`; hoje todo job tem `cwd=cfg.pokeldn_dir`, então funciona. No Android, o `apply` precisa fazer `os.chdir(cfg.pokeldn_dir)` uma vez, como o spike fazia, porque os hosts usam caminhos relativos ao pokeldn.
 - Chamar `apply` no início do app quando `IS_ANDROID` (`ui/app.py`, antes de criar o `Service`) e também no `runner.child(inproc=True)`, por idempotência.
 - `keep_screen_on(on: bool)` via pyjnius (`FLAG_KEEP_SCREEN_ON` na janela da Activity, na thread de UI do Android: `runOnUiThread` via `PythonJavaClass` Runnable). O `Service` liga ao começar a distribuir e desliga ao parar. No desktop não faz nada.
 - **Testes:** o lookup (mover os testes de `tests/test_prevalidate.py`) e `apply` com `IS_ANDROID` simulado e o `pokemon` falso.
