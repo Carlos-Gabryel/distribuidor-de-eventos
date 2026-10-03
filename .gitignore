@@ -6,3 +6,4 @@ logs/
 state/
 config.local.toml
 *.keys
+.superpowers/
