@@ -12,3 +12,6 @@ build/out/
 firmware/
 *.spec
 .pack/
+
+android/probe/build/
+android/**/build/
