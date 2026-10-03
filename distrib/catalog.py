@@ -5,8 +5,9 @@ import json
 import unicodedata
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
+from typing import Callable
 
-INDEX_VERSION = 1
+INDEX_VERSION = 2
 
 
 def normalize(text: str) -> str:
@@ -23,6 +24,9 @@ class Event:
     details: tuple[tuple[str, str], ...]
     files: tuple[str, ...]
     sort_key: str
+    species: int = 0                            # número nacional; 0 = não é Pokémon
+    highlights: tuple[str, ...] = ()            # "Shiny", "Gigantamax", "Nv 60"…
+    region: str = ""                            # "Ocidente", "Japão", "ENG"…
 
     @property
     def search_text(self) -> str:
@@ -65,7 +69,10 @@ def load_index(game: str, path: Path) -> Catalog:
             return Catalog(game)
         events = [Event(game=e["game"], key=e["key"], name=e["name"], kind=e["kind"],
                         details=tuple(tuple(d) for d in e["details"]),
-                        files=tuple(e["files"]), sort_key=e["sort_key"])
+                        files=tuple(e["files"]), sort_key=e["sort_key"],
+                        species=int(e.get("species", 0)),
+                        highlights=tuple(e.get("highlights", ())),
+                        region=e.get("region", ""))
                   for e in data["events"]]
         return Catalog(game, events, int(data.get("invalid", 0)))
     except (OSError, ValueError, KeyError, TypeError):
@@ -96,3 +103,39 @@ class Favorites:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.path.write_text(json.dumps(sorted(self._keys), ensure_ascii=False), encoding="utf-8")
         return ident in self._keys
+
+
+GROUP_NAMES = {"item": "Itens", "extra": "Presentes do pokeldn", "pokemon:0": "Outros"}
+
+
+@dataclass(frozen=True)
+class Group:
+    key: str                    # "pokemon:893" | "item" | "extra"
+    name: str
+    species: int
+    events: tuple[Event, ...]
+    highlights: tuple[str, ...]
+
+
+def group_events(events: list[Event], species_name: Callable[[int], str]) -> list[Group]:
+    buckets: dict[str, list[Event]] = {}
+    for event in sorted(events, key=lambda e: e.sort_key):
+        key = f"pokemon:{event.species}" if event.kind == "pokemon" else event.kind
+        buckets.setdefault(key, []).append(event)
+    groups = []
+    for key, members in buckets.items():
+        species = members[0].species if key.startswith("pokemon:") else 0
+        name = species_name(species) if species else GROUP_NAMES.get(key, key)
+        seen: list[str] = []
+        for event in members:
+            seen += [h for h in event.highlights if h not in seen]
+        groups.append(Group(key, name, species, tuple(members), tuple(seen[:3])))
+    return sorted(groups, key=lambda g: (g.species == 0, g.key == "extra", normalize(g.name)))
+
+
+def search_groups(groups: list[Group], text: str) -> list[Group]:
+    words = normalize(text).split()
+    if not words:
+        return groups
+    return [g for g in groups
+            if all(w in normalize(g.name) or any(w in e.search_text for e in g.events) for w in words)]
