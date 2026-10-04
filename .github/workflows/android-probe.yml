@@ -24,7 +24,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           sudo apt-get install -y ninja-build >/dev/null
-          android/scripts/build_unicorn_wheel.sh android/wheels
+          bash android/scripts/build_unicorn_wheel.sh android/wheels
       - uses: actions/upload-artifact@v4
         with:
           name: unicorn-wheel
