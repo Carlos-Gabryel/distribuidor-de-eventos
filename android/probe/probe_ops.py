@@ -173,6 +173,28 @@ def chip():
     return "\n".join(info) + "\n--- log ---\n" + buf.getvalue()[-1500:]
 
 
+def _firmware_dir(here):
+    """Pasta do firmware embutido; se o app rodar de dentro de um zip, extrai para o cache."""
+    import os
+    import tempfile
+    import zipfile
+    fw = os.path.join(here, "firmware")
+    if os.path.isdir(fw):
+        return fw
+    zpath = here
+    while zpath and not os.path.isfile(zpath):
+        parent = os.path.dirname(zpath)
+        if parent == zpath:
+            raise RuntimeError("firmware não encontrado em %s" % here)
+        zpath = parent
+    out = os.path.join(tempfile.gettempdir(), "fw")
+    with zipfile.ZipFile(zpath) as z:
+        for n in z.namelist():
+            if n.startswith("firmware/") and not n.endswith("/"):
+                z.extract(n, out)
+    return os.path.join(out, "firmware")
+
+
 def gravar():
     esptool = _prepare_esptool()
     import io
@@ -185,5 +207,5 @@ def gravar():
     from distrib.runners import flash
     buf = io.StringIO()
     with redirect_stdout(buf), redirect_stderr(buf):
-        rc = flash.main(["usb", os.path.join(here, "firmware")])
+        rc = flash.main(["usb", _firmware_dir(here)])
     return "flash rc=%s\n%s" % (rc, buf.getvalue()[-3000:])
