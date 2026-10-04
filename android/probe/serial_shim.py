@@ -115,3 +115,9 @@ class UsbSerial:
 
 class EspUsbSerial(UsbSerial):
     blocking_read = True
+
+    def __init__(self, *a, **k):
+        super().__init__(*a, **k)
+        # Padrão do pyserial (o esptool restaura este valor depois de cada comando e espera o
+        # OHAI do stub com ele; com 0,02 s desistia em 21 ms).
+        self.timeout = k.get("timeout")

@@ -7,6 +7,7 @@ import flet as ft
 
 
 SEP = chr(10) * 2
+BUSY = threading.Lock()  # um botão por vez: dois abrindo a placa brigam pela interface USB
 
 
 def main(page: ft.Page):
@@ -35,9 +36,20 @@ def main(page: ft.Page):
                 out.value = (out.value + SEP if out.value else "") + f"[{name}] {text}"
                 page.update()
 
+            if not BUSY.acquire(blocking=False):
+                out.value = (out.value + SEP if out.value else "") + f"[{name}] ocupado: espere o anterior terminar"
+                page.update()
+                return
             out.value = (out.value + SEP if out.value else "") + f"[{name}] rodando..."
             page.update()
-            threading.Thread(target=work, daemon=True).start()
+
+            def guarded():
+                try:
+                    work()
+                finally:
+                    BUSY.release()
+
+            threading.Thread(target=guarded, daemon=True).start()
 
         return start
 
