@@ -1,7 +1,12 @@
 import os
 import sys
+import threading
+import traceback
 
 import flet as ft
+
+
+SEP = chr(10) * 2
 
 
 def main(page: ft.Page):
@@ -19,10 +24,38 @@ def main(page: ft.Page):
         out.value = (out.value + "\n\n" if out.value else "") + "\n".join(lines)
         page.update()
 
+    def run_op(name):
+        def start(e):
+            def work():
+                try:
+                    import probe_ops
+                    text = getattr(probe_ops, name)()
+                except BaseException:
+                    text = f"{name} FALHOU:" + chr(10) + traceback.format_exc()
+                out.value = (out.value + SEP if out.value else "") + f"[{name}] {text}"
+                page.update()
+
+            out.value = (out.value + SEP if out.value else "") + f"[{name}] rodando..."
+            page.update()
+            threading.Thread(target=work, daemon=True).start()
+
+        return start
+
     page.add(
         ft.SafeArea(
             ft.Column(
-                [ft.Button("ping", on_click=ping), out],
+                [
+                    ft.Row(
+                        [
+                            ft.Button("ping", on_click=ping),
+                            ft.Button("HELLO", on_click=run_op("hello")),
+                            ft.Button("BENCH", on_click=run_op("bench")),
+                            ft.Button("unicorn", on_click=run_op("unicorn_test")),
+                        ],
+                        wrap=True,
+                    ),
+                    out,
+                ],
                 scroll=ft.ScrollMode.AUTO,
                 expand=True,
             ),

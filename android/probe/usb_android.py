@@ -1,0 +1,123 @@
+"""Serial CDC-ACM pelo android.hardware.usb (pyjnius). Mesma interface do UsbCdcSerial do spike."""
+import os
+import struct
+import time
+
+VIDS = {0x1A86, 0x10C4, 0x0403, 0x303A}
+ACTION = "dev.distrib.USB_PERMISSION"
+FLAG_IMMUTABLE = 0x04000000
+USB_ENDPOINT_XFER_BULK = 2
+USB_DIR_IN = 0x80
+CLASS_COMM, CLASS_DATA = 0x02, 0x0A
+
+
+def activity():
+    from jnius import autoclass
+    name = os.getenv("MAIN_ACTIVITY_HOST_CLASS_NAME")
+    if not name:
+        raise RuntimeError("MAIN_ACTIVITY_HOST_CLASS_NAME ausente (fora do Flet Android?)")
+    return autoclass(name).mActivity
+
+
+class AndroidUsbSerial:
+    def __init__(self, device_name=None, baud=115200, perm_timeout=30.0, dtr=False, rts=False):
+        from jnius import autoclass
+        ctx = activity()
+        self._mgr = ctx.getSystemService("usb")
+        dev = self._pick(device_name)
+        if not self._mgr.hasPermission(dev):
+            Intent = autoclass("android.content.Intent")
+            PendingIntent = autoclass("android.app.PendingIntent")
+            intent = Intent(ACTION)
+            intent.setPackage(ctx.getPackageName())
+            pi = PendingIntent.getBroadcast(ctx, 0, intent, FLAG_IMMUTABLE)
+            self._mgr.requestPermission(dev, pi)
+            end = time.time() + perm_timeout
+            while not self._mgr.hasPermission(dev) and time.time() < end:
+                time.sleep(0.2)
+            if not self._mgr.hasPermission(dev):
+                raise RuntimeError("permissão USB negada ou não respondida em %ds" % perm_timeout)
+        self.dev = dev
+        self.conn = self._mgr.openDevice(dev)
+        if self.conn is None:
+            raise RuntimeError("openDevice devolveu null")
+        self.comm_if, self.data_if = None, None
+        self.ep_in, self.ep_out = None, None
+        self._find_interfaces()
+        self.set_baud(baud)
+        self.set_lines(dtr, rts)
+
+    def _pick(self, device_name):
+        devs = self._mgr.getDeviceList().values().toArray()
+        found = [d for d in devs if (device_name and d.getDeviceName() == device_name)
+                 or (not device_name and d.getVendorId() in VIDS)]
+        if not found:
+            seen = ", ".join("%04x:%04x" % (d.getVendorId(), d.getProductId()) for d in devs) or "nenhum"
+            raise RuntimeError("nenhuma placa USB (VIDs %s); dispositivos vistos: %s"
+                               % (", ".join("%04x" % v for v in sorted(VIDS)), seen))
+        return found[0]
+
+    def _find_interfaces(self):
+        dev = self.dev
+        comm, data = None, None
+        for i in range(dev.getInterfaceCount()):
+            itf = dev.getInterface(i)
+            cls = itf.getInterfaceClass()
+            if cls == CLASS_COMM and comm is None:
+                comm = itf
+            elif cls == CLASS_DATA and data is None:
+                data = itf
+        if data is None:
+            raise RuntimeError("sem interface CDC-data (0x0A): adaptador USB-serial de fabricante, "
+                               "não CDC-ACM (VID %04x)" % dev.getVendorId())
+        for itf in (comm, data):
+            if itf is not None and not self.conn.claimInterface(itf, True):
+                raise RuntimeError("claimInterface falhou na interface %d" % itf.getId())
+        self.comm_if = comm.getId() if comm is not None else 0
+        self.data_if = data.getId()
+        for j in range(data.getEndpointCount()):
+            ep = data.getEndpoint(j)
+            if ep.getType() != USB_ENDPOINT_XFER_BULK:
+                continue
+            if ep.getDirection() == USB_DIR_IN:
+                self.ep_in = ep
+            else:
+                self.ep_out = ep
+        if self.ep_in is None or self.ep_out is None:
+            raise RuntimeError("endpoints bulk IN/OUT não encontrados")
+
+    def _ctrl(self, req_type, req, value, data=b""):
+        buf = bytearray(data) if data else None
+        n = self.conn.controlTransfer(req_type, req, value, self.comm_if, buf, len(data) if data else 0, 1000)
+        if n < 0:
+            raise RuntimeError("controlTransfer 0x%02x falhou (%d)" % (req, n))
+
+    def set_baud(self, baud):
+        self.baud = baud
+        self._ctrl(0x21, 0x20, 0, struct.pack("<IBBB", baud, 0, 0, 8))  # SET_LINE_CODING 8N1
+
+    def set_lines(self, dtr, rts):
+        self.dtr, self.rts = bool(dtr), bool(rts)
+        self._ctrl(0x21, 0x22, int(self.dtr) | (int(self.rts) << 1))  # SET_CONTROL_LINE_STATE
+
+    def read(self, size=4096, timeout_ms=20):
+        buf = bytearray(min(size, 16384))
+        n = self.conn.bulkTransfer(self.ep_in, buf, len(buf), max(1, int(timeout_ms)))
+        return bytes(buf[:n]) if n > 0 else b""
+
+    def write(self, data):
+        data = bytes(data)
+        off = 0
+        while off < len(data):
+            chunk = bytearray(data[off:off + 16384])
+            n = self.conn.bulkTransfer(self.ep_out, chunk, len(chunk), 2000)
+            if n <= 0:
+                raise RuntimeError("bulk write falhou (%d)" % n)
+            off += n
+        return len(data)
+
+    def close(self):
+        try:
+            self.conn.close()
+        except Exception:
+            pass

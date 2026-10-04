@@ -2,10 +2,21 @@
 name = "distrib-probe"
 version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = ["flet==1.0.2"]
+dependencies = [
+    "flet==1.0.2",
+    "pyjnius",
+    "pyserial",
+    # o workflow troca @WHEELS@ pelo diretório absoluto dos wheels compilados (A3)
+    "unicorn @ file://@WHEELS@/unicorn-2.1.4-py3-none-android_24_arm64_v8a.whl",
+]
 
 [tool.flet]
 app.module = "main"
 
 [tool.flet.android]
 target_arch = ["arm64-v8a"]
+# unicorn procura a libunicorn.so por caminho de arquivo, não por importlib.resources
+extract_packages = ["unicorn"]
+
+[tool.flet.android.feature]
+"android.hardware.usb.host" = true
