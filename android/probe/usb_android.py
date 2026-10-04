@@ -119,9 +119,21 @@ class AndroidUsbSerial:
         self._ctrl(0x21, 0x22, int(self.dtr) | (int(self.rts) << 1))  # SET_CONTROL_LINE_STATE
 
     def read(self, size=4096, timeout_ms=20):
-        buf = bytearray(min(size, 16384))
-        n = self.conn.bulkTransfer(self.ep_in, buf, len(buf), max(1, int(timeout_ms)))
-        return bytes(buf[:n]) if n > 0 else b""
+        # Um pacote por bulkTransfer: no Android, um bulkTransfer maior que estoura o prazo
+        # descarta o que já chegou (o BENCH perdia tudo com 4096 B / 20 ms a 921600).
+        mps = self.ep_in.getMaxPacketSize()
+        buf = bytearray(mps)
+        out = bytearray()
+        wait = max(1, int(timeout_ms))
+        while len(out) + mps <= max(size, mps):
+            n = self.conn.bulkTransfer(self.ep_in, buf, mps, wait)
+            if n <= 0:
+                break
+            out += buf[:n]
+            if n < mps:
+                break
+            wait = 1
+        return bytes(out)
 
     def write(self, data):
         data = bytes(data)
