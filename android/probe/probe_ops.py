@@ -153,6 +153,16 @@ def _prepare_esptool():
         f.write("\n".join(["[esptool]", "custom_reset_sequence = " + _RESET,
                            "custom_hard_reset_sequence = " + _HARD, ""]))
     os.environ["ESPTOOL_CFGFILE"] = cfg  # lido na importação de esptool.loader
+    # O pyserial não tem list_ports para sys.platform "android" (ImportError na importação do
+    # esp_pylib). No celular a porta é sempre o shim, então a listagem fica vazia.
+    if "serial.tools.list_ports" not in sys.modules or not hasattr(sys.modules["serial.tools.list_ports"], "comports"):
+        import types
+        import serial.tools
+        stub = types.ModuleType("serial.tools.list_ports")
+        stub.comports = lambda *a, **k: []
+        stub.grep = lambda *a, **k: iter(())
+        sys.modules["serial.tools.list_ports"] = stub
+        serial.tools.list_ports = stub
     _install_serial_shim(esptool=True)
     import esptool
     return esptool
