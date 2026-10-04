@@ -211,6 +211,53 @@ def _firmware_dir(here):
     return os.path.join(out, "firmware")
 
 
+def log_path(name):
+    import os
+    d = os.environ.get("FLET_APP_STORAGE_DATA") or os.getcwd()
+    return os.path.join(d, name)
+
+
+class _LogTee:
+    """StringIO que também grava (com flush) num arquivo: sobrevive a um crash nativo."""
+
+    def __init__(self, path):
+        import io
+        self._mem = io.StringIO()
+        self._f = open(path, "w", encoding="utf-8", buffering=1)
+
+    def write(self, text):
+        self._mem.write(text)
+        try:
+            self._f.write(text)
+            self._f.flush()
+        except Exception:  # noqa: BLE001
+            pass
+        return len(text)
+
+    def flush(self):
+        pass
+
+    def isatty(self):
+        return False
+
+    def getvalue(self):
+        return self._mem.getvalue()
+
+
+def ultimo_log():
+    import os
+    out = []
+    for name in ("crash.log.prev", "crash.log", "gravar.log"):
+        p = log_path(name)
+        if os.path.exists(p):
+            with open(p, encoding="utf-8", errors="replace") as f:
+                txt = f.read()
+            out.append("=== %s (%d bytes) ===%s%s" % (name, len(txt), chr(10), txt[-5000:]))
+        else:
+            out.append("=== %s: não existe ===" % name)
+    return chr(10).join(out)
+
+
 def _gravar(extra=None, tail=3000):
     """Grava o firmware. extra=None: pelo distrib.runners.flash (como o app);
     senão chama o esptool.main direto (ESP32) com as opções extras (--trace, --no-stub)."""
@@ -226,7 +273,7 @@ def _gravar(extra=None, tail=3000):
     from distrib.runners import flash
     from distrib.board import firmware_for
     from pathlib import Path
-    buf = io.StringIO()
+    buf = _LogTee(log_path("gravar.log"))
     rc = "exceção"
     try:
         with redirect_stdout(buf), redirect_stderr(buf):

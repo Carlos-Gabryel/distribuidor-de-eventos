@@ -10,6 +10,25 @@ SEP = chr(10) * 2
 BUSY = threading.Lock()  # um botão por vez: dois abrindo a placa brigam pela interface USB
 
 
+def _faulthandler():
+    """Crash nativo (SIGSEGV/SIGABRT) grava o traceback de todas as threads em crash.log.
+    O log anterior vira crash.log.prev ao abrir, para o botão "último log" mostrar."""
+    import faulthandler
+    d = os.environ.get("FLET_APP_STORAGE_DATA") or os.getcwd()
+    p = os.path.join(d, "crash.log")
+    try:
+        if os.path.exists(p) and os.path.getsize(p):
+            os.replace(p, p + ".prev")
+        f = open(p, "w")
+        faulthandler.enable(file=f, all_threads=True)
+        return f
+    except Exception:
+        return None
+
+
+_CRASH_FILE = _faulthandler()
+
+
 def main(page: ft.Page):
     page.title = "distrib-probe"
     out = ft.Text(selectable=True, size=12)
@@ -60,6 +79,7 @@ def main(page: ft.Page):
                     ft.Row(
                         [
                             ft.Button("ping", on_click=ping),
+                            ft.Button("último log", on_click=run_op("ultimo_log")),
                             ft.Button("HELLO", on_click=run_op("hello")),
                             ft.Button("BENCH", on_click=run_op("bench")),
                             ft.Button("unicorn", on_click=run_op("unicorn_test")),
