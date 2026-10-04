@@ -13,6 +13,7 @@ CLASS_COMM, CLASS_DATA = 0x02, 0x0A
 
 
 _ctx = None
+_LEAKED = []  # conexões que não deu para fechar com segurança (ver close)
 ctx_source = None
 
 
@@ -192,11 +193,34 @@ class AndroidUsbSerial:
         reader = getattr(self, "_reader", None)
         if reader is not None:
             reader.join(1.0)
-        for req, _, _ in getattr(self, "_reqs", {}).values():
+        # Cancelar, recolher cada UsbRequest pelo requestWait e só então fechá-las e fechar a
+        # conexão. Request ainda na fila quando a conexão fecha derruba o app depois (finalizer).
+        reqs = getattr(self, "_reqs", {})
+        for req, _, _ in reqs.values():
             try:
                 req.cancel()
             except Exception:
                 pass
+        pending, end = set(reqs), time.time() + 1.0
+        while pending and time.time() < end:
+            try:
+                done = self.conn.requestWait(100)
+            except Exception:  # noqa: BLE001 - TimeoutException
+                continue
+            if done is None:
+                break
+            pending.discard(done.hashCode())
+        if not pending:
+            for req, _, _ in reqs.values():
+                try:
+                    req.close()
+                except Exception:
+                    pass
+        else:
+            # Sem recolher todas, fechar a request ou a conexão é o que derruba o app:
+            # deixa a conexão aberta e guarda tudo vivo (vaza, mas não crasha).
+            _LEAKED.append((self.conn, reqs))
+            return
         try:
             self.conn.close()
         except Exception:
