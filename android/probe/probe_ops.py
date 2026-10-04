@@ -126,11 +126,32 @@ def _install_serial_shim():
     serial.Serial = UsbSerial
 
 
+def _quiet(esp32):
+    """Como o distrib/runners/quiet.py: acha a placa (921600 ou 115200) e a deixa a 115200."""
+    import serial
+    for baud, timeout in ((921600, 1.5), (115200, 5)):
+        s = serial.Serial()
+        s.baudrate, s.timeout = baud, 0.02
+        s.open()
+        r = esp32.Radio(s)
+        try:
+            r.request(esp32.CMD_HELLO, b"", esp32.MSG_INFO, timeout=timeout)
+            if baud != 115200:
+                r.request(esp32.CMD_BAUD, struct.pack("<I", 115200), esp32.MSG_RESULT, timeout=5)
+            return baud
+        except esp32.RadioError:
+            pass
+        finally:
+            r.close()
+    return "sem resposta"
+
+
 def bench():
     import os
     os.environ.setdefault("POKELDN_RADIO", "esp32:usb")
     _install_serial_shim()
     from pokeldn.ldn import esp32
+    quiet = _quiet(esp32)
     radio = esp32.Radio.open_serial("usb", fast_baud=921600)
     try:
         r = radio.bench(400_000)
@@ -138,8 +159,8 @@ def bench():
         close = getattr(radio, "close", None)
         if close:
             close()
-    return ("BENCH: rate=%.1f KB/s missing=%s rejected=%s\n%s"
-            % (r["rate"] / 1024, r["missing"], r["rejected"], r))
+    return ("BENCH (placa estava a %s): rate=%.1f KB/s missing=%s rejected=%s\n%s"
+            % (quiet, r["rate"] / 1024, r["missing"], r["rejected"], r))
 
 
 def unicorn_test():
