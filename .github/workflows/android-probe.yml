@@ -55,6 +55,10 @@ jobs:
       - name: Embutir firmware e distrib (A4)
         run: |
           python build/fetch_firmware.py
+          # o esptool só existe como sdist no PyPI (e o flet build usa --only-binary): embute o pacote
+          pip download esptool==5.4.0 --no-deps --no-binary :all: -d /tmp/esp -q
+          tar xzf /tmp/esp/esptool-5.4.0.tar.gz -C /tmp/esp
+          cp -r /tmp/esp/esptool-5.4.0/esptool android/probe/esptool
           cp -r firmware android/probe/firmware
           mkdir -p android/probe/distrib/runners android/probe/distrib/platform
           for f in __init__ board runner config pokeldn_path; do cp distrib/$f.py android/probe/distrib/; done

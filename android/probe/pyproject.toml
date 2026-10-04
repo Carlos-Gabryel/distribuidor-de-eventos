@@ -6,7 +6,16 @@ dependencies = [
     "flet==1.0.2",
     "pyjnius",
     "pyserial",
-    "esptool>=5.1,<6",
+    # esptool 5.4.0 é copiado pelo workflow para android/probe/esptool (só há sdist); aqui vão as dependências dele
+    "bitstring>=3.1.6,!=4.2.0",
+    "cryptography>=43",
+    "reedsolo>=1.5.3,<1.8",
+    "pyyaml",
+    "intelhex",
+    "click<9",
+    "rich_click<2",
+    "rich",
+    "esp-pylib>=1.0.0",
     # o workflow troca @WHEELS@ pelo diretório absoluto dos wheels compilados (A3)
     "unicorn @ file://@WHEELS@/unicorn-2.1.4-py3-none-android_24_arm64_v8a.whl",
 ]

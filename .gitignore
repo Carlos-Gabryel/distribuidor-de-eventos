@@ -18,3 +18,4 @@ android/**/build/
 android/probe/pokeldn/
 android/probe/firmware/
 android/probe/distrib/
+android/probe/esptool/
