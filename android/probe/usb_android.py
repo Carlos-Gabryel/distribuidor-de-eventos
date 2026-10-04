@@ -1,6 +1,7 @@
 """Serial CDC-ACM pelo android.hardware.usb (pyjnius). Mesma interface do UsbCdcSerial do spike."""
 import os
 import struct
+import threading
 import time
 
 VIDS = {0x1A86, 0x10C4, 0x0403, 0x303A}
@@ -62,6 +63,7 @@ class AndroidUsbSerial:
         self.comm_if, self.data_if = None, None
         self.ep_in, self.ep_out = None, None
         self._find_interfaces()
+        self._start_reader()
         self.set_baud(baud)
         self.set_lines(dtr, rts)
 
@@ -118,22 +120,61 @@ class AndroidUsbSerial:
         self.dtr, self.rts = bool(dtr), bool(rts)
         self._ctrl(0x21, 0x22, int(self.dtr) | (int(self.rts) << 1))  # SET_CONTROL_LINE_STATE
 
+    def _start_reader(self, n_reqs=4, size=16384):
+        """Leitura contínua por UsbRequest (sem prazo, então nada é descartado). bulkTransfer
+        com prazo perde o parcial, e um pacote por chamada não esvazia a placa a 921600."""
+        from jnius import autoclass
+        UsbRequest = autoclass("android.hardware.usb.UsbRequest")
+        ByteBuffer = autoclass("java.nio.ByteBuffer")
+        self._rx, self._rx_cv, self._rx_err = bytearray(), threading.Condition(), None
+        self._reqs = {}
+        for _ in range(n_reqs):
+            req = UsbRequest()
+            if not req.initialize(self.conn, self.ep_in):
+                raise RuntimeError("UsbRequest.initialize falhou")
+            buf = ByteBuffer.allocate(size)
+            self._reqs[req.hashCode()] = (req, buf, bytearray(size))
+            if not req.queue(buf):
+                raise RuntimeError("UsbRequest.queue falhou")
+        self._running = True
+        self._reader = threading.Thread(target=self._reader_loop, name="usb-rx", daemon=True)
+        self._reader.start()
+
+    def _reader_loop(self):
+        try:
+            while self._running:
+                try:
+                    done = self.conn.requestWait(100)
+                except Exception:  # noqa: BLE001 - TimeoutException do Java: nada chegou
+                    continue
+                if done is None:
+                    break
+                req, buf, tmp = self._reqs[done.hashCode()]
+                n = buf.position()
+                if n:
+                    buf.flip()
+                    buf.get(tmp, 0, n)
+                    with self._rx_cv:
+                        self._rx += tmp[:n]
+                        self._rx_cv.notify_all()
+                buf.clear()
+                if self._running and not req.queue(buf):
+                    raise RuntimeError("UsbRequest.queue falhou")
+        except Exception as e:  # noqa: BLE001
+            self._rx_err = e
+        finally:
+            with self._rx_cv:
+                self._rx_cv.notify_all()
+
     def read(self, size=4096, timeout_ms=20):
-        # Um pacote por bulkTransfer: no Android, um bulkTransfer maior que estoura o prazo
-        # descarta o que já chegou (o BENCH perdia tudo com 4096 B / 20 ms a 921600).
-        mps = self.ep_in.getMaxPacketSize()
-        buf = bytearray(mps)
-        out = bytearray()
-        wait = max(1, int(timeout_ms))
-        while len(out) + mps <= max(size, mps):
-            n = self.conn.bulkTransfer(self.ep_in, buf, mps, wait)
-            if n <= 0:
-                break
-            out += buf[:n]
-            if n < mps:
-                break
-            wait = 1
-        return bytes(out)
+        with self._rx_cv:
+            if not self._rx and self._rx_err is None:
+                self._rx_cv.wait(max(1, int(timeout_ms)) / 1000)
+            if not self._rx and self._rx_err is not None:
+                raise RuntimeError("leitura USB parou: %s" % self._rx_err)
+            out = bytes(self._rx[:size])
+            del self._rx[:size]
+            return out
 
     def write(self, data):
         data = bytes(data)
@@ -147,6 +188,15 @@ class AndroidUsbSerial:
         return len(data)
 
     def close(self):
+        self._running = False
+        reader = getattr(self, "_reader", None)
+        if reader is not None:
+            reader.join(1.0)
+        for req, _, _ in getattr(self, "_reqs", {}).values():
+            try:
+                req.cancel()
+            except Exception:
+                pass
         try:
             self.conn.close()
         except Exception:
