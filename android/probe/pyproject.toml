@@ -6,6 +6,7 @@ dependencies = [
     "flet==1.0.2",
     "pyjnius",
     "pyserial",
+    "esptool>=5.1,<6",
     # o workflow troca @WHEELS@ pelo diretório absoluto dos wheels compilados (A3)
     "unicorn @ file://@WHEELS@/unicorn-2.1.4-py3-none-android_24_arm64_v8a.whl",
 ]

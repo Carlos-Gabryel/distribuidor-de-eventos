@@ -78,52 +78,13 @@ def hello():
     return "\n".join(log)
 
 
-def _install_serial_shim():
+def _install_serial_shim(esptool=False):
     import serial
-    from usb_android import AndroidUsbSerial
+    import serial_shim
 
-    class UsbSerial:
-        """O pedaço do pyserial que o esp32.Radio usa, sobre AndroidUsbSerial."""
-
-        def __init__(self, *a, **k):
-            self.port, self._baud, self.timeout, self.dtr, self.rts = None, 115200, 0.02, False, False
-            self.is_open = False
-            self._dev = None
-
-        @property
-        def baudrate(self):
-            return self._baud
-
-        @baudrate.setter
-        def baudrate(self, v):
-            self._baud = v
-            if self.is_open:
-                self._dev.set_baud(v)
-
-        def open(self):
-            self._dev = AndroidUsbSerial(baud=self._baud, dtr=self.dtr, rts=self.rts)
-            self.is_open = True
-
-        def read(self, size=1):
-            return self._dev.read(min(size, 4096), max(1, int((self.timeout or 0.02) * 1000)))
-
-        def write(self, data):
-            return self._dev.write(bytes(data))
-
-        def flush(self):
-            pass
-
-        def reset_input_buffer(self):
-            while self._dev.read(4096, 5):
-                pass
-
-        def close(self):
-            self.is_open = False
-            if self._dev is not None:
-                self._dev.close()
-                self._dev = None
-
-    serial.Serial = UsbSerial
+    cls = serial_shim.EspUsbSerial if esptool else serial_shim.UsbSerial
+    serial.Serial = cls
+    serial.serial_for_url = lambda url, *a, **k: cls()
 
 
 def _quiet(esp32):
@@ -173,3 +134,56 @@ def unicorn_test():
     mu.mem_write(0x1000, code)
     mu.emu_start(0x1000, 0x1000 + len(code))
     return "unicorn %s: r0=%d" % (unicorn.__version__, mu.reg_read(UC_ARM_REG_R0))
+
+
+_RESET = "D0|R1|W0.1|D1|R0|W0.5|D0"  # ClassicReset do esptool (D=DTR, R=RTS; 1 = linha ativa)
+_HARD = "R1|W0.1|R0"                  # HardReset
+
+
+def _prepare_esptool():
+    """Troca o pyserial pelo shim e força o reset clássico pela config oficial do esptool."""
+    import os
+    import sys
+    import tempfile
+    here = os.path.dirname(os.path.abspath(__file__))
+    if here not in sys.path:
+        sys.path.insert(0, here)
+    cfg = os.path.join(tempfile.gettempdir(), "esptool.cfg")
+    with open(cfg, "w") as f:
+        f.write("\n".join(["[esptool]", "custom_reset_sequence = " + _RESET,
+                           "custom_hard_reset_sequence = " + _HARD, ""]))
+    os.environ["ESPTOOL_CFGFILE"] = cfg  # lido na importação de esptool.loader
+    _install_serial_shim(esptool=True)
+    import esptool
+    return esptool
+
+
+def chip():
+    esptool = _prepare_esptool()
+    import io
+    from contextlib import redirect_stdout
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        with esptool.detect_chip("usb", connect_attempts=2) as esp:
+            info = ["chip: %s" % esp.CHIP_NAME, "MAC: %s" % esp.read_mac()]
+            try:
+                info.append("flash: %s" % esp.flash_id())
+            except Exception as e:  # noqa: BLE001
+                info.append("flash: ? (%s)" % e)
+    return "\n".join(info) + "\n--- log ---\n" + buf.getvalue()[-1500:]
+
+
+def gravar():
+    esptool = _prepare_esptool()
+    import io
+    import os
+    import sys
+    from contextlib import redirect_stdout, redirect_stderr
+    here = os.path.dirname(os.path.abspath(__file__))
+    if here not in sys.path:
+        sys.path.insert(0, here)
+    from distrib.runners import flash
+    buf = io.StringIO()
+    with redirect_stdout(buf), redirect_stderr(buf):
+        rc = flash.main(["usb", os.path.join(here, "firmware")])
+    return "flash rc=%s\n%s" % (rc, buf.getvalue()[-3000:])

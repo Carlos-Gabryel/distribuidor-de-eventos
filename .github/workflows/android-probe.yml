@@ -52,6 +52,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.14"
+      - name: Embutir firmware e distrib (A4)
+        run: |
+          python build/fetch_firmware.py
+          cp -r firmware android/probe/firmware
+          mkdir -p android/probe/distrib/runners android/probe/distrib/platform
+          for f in __init__ board runner config pokeldn_path; do cp distrib/$f.py android/probe/distrib/; done
+          cp distrib/platform/__init__.py distrib/platform/inproc.py android/probe/distrib/platform/
+          cp distrib/runners/__init__.py distrib/runners/flash.py android/probe/distrib/runners/
+          find android/probe/distrib -name __pycache__ -prune -exec rm -rf {} +
+          ls -R android/probe/firmware android/probe/distrib | head -40
       - uses: actions/setup-java@v4
         with:
           distribution: temurin

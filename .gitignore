@@ -16,3 +16,5 @@ firmware/
 android/probe/build/
 android/**/build/
 android/probe/pokeldn/
+android/probe/firmware/
+android/probe/distrib/
