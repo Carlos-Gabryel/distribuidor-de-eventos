@@ -84,7 +84,13 @@ def _install_serial_shim(esptool=False):
 
     cls = serial_shim.EspUsbSerial if esptool else serial_shim.UsbSerial
     serial.Serial = cls
-    serial.serial_for_url = lambda url, *a, **k: cls()
+
+    def serial_for_url(url, *a, **k):
+        s = cls()
+        s.port = url  # o esptool lê .port (serial_port.startswith)
+        return s
+
+    serial.serial_for_url = serial_for_url
 
 
 def _quiet(esp32):

@@ -103,6 +103,9 @@ class UsbSerial:
 
     flushInput = reset_input_buffer
 
+    def isOpen(self):  # API antiga do pyserial, usada pelo reset do esptool
+        return self.is_open
+
     def close(self):
         self.is_open = False
         if self._dev is not None:
