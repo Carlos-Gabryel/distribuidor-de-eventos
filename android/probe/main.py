@@ -53,6 +53,8 @@ def main(page: ft.Page):
                             ft.Button("unicorn", on_click=run_op("unicorn_test")),
                             ft.Button("chip", on_click=run_op("chip")),
                             ft.Button("gravar", on_click=run_op("gravar")),
+                            ft.Button("gravar (trace)", on_click=run_op("gravar_trace")),
+                            ft.Button("gravar (ROM)", on_click=run_op("gravar_rom")),
                         ],
                         wrap=True,
                     ),

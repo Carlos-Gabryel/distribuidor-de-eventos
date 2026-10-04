@@ -181,9 +181,9 @@ def chip():
     buf = io.StringIO()
     with redirect_stdout(buf):
         with esptool.detect_chip("usb", connect_attempts=2) as esp:
-            info = ["chip: %s" % esp.CHIP_NAME, "MAC: %s" % esp.read_mac()]
+            info = ["chip: %s" % esp.CHIP_NAME, "MAC: %s" % (esp.read_mac(),)]
             try:
-                info.append("flash: %s" % esp.flash_id())
+                info.append("flash: %s" % (esp.flash_id(),))
             except Exception as e:  # noqa: BLE001
                 info.append("flash: ? (%s)" % e)
     return "\n".join(info) + "\n--- log ---\n" + buf.getvalue()[-1500:]
@@ -211,17 +211,44 @@ def _firmware_dir(here):
     return os.path.join(out, "firmware")
 
 
-def gravar():
+def _gravar(extra=None, tail=3000):
+    """Grava o firmware. extra=None: pelo distrib.runners.flash (como o app);
+    senão chama o esptool.main direto (ESP32) com as opções extras (--trace, --no-stub)."""
     esptool = _prepare_esptool()
     import io
     import os
     import sys
+    import traceback
     from contextlib import redirect_stdout, redirect_stderr
     here = os.path.dirname(os.path.abspath(__file__))
     if here not in sys.path:
         sys.path.insert(0, here)
     from distrib.runners import flash
+    from distrib.board import firmware_for
+    from pathlib import Path
     buf = io.StringIO()
-    with redirect_stdout(buf), redirect_stderr(buf):
-        rc = flash.main(["usb", _firmware_dir(here)])
-    return "flash rc=%s\n%s" % (rc, buf.getvalue()[-3000:])
+    rc = "exceção"
+    try:
+        with redirect_stdout(buf), redirect_stderr(buf):
+            if extra is None:
+                rc = flash.main(["usb", _firmware_dir(here)])
+            else:
+                path = firmware_for("ESP32", Path(_firmware_dir(here)))
+                esptool.main(["--chip", "esp32", "--port", "usb", "--baud", "460800", *extra,
+                              "--after", "hard-reset", "write-flash", "0x0", str(path)])
+                rc = 0
+    except BaseException:  # noqa: BLE001 - mostrar o log mesmo na falha (inclui SystemExit)
+        buf.write(chr(10) + traceback.format_exc())
+    return "flash rc=%s" % (rc,) + chr(10) + buf.getvalue()[-tail:]
+
+
+def gravar():
+    return _gravar()
+
+
+def gravar_trace():
+    return _gravar(["--trace"], tail=6000)
+
+
+def gravar_rom():
+    return _gravar(["--no-stub"])
