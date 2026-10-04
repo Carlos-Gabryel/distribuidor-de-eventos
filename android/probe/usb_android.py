@@ -11,12 +11,30 @@ USB_DIR_IN = 0x80
 CLASS_COMM, CLASS_DATA = 0x02, 0x0A
 
 
+_ctx = None
+ctx_source = None
+
+
 def activity():
+    """Context do app. Em thread de trabalho o pyjnius só enxerga classes do sistema
+    (ClassNotFoundException na Activity do Flet), então cai para ActivityThread."""
+    global _ctx, ctx_source
+    if _ctx is not None:
+        return _ctx
     from jnius import autoclass
+    erros = []
     name = os.getenv("MAIN_ACTIVITY_HOST_CLASS_NAME")
-    if not name:
-        raise RuntimeError("MAIN_ACTIVITY_HOST_CLASS_NAME ausente (fora do Flet Android?)")
-    return autoclass(name).mActivity
+    if name:
+        try:
+            _ctx, ctx_source = autoclass(name).mActivity, name
+        except Exception as e:  # noqa: BLE001
+            erros.append("%s: %s" % (name, e))
+    if _ctx is None:
+        app = autoclass("android.app.ActivityThread").currentApplication()
+        if app is None:
+            raise RuntimeError("sem Context do app; " + "; ".join(erros))
+        _ctx, ctx_source = app, "ActivityThread.currentApplication"
+    return _ctx
 
 
 class AndroidUsbSerial:

@@ -44,9 +44,11 @@ def _parse(raw):
 
 
 def hello():
+    import usb_android
     from usb_android import AndroidUsbSerial
     s = AndroidUsbSerial(baud=115200)
-    log = ["porta aberta (%04x:%04x, ctrl-if %s, data-if %s)"
+    log = ["context: %s" % usb_android.ctx_source,
+           "porta aberta (%04x:%04x, ctrl-if %s, data-if %s)"
            % (s.dev.getVendorId(), s.dev.getProductId(), s.comm_if, s.data_if)]
     try:
         for baud in (115200, 921600):
