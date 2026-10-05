@@ -79,7 +79,9 @@ class Shell:
             on_change=lambda e: self.navigate(NAV[int(e.control.selected_index)][0]))
         page.add(ft.SafeArea(ft.Column([self.board_card, self.update_bar, self.body, self.navbar],
                                        spacing=0, expand=True), expand=True))
-        # Sem isto o gesto de voltar do Android tira a única View e fecha o app
+        # Sem isto o gesto de voltar do Android tira a única View e fecha o app. O Flet só chama o
+        # on_confirm_pop com can_pop=False; confirmar o pop na View raiz fecha o app (SystemNavigator.pop).
+        page.views[0].can_pop = False
         page.views[0].on_confirm_pop = self._on_back
 
     async def _on_back(self, e) -> None:

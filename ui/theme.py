@@ -60,13 +60,15 @@ def dot(color: str) -> ft.Container:
 def board_card(info, compact: bool = False) -> ft.Container:
     color = BOARD_COLORS.get(info.kind, ACCENT)
     bad = color == ACCENT
-    if compact:     # faixa do topo no celular: uma linha
+    if compact:     # faixa do topo no celular: marca à esquerda, pílula do estado da placa à direita
+        pill = ft.Container(
+            padding=ft.Padding(10, 4, 10, 4), border_radius=999, bgcolor="#2A1519" if bad else HOVER,
+            border=border("#5A2630" if bad else BORDER),
+            content=ft.Row([dot(color), text(BOARD_TITLES.get(info.kind, info.kind), 11, bold=True)],
+                           spacing=6, tight=True))
         return ft.Container(
-            padding=ft.Padding(12, 8, 12, 8), bgcolor="#2A1519" if bad else CARD,
-            border=ft.Border(bottom=ft.BorderSide(1, "#5A2630" if bad else BORDER)),
-            content=ft.Row([dot(color), text(BOARD_TITLES.get(info.kind, info.kind), 12, bold=True),
-                            muted(info.message, 11, max_lines=1, overflow=ft.TextOverflow.ELLIPSIS, expand=True)],
-                           spacing=8))
+            padding=ft.Padding(12, 8, 12, 8), bgcolor=CARD, border=ft.Border(bottom=ft.BorderSide(1, BORDER)),
+            content=ft.Row([brand(), pill], alignment=ft.MainAxisAlignment.SPACE_BETWEEN))
     return ft.Container(
         padding=10, border_radius=RADIUS_SMALL, bgcolor="#2A1519" if bad else CARD,
         border=border("#5A2630" if bad else BORDER),
@@ -94,9 +96,11 @@ def crumbs(parts: list[tuple[str, object]]) -> ft.Row:
         if index:
             items.append(muted("›", 12))
         last = index == len(parts) - 1
-        items.append(ft.Container(text(label, 12, TEXT if last else MUTED, bold=last),
-                                  on_click=None if last else on_click))
-    return ft.Row(items, spacing=6, wrap=True, run_spacing=2)    # nomes longos de evento quebram linha
+        # uma linha só: a etapa atual ocupa o que sobra e corta com reticências
+        items.append(ft.Container(text(label, 12, TEXT if last else MUTED, bold=last, max_lines=1,
+                                       overflow=ft.TextOverflow.ELLIPSIS, no_wrap=True),
+                                  on_click=None if last else on_click, expand=last))
+    return ft.Row(items, spacing=6)
 
 
 def stat(label: str, value: str) -> ft.Container:

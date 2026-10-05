@@ -204,8 +204,7 @@ class DistribuirView:
         info = ft.Column([self.run_title, self.run_state], spacing=2, expand=True)
         if self.shell.mobile:       # botões numa linha própria: lado a lado, o título vira uma coluna de letras
             slots = SpriteSlots(self.shell, 72)
-            for slot in (self.pause_slot, self.stop_slot):
-                slot.expand, slot.alignment = True, ft.Alignment.CENTER
+            self.pause_slot.expand = self.stop_slot.expand = True
             header = ft.Column([ft.Row([slots.box(run.event.species), info], spacing=12),
                                 ft.Row([self.pause_slot, self.stop_slot], spacing=10)], spacing=10)
         else:
@@ -232,6 +231,10 @@ class DistribuirView:
                                            icon_name="play" if paused else "pause",
                                            disabled=self.stopping)
         self.stop_slot.content = t.button("Parar", self._stop, icon_name="square", disabled=self.stopping)
+        if self.shell.mobile:       # metade da linha para cada botão
+            for slot in (self.pause_slot, self.stop_slot):
+                slot.content.expand = True
+                slot.content = ft.Row([slot.content])
         if self.service.adapters[run.game].mode == "broadcast":
             stats = [t.stat("No ar há", elapsed(run.since)), t.stat("Canal", str(run.channel or "—"))]
         else:
