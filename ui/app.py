@@ -28,6 +28,7 @@ class Shell:
         self.picker = ft.FilePicker()
         self.launcher = ft.UrlLauncher()
         self.current = "distribuir"
+        self.mobile = use_mobile(IS_ANDROID, page.width)     # antes das views: a grade lê
         from ui.views.ajustes import AjustesView
         from ui.views.distribuir import DistribuirView
         from ui.views.inicio import InicioView
@@ -38,7 +39,6 @@ class Shell:
         self._pending = False
         self._pending_lock = threading.Lock()
         self.nav = ft.Column(spacing=4)
-        self.mobile = use_mobile(IS_ANDROID, page.width)
         self.board_card = ft.Container()
         self.update_bar = ft.Container(visible=False, bgcolor=t.CARD, padding=ft.Padding(24, 10, 24, 10),
                                        border=ft.Border(bottom=ft.BorderSide(1, t.BORDER)))
