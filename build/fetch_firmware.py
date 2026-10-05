@@ -1,6 +1,7 @@
 """Baixa os 4 firmwares do Release v0.5.0 do pokeldn para firmware/, conferindo o SHA-256."""
 import hashlib
 import json
+import os
 import sys
 import urllib.request
 from pathlib import Path
@@ -15,7 +16,10 @@ HEADERS = {"User-Agent": "Distribuidor-build"}
 
 
 def main() -> None:
-    with urllib.request.urlopen(urllib.request.Request(API, headers=HEADERS), timeout=30) as resp:
+    # No CI, sem token a API cai no limite por IP compartilhado (403 rate limit exceeded).
+    token = os.environ.get("GITHUB_TOKEN")
+    api_headers = {**HEADERS, **({"Authorization": f"Bearer {token}"} if token else {})}
+    with urllib.request.urlopen(urllib.request.Request(API, headers=api_headers), timeout=30) as resp:
         assets = {a["name"]: a for a in json.loads(resp.read())["assets"]}
     OUT.mkdir(exist_ok=True)
     for name in FIRMWARE.values():

@@ -51,6 +51,8 @@ jobs:
           distribution: temurin
           java-version: "17"
       - name: Instalar o Flet e baixar os firmwares
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           pip install "flet==1.0.2" "flet-cli==1.0.2"
           python build/fetch_firmware.py
