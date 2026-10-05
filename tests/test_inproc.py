@@ -90,3 +90,24 @@ def test_threads_anteriores_escrevem_no_stream_original(tmp_path):
     proc.terminate()
     assert list(proc.stdout)[-1] == "parado\n"
     assert written == ["da-ui"]
+
+
+def test_fim_do_job_fecha_o_radio_do_pokeldn(tmp_path, monkeypatch):
+    """O pokeldn guarda a placa aberta em esp32_wlan._radio; em thread, o próximo job
+    reaproveitaria uma conexão USB que o quiet já tomou."""
+    import types
+
+    class Radio:
+        closed = False
+
+        def close(self):
+            self.closed = True
+
+    radio = Radio()
+    fake = types.ModuleType("pokeldn.ldn.esp32_wlan")
+    fake._radio = radio
+    monkeypatch.setitem(sys.modules, "pokeldn.ldn.esp32_wlan", fake)
+    proc = inproc.InProcPopen(argv("quiet"), cwd=tmp_path, stderr=subprocess.STDOUT)
+    list(proc.stdout)
+    assert proc.wait(5) == 0
+    assert radio.closed and fake._radio is None

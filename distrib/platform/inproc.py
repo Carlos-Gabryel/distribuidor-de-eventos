@@ -63,6 +63,20 @@ def _interrupt(tid: int) -> None:
         ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_ulong(tid), None)
 
 
+def _release_radio() -> None:
+    """O pokeldn abre a placa uma vez e a guarda em esp32_wlan._radio (num processo próprio, ela
+    morre com ele). Em thread, o próximo job reaproveitaria uma conexão USB que o quiet já tomou."""
+    wlan = sys.modules.get("pokeldn.ldn.esp32_wlan")
+    radio = getattr(wlan, "_radio", None)
+    if radio is None:
+        return
+    wlan._radio = None
+    try:
+        radio.close()
+    except Exception:  # noqa: BLE001 - a placa pode já ter sumido
+        traceback.print_exc()
+
+
 class _Stdin:
     def __init__(self, proc: "InProcPopen") -> None:
         self._proc = proc
@@ -157,6 +171,7 @@ class InProcPopen:
             self.returncode = code
             _active = None
             self._restore_env()
+            _release_radio()
             self._queue.put(_END)
             _job_lock.release()
 
