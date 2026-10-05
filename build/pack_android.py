@@ -20,6 +20,7 @@ from distrib.board import FIRMWARE  # noqa: E402
 APP = ROOT / "android" / "app"
 POKELDN = ROOT / "vendor" / "pokeldn"
 ESPTOOL = "5.4.0"
+NETLINK = "0.0.15"  # o mesmo do setup.py do vendor/LDN; o host do LDN importa netlink (só depende do trio)
 SKIP = shutil.ignore_patterns("__pycache__", "*.pyc", "*.egg-info")
 
 
@@ -29,14 +30,14 @@ def copy(src: Path, dest: Path) -> None:
     shutil.copytree(src, dest, ignore=SKIP)
 
 
-def embed_esptool() -> None:
-    """O esptool só existe como sdist no PyPI e o flet build usa --only-binary: embute o pacote."""
+def embed_sdist(dist: str, version: str, package: str) -> None:
+    """Pacotes só com sdist no PyPI (o flet build usa --only-binary): embute o pacote puro no app."""
     with tempfile.TemporaryDirectory() as tmp:
-        subprocess.run([sys.executable, "-m", "pip", "download", f"esptool=={ESPTOOL}", "--no-deps",
+        subprocess.run([sys.executable, "-m", "pip", "download", f"{dist}=={version}", "--no-deps",
                         "--no-binary", ":all:", "-d", tmp, "-q"], check=True)
-        with tarfile.open(next(Path(tmp).glob("esptool-*.tar.gz"))) as tar:
+        with tarfile.open(next(Path(tmp).glob("*.tar.gz"))) as tar:
             tar.extractall(tmp, filter="data")
-        copy(next(Path(tmp).glob("esptool-*/esptool")), APP / "esptool")
+        copy(next(Path(tmp).glob(f"*/{package}")), APP / package)
 
 
 def stage(wheels: Path) -> None:
@@ -63,7 +64,8 @@ def stage(wheels: Path) -> None:
                 copy(item, APP / "assets" / item.name)
             else:
                 shutil.copy2(item, APP / "assets" / item.name)
-    embed_esptool()
+    embed_sdist("esptool", ESPTOOL, "esptool")
+    embed_sdist("python-netlink", NETLINK, "netlink")
     pyproject = APP / "pyproject.toml"
     text = pyproject.read_text(encoding="utf-8")
     pyproject.write_text(text.replace("@WHEELS@", wheels.resolve().as_posix()), encoding="utf-8")

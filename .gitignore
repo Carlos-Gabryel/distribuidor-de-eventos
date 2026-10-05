@@ -26,6 +26,7 @@ android/app/distrib/
 android/app/ui/
 android/app/vendor/
 android/app/esptool/
+android/app/netlink/
 android/app/assets/*
 !android/app/assets/icon.png
 android/app/LICENSE
