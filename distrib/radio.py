@@ -5,10 +5,14 @@ import os
 import subprocess
 from dataclasses import dataclass
 
-from serial.tools import list_ports
-
 from distrib import runner
 from distrib.config import Config
+from distrib.platform import IS_ANDROID
+
+if IS_ANDROID:       # o pyserial não tem list_ports no Android: a listagem vem do android.hardware.usb
+    from distrib.platform.android_usb import list_ports as system_comports
+else:
+    from serial.tools.list_ports import comports as system_comports
 
 BRIDGES = {
     (0x10C4, 0xEA60): "CP210x",
@@ -34,13 +38,13 @@ class Port:
     bridge: str
 
 
-def list_boards(comports=list_ports.comports) -> list[Port]:
+def list_boards(comports=system_comports) -> list[Port]:
     found = [Port(p.device, BRIDGES.get((p.vid, p.pid), "desconhecida"))
              for p in comports() if p.vid is not None]
     return sorted(found, key=lambda p: p.device)
 
 
-def find_port(comports=list_ports.comports) -> str | None:
+def find_port(comports=system_comports) -> str | None:
     boards = list_boards(comports)
     return boards[0].device if len(boards) == 1 else None
 

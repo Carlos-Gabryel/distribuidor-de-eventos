@@ -85,8 +85,7 @@ class Service:
         if adapters is None:
             from distrib.games import ADAPTERS as adapters
         if comports is None:
-            from serial.tools import list_ports
-            comports = list_ports.comports
+            comports = radio.system_comports
         self.cfg, self.adapters, self.clock = cfg, adapters, clock
         self.comports = comports
         self.hello = hello or (lambda port: radio.hello(port, cfg))
