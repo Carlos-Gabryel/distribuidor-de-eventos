@@ -33,6 +33,11 @@ copyright = "MIT"
 [tool.flet.app]
 module = "main"
 
+[tool.flet.compile]
+# O runner roda os hosts do pokeldn por caminho (runpy.run_path em bin/*.py): sem compilar o app,
+# os .py ficam no APK (compilado, o flet build deixa só .pyc).
+app = false
+
 [tool.flet.android]
 target_arch = ["arm64-v8a"]
 # unicorn procura a libunicorn.so por caminho de arquivo, não por importlib.resources
