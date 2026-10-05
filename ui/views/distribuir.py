@@ -44,11 +44,12 @@ class DistribuirView:
                                    text_size=13, height=40, content_padding=ft.Padding(12, 8, 12, 8))
         self.grid = ft.GridView(max_extent=grid_extent(shell.mobile), child_aspect_ratio=0.78, spacing=10,
                                 run_spacing=10, expand=True)
-        self.run_title = t.text("", 18, bold=True)
+        self.run_title = t.text("", 16 if shell.mobile else 18, bold=True)
         self.run_state = t.muted("")
         self.pause_slot = ft.Container()
         self.stop_slot = ft.Container()
-        self.stats = ft.Row(spacing=10)
+        # no celular os indicadores vão em grade 2x2 (quatro numa linha espremem os números)
+        self.stats = ft.ResponsiveRow(spacing=10, run_spacing=10) if shell.mobile else ft.Row(spacing=10)
         self.log = ft.ListView(expand=True, spacing=2, auto_scroll=True)
 
     # ---- ciclo da view ----
@@ -72,6 +73,19 @@ class DistribuirView:
             self.control.controls = getattr(self, f"_build_{step}")(snap)
         if step == "distribuindo":
             self._update_run(snap)
+
+    def back(self, snap) -> bool:
+        """Gesto de voltar do celular: uma etapa para trás. False na tela de jogos (o app sai)."""
+        step = self.step(snap)
+        if step == "distribuindo":
+            self.shell.toast("Toque em Parar para sair da distribuição")
+        elif step == "eventos":
+            self._to_grid()
+        elif step == "grade":
+            self._to_games()
+        else:
+            return False
+        return True
 
     def _redraw(self) -> None:
         self._step = None
@@ -157,7 +171,7 @@ class DistribuirView:
         header = ft.Row([slots.box(group.species) if group.species else ft.Container(width=8),
                          ft.Column([t.text(group.name, 22, bold=True),
                                     t.muted(f"{n} evento{'s' if n > 1 else ''} disponíve{'is' if n > 1 else 'l'}")],
-                                   spacing=4)], spacing=16)
+                                   spacing=4, expand=True)], spacing=16)
         rows = [self._event_row(event, first=index == 0) for index, event in enumerate(group.events)]
         slots.load()
         return [t.crumbs([("Distribuir", self._to_games), (TITLES[self.game], self._to_grid),
@@ -187,10 +201,16 @@ class DistribuirView:
     def _build_distribuindo(self, snap) -> list[ft.Control]:
         run = snap.run
         self.game = run.game
-        slots = SpriteSlots(self.shell, 96)
-        header = ft.Row([slots.box(run.event.species),
-                         ft.Column([self.run_title, self.run_state], spacing=2, expand=True),
-                         self.pause_slot, self.stop_slot], spacing=14)
+        info = ft.Column([self.run_title, self.run_state], spacing=2, expand=True)
+        if self.shell.mobile:       # botões numa linha própria: lado a lado, o título vira uma coluna de letras
+            slots = SpriteSlots(self.shell, 72)
+            for slot in (self.pause_slot, self.stop_slot):
+                slot.expand, slot.alignment = True, ft.Alignment.CENTER
+            header = ft.Column([ft.Row([slots.box(run.event.species), info], spacing=12),
+                                ft.Row([self.pause_slot, self.stop_slot], spacing=10)], spacing=10)
+        else:
+            slots = SpriteSlots(self.shell, 96)
+            header = ft.Row([slots.box(run.event.species), info, self.pause_slot, self.stop_slot], spacing=14)
         slots.load()
         name = self.group.name if self.group is not None else TITLES[run.game]
         return [t.crumbs([("Distribuir", None), (TITLES[run.game], None), (name, None),
@@ -213,13 +233,16 @@ class DistribuirView:
                                            disabled=self.stopping)
         self.stop_slot.content = t.button("Parar", self._stop, icon_name="square", disabled=self.stopping)
         if self.service.adapters[run.game].mode == "broadcast":
-            self.stats.controls = [t.stat("No ar há", elapsed(run.since)),
-                                   t.stat("Canal", str(run.channel or "—"))]
+            stats = [t.stat("No ar há", elapsed(run.since)), t.stat("Canal", str(run.channel or "—"))]
         else:
-            self.stats.controls = [t.stat("Entregues", str(run.deliveries)),
-                                   t.stat("Último resultado", RESULTS.get(run.last_event, "—")),
-                                   t.stat("No ar há", elapsed(run.since)),
-                                   t.stat("Console", "conectado" if run.state == "console" else "—")]
+            stats = [t.stat("Entregues", str(run.deliveries)),
+                     t.stat("Último resultado", RESULTS.get(run.last_event, "—")),
+                     t.stat("No ar há", elapsed(run.since)),
+                     t.stat("Console", "conectado" if run.state == "console" else "—")]
+        if self.shell.mobile:
+            for stat in stats:
+                stat.col = 6
+        self.stats.controls = stats
         self.log.controls = [ft.Text(line, size=11, font_family="Consolas", color=t.MUTED, selectable=True)
                              for line in snap.log[-200:]]
 

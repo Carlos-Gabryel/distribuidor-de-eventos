@@ -79,6 +79,25 @@ class Shell:
             on_change=lambda e: self.navigate(NAV[int(e.control.selected_index)][0]))
         page.add(ft.SafeArea(ft.Column([self.board_card, self.update_bar, self.body, self.navbar],
                                        spacing=0, expand=True), expand=True))
+        # Sem isto o gesto de voltar do Android tira a única View e fecha o app
+        page.views[0].on_confirm_pop = self._on_back
+
+    async def _on_back(self, e) -> None:
+        handled = False
+        try:
+            handled = self.back()
+        except Exception:
+            traceback.print_exc()
+        await e.control.confirm_pop(not handled)
+
+    def back(self) -> bool:
+        """Volta uma etapa; False quando não há para onde voltar (aí o app sai)."""
+        snap = self.service.snapshot()
+        if self.current != "distribuir":
+            self.navigate("distribuir")
+            return True
+        view = self._active_view(snap)
+        return view.back(snap) if hasattr(view, "back") else False
 
     # ---- barra de título própria (a do Windows fica escondida) ----
     def _window_button(self, content, on_click, danger: bool = False) -> ft.Container:

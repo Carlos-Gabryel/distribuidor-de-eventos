@@ -96,7 +96,7 @@ def crumbs(parts: list[tuple[str, object]]) -> ft.Row:
         last = index == len(parts) - 1
         items.append(ft.Container(text(label, 12, TEXT if last else MUTED, bold=last),
                                   on_click=None if last else on_click))
-    return ft.Row(items, spacing=6)
+    return ft.Row(items, spacing=6, wrap=True, run_spacing=2)    # nomes longos de evento quebram linha
 
 
 def stat(label: str, value: str) -> ft.Container:
