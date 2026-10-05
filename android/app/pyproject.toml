@@ -38,5 +38,8 @@ target_arch = ["arm64-v8a"]
 # unicorn procura a libunicorn.so por caminho de arquivo, não por importlib.resources
 extract_packages = ["unicorn"]
 
+[tool.flet.android.permission]
+"android.permission.WAKE_LOCK" = true
+
 [tool.flet.android.feature]
 "android.hardware.usb.host" = true

@@ -32,10 +32,7 @@ def android(monkeypatch, tmp_path):
 
 class Java:
     def __init__(self):
-        self.screen, self.primed = [], 0
-
-    def prime_activity(self):
-        self.primed += 1
+        self.screen = []
 
     def set_keep_screen_on(self, on):
         self.screen.append(on)
@@ -50,7 +47,6 @@ def test_apply_prepara_o_ambiente(android):
     assert serial.serial_for_url("usb:x").port == "usb:x"
     assert (cfg.data_dir / "esptool.cfg").exists()
     assert os.environ["ESPTOOL_CFGFILE"] == str(cfg.data_dir / "esptool.cfg")
-    assert android_usb.get_java().primed == 1
     assert pokemon.SERVICE.validate_gift.__name__ == "validate_offline"
 
 
@@ -70,7 +66,6 @@ def test_apply_e_idempotente(android):
     sys.exit = lambda code=None: None            # o sys.exit é refeito a cada chamada
     android_env.apply(cfg)
     assert pokemon.SERVICE.validate_gift is validate
-    assert android_usb.get_java().primed == 1
     with pytest.raises(SystemExit):
         sys.exit()
 

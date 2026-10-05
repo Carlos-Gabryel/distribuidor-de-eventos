@@ -17,7 +17,6 @@ from dataclasses import dataclass
 VIDS = {0x1A86, 0x10C4, 0x0403, 0x303A}
 ACTION = "dev.distrib.USB_PERMISSION"
 FLAG_IMMUTABLE = 0x04000000
-FLAG_KEEP_SCREEN_ON = 0x00000080
 USB_ENDPOINT_XFER_BULK = 2
 USB_DIR_IN = 0x80
 CLASS_COMM, CLASS_DATA = 0x02, 0x0A
@@ -31,7 +30,7 @@ class _Java:
 
     def __init__(self):
         self._ctx = None
-        self._activity = None
+        self._wakelock = None
 
     def _autoclass(self, name):
         from jnius import autoclass
@@ -61,35 +60,21 @@ class _Java:
     def allocate(self, size):
         return self._autoclass("java.nio.ByteBuffer").allocate(size)
 
-    def activity(self):
-        """Activity do Flet. Só resolve na thread principal (ver `context`): `prime_activity()` a
-        guarda no início do app."""
-        if self._activity is None:
-            self._activity = self._autoclass(os.environ["MAIN_ACTIVITY_HOST_CLASS_NAME"]).mActivity
-        return self._activity
-
-    prime_activity = activity
-
     def set_keep_screen_on(self, on):
-        """FLAG_KEEP_SCREEN_ON na janela, executado na thread de UI do Android."""
-        from jnius import PythonJavaClass, java_method
-        activity = self.activity()
-
-        class _Run(PythonJavaClass):
-            __javainterfaces__ = ["java/lang/Runnable"]
-
-            @java_method("()V")
-            def run(self_):  # noqa: N805
-                window = activity.getWindow()
-                (window.addFlags if on else window.clearFlags)(FLAG_KEEP_SCREEN_ON)
-
-        runnable = _Run()
-        _KEEP.append(runnable)
-        activity.runOnUiThread(runnable)
-        del _KEEP[:-8]
+        """Tela acesa (e CPU ligada) durante a distribuição, por wakelock do PowerManager.
+        A Activity do Flet não é achável pelo pyjnius fora da thread principal, e o nome dela muda
+        com o pacote; o wakelock só precisa do Context."""
+        if on and self._wakelock is None:
+            # SCREEN_BRIGHT_WAKE_LOCK | ON_AFTER_RELEASE (obsoletos, mas seguem valendo)
+            lock = self.context().getSystemService("power").newWakeLock(0x0000000a | 0x20000000,
+                                                                        "distribuidor:distribuindo")
+            lock.acquire()
+            self._wakelock = lock
+        elif not on and self._wakelock is not None:
+            lock, self._wakelock = self._wakelock, None
+            lock.release()
 
 
-_KEEP = []  # mantém vivos os Runnables até o ART executá-los
 _java = _Java()
 
 

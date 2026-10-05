@@ -193,6 +193,8 @@ class Service:
             self._log.append(line)
             del self._log[:-LOG_LINES]
             log = tuple(self._log)
+        if IS_ANDROID:      # sem acesso aos arquivos do app: o log da sessão vai também para o logcat
+            print(f"[job] {line}", flush=True)
         self._publish(log=log)
 
     def start(self, game: str, event: Event) -> None:

@@ -58,10 +58,6 @@ def apply(cfg) -> None:
     from pokeldn import pokemon
     from pokeldn.swsh import wc8
     pokemon.SERVICE.validate_gift = _validator(cfg, pokemon, wc8)
-    try:
-        android_usb.get_java().prime_activity()      # só resolve na thread principal
-    except Exception as exc:  # noqa: BLE001 - sem isso só a tela deixa de ficar ligada
-        print(f"[android] sem Activity para manter a tela ligada: {exc}", flush=True)
     _applied = True
 
 
