@@ -4,7 +4,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from distrib import runner
+from distrib import runner, validated_index
 from distrib.catalog import Catalog, Event, save_index
 from distrib.config import Config
 from distrib.games.base import Job, Update
@@ -92,6 +92,23 @@ class SwshAdapter:
                      species=info["species"] if pokemon else 0,
                      highlights=highlights_of(info) if pokemon else (),
                      region=region_of(name))
+
+    def approved(self, events: list[Event], cfg: Config) -> tuple[list[Event], int]:
+        """Só os eventos que o PKHeX aprovou no PC (Android, onde ele não roda): devolve
+        (aprovados, quantos foram ocultados). Sem índice, nada é ocultado."""
+        index = validated_index.achar(cfg.data_dir)
+        if index is None:
+            return events, 0
+        kept = []
+        for event in events:
+            path = cfg.catalog_dir / self.game / event.files[0]
+            try:
+                ok, _ = validated_index.lookup(index, path.read_bytes())
+            except OSError:
+                ok = False
+            if ok:
+                kept.append(event)
+        return kept, len(events) - len(kept)
 
     def build_job(self, event: Event, cfg: Config, port: str) -> Job:
         record = cfg.catalog_dir / self.game / event.files[0]

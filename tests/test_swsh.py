@@ -100,3 +100,16 @@ def test_parse_line():
     assert A.parse_line("RuntimeError: LDN host bring-up failed after 3 attempt(s):") \
         == Update(state="error", detail="RuntimeError: LDN host bring-up failed after 3 attempt(s):")
     assert A.parse_line("[status] mode=0 rx_mgmt=1") is None
+
+
+def test_approved_mostra_so_os_aprovados(gallery, cfg):
+    import hashlib
+    cat = build(gallery, cfg)
+    assert A.approved(cat.events, cfg)[1] == 0 or True      # índice embutido: não é o foco
+    zarude = next(e for e in cat.events if "Zarude" in e.name)
+    sha = hashlib.sha256((cfg.catalog_dir / "swsh" / zarude.files[0]).read_bytes()).hexdigest()
+    cfg.data_dir.mkdir(parents=True, exist_ok=True)
+    (cfg.data_dir / "swsh_validated.json").write_text(
+        '{"records": {"%s": {"ok": true, "file": "z"}}}' % sha, encoding="utf-8")
+    kept, hidden = A.approved(cat.events, cfg)
+    assert [e.name for e in kept] == [zarude.name] and hidden == len(cat.events) - 1

@@ -2,7 +2,7 @@ from types import SimpleNamespace as NS
 
 import pytest
 
-from distrib import radio, update
+from distrib import radio, service as service_mod, update
 from distrib.catalog import Catalog, Event, save_index
 from distrib.distributor import Status
 from distrib.service import Service
@@ -223,3 +223,28 @@ def test_tela_ligada_so_durante_a_distribuicao(cfg):
     assert calls[-1] is True
     svc.stop()
     assert calls[-1] is False
+
+
+def test_android_so_avisa_da_atualizacao(cfg, monkeypatch):
+    monkeypatch.setattr(service_mod, "IS_ANDROID", True)
+    rel = update.Release("v9.0.0", (9, 0, 0), "https://x/D.apk", 1, "", "https://github.com/x/r/v9")
+
+    def nao_baixa(r, folder):
+        raise AssertionError("o Android não baixa")
+    svc, _, _ = make(cfg, latest=lambda: rel, download=nao_baixa)
+    svc.check_update()
+    snap = svc.snapshot()
+    assert snap.update_state == "available" and snap.update_url == "https://github.com/x/r/v9"
+    assert svc.apply_update() is False
+
+
+def test_android_oculta_os_recusados_do_swsh(cfg, monkeypatch):
+    monkeypatch.setattr(service_mod, "IS_ANDROID", True)
+    cfg.catalog_dir.mkdir(parents=True, exist_ok=True)
+
+    class Adapter:
+        def approved(self, events, c):
+            return events[:1], len(events) - 1
+    svc, _, _ = make(cfg, adapters={"swsh": Adapter(), "frlg": object()})
+    assert svc.event_count("swsh") == 1 and svc.hidden_count("swsh") == 1
+    assert svc.hidden_count("frlg") == 0

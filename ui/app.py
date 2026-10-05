@@ -137,7 +137,7 @@ class Shell:
         self.nav.controls = [t.nav_item(label, icon, key == self.current,
                                         lambda e, k=key: self.navigate(k)) for key, label, icon in NAV]
         self.board_card.content = t.board_card(snap.board)
-        self.update_bar.visible = snap.update_state in ("ready", "error")
+        self.update_bar.visible = snap.update_state in ("ready", "error", "available")
         if self.update_bar.visible:
             self.update_bar.content = self._update_row(snap)
         view = self._active_view(snap)
@@ -153,6 +153,11 @@ class Shell:
         if snap.update_state == "error":
             return ft.Row([t.icon("triangle-alert", 16, t.AMBER),
                            t.muted("A atualização falhou. Baixe a versão nova no GitHub e substitua o .exe.")])
+        if snap.update_state == "available":
+            return ft.Row([t.icon("download", 16, t.GREEN),
+                           t.text(f"Versão {snap.update_version} disponível.", 13),
+                           ft.Container(expand=True),
+                           t.button("Baixar", lambda e: self.page.launch_url(snap.update_url))], spacing=10)
         busy = snap.run is not None
         return ft.Row([t.icon("download", 16, t.GREEN),
                        t.text(f"Atualização {snap.update_version} pronta.", 13),
@@ -194,7 +199,7 @@ def run() -> None:
         t.apply_page(page)
         page.window.icon = str(ASSETS / "icon.ico")
         Shell(page, service)
-        service.start_background(updates=exe is not None)
+        service.start_background(updates=exe is not None or IS_ANDROID)
 
     try:
         ft.run(main, assets_dir=str(ASSETS))

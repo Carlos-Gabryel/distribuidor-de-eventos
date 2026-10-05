@@ -88,6 +88,8 @@ class DistribuirView:
                                            colors=list(colors)))
             body = ft.Column([header, t.text(title, 16, bold=True),
                               t.muted(f"{self.service.event_count(game)} eventos · {subtitle}")], spacing=8)
+            if hidden := self.service.hidden_count(game):
+                body.controls.append(t.muted(f"{hidden} eventos ocultos (recusados pelo PKHeX)"))
             cards.append(t.card(body, padding=16, expand=True,
                                 on_click=lambda e, g=game: self._pick_game(g)))
         slots.load()

@@ -20,6 +20,7 @@ from distrib import __version__, board, radio, update
 from distrib.catalog import Catalog, Event, Group, group_events, load_index, search_groups
 from distrib.config import Config
 from distrib.distributor import Distributor
+from distrib.platform import IS_ANDROID
 from distrib.species import name as species_name
 from distrib.sprites import SpriteCache
 
@@ -71,6 +72,7 @@ class Snapshot:
     flash_progress: float | None = None
     update_state: str = "none"
     update_version: str = ""
+    update_url: str = ""            # Android: página do Release (não baixa nem aplica)
 
     @property
     def ready(self) -> bool:
@@ -99,6 +101,7 @@ class Service:
         self._listeners: list[Callable[[Snapshot], None]] = []
         self._catalogs: dict[str, Catalog] = {}
         self._groups: dict[str, list[Group]] = {}
+        self._hidden: dict[str, int] = {}
         self._distributor: Distributor | None = None
         self._log: list[str] = []
         self._ready_update: Path | None = None
@@ -150,6 +153,10 @@ class Service:
     def _load_catalogs(self) -> bool:
         for game in self.adapters:
             catalog = load_index(game, self.cfg.catalog_dir / game / "index.json")
+            self._hidden[game] = 0
+            if IS_ANDROID and hasattr(self.adapters[game], "approved"):   # só os aprovados pelo PKHeX
+                events, self._hidden[game] = self.adapters[game].approved(catalog.events, self.cfg)
+                catalog = replace(catalog, events=events)
             self._catalogs[game] = catalog
             self._groups[game] = group_events(catalog.events, species_name)
         return all(self._catalogs[game].events for game in self.adapters)
@@ -161,6 +168,10 @@ class Service:
 
     def event_count(self, game: str) -> int:
         return len(self._catalogs[game].events)
+
+    def hidden_count(self, game: str) -> int:
+        """Eventos que o catálogo validado recusou e que a grade não mostra (Android)."""
+        return self._hidden.get(game, 0)
 
     def groups(self, game: str, text: str = "") -> list[Group]:
         return search_groups(self._groups[game], text)
@@ -277,11 +288,15 @@ class Service:
 
     # ---- atualização ----
     def check_update(self) -> None:
-        if self.snapshot().update_state in ("downloading", "ready"):
+        if self.snapshot().update_state in ("downloading", "ready", "available"):
             return
         try:
             release = self._latest()
             if not update.newer(release, __version__):
+                return
+            if IS_ANDROID:       # instalar um .apk é com o usuário: o aviso abre a página do Release
+                self._publish(update_state="available", update_version=release.tag,
+                              update_url=release.html_url or release.url)
                 return
             self._publish(update_state="downloading", update_version=release.tag)
             self._ready_update = self._download(release, self.cfg.data_dir / "updates")

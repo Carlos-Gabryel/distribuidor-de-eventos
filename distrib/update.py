@@ -11,12 +11,20 @@ import re
 import shutil
 import subprocess
 import urllib.request
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
+
+from distrib.platform import IS_ANDROID
 
 REPO = "Carlos-Gabryel/pokeldn-distrib"
 API = f"https://api.github.com/repos/{REPO}/releases/latest"
-ASSET = "Distribuidor.exe"
+
+
+def asset_name() -> str:
+    """O arquivo do Release que este app instala: o .apk no Android, o .exe no Windows."""
+    return "Distribuidor.apk" if IS_ANDROID else "Distribuidor.exe"
+
+
 HEADERS = {"Accept": "application/vnd.github+json", "User-Agent": "Distribuidor"}
 
 
@@ -31,6 +39,7 @@ class Release:
     url: str
     size: int
     sha256: str
+    html_url: str = field(default="", compare=False)   # página do Release (Android abre no navegador)
 
 
 def parse_version(text: str) -> tuple[int, ...]:
@@ -40,17 +49,30 @@ def parse_version(text: str) -> tuple[int, ...]:
     return tuple(int(part) for part in match.group(1).split("."))
 
 
-def latest(opener=urllib.request.urlopen) -> Release | None:
+def _release(opener) -> dict:
     with opener(urllib.request.Request(API, headers=HEADERS), timeout=10) as resp:
-        data = json.loads(resp.read().decode("utf-8"))
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def latest(opener=urllib.request.urlopen) -> Release | None:
+    data = _release(opener)
     for asset in data.get("assets", []):
-        if asset.get("name") != ASSET:
+        if asset.get("name") != asset_name():
             continue
         digest = asset.get("digest") or ""
-        if not digest.startswith("sha256:"):
+        if not digest.startswith("sha256:") and not IS_ANDROID:     # o Android não baixa: só avisa
             raise UpdateError("o Release não publica o SHA-256 do .exe")
         return Release(data["tag_name"], parse_version(data["tag_name"]),
-                       asset["browser_download_url"], int(asset["size"]), digest.removeprefix("sha256:"))
+                       asset["browser_download_url"], int(asset["size"]),
+                       digest.removeprefix("sha256:"), data.get("html_url", ""))
+    return None
+
+
+def find_asset(name: str, opener=urllib.request.urlopen) -> str | None:
+    """URL de download de um arquivo do Release mais recente (None se ele não existir)."""
+    for asset in _release(opener).get("assets", []):
+        if asset.get("name") == name:
+            return asset["browser_download_url"]
     return None
 
 
@@ -60,7 +82,7 @@ def newer(release: Release | None, current: str) -> bool:
 
 def download(release: Release, folder: Path, opener=urllib.request.urlopen) -> Path:
     folder.mkdir(parents=True, exist_ok=True)
-    part = folder / (ASSET + ".part")
+    part = folder / (asset_name() + ".part")
     digest, size = hashlib.sha256(), 0
     request = urllib.request.Request(release.url, headers={"User-Agent": "Distribuidor"})
     with opener(request, timeout=60) as resp, open(part, "wb") as out:
