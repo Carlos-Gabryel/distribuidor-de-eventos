@@ -3,7 +3,7 @@ name: Android app APK
 on:
   workflow_dispatch:
   push:
-    branches: [android-spike]
+    branches: [master, android-spike]
     paths: ["distrib/**", "ui/**", "android/app/**", "build/pack_android.py", ".github/workflows/android-app.yml"]
 
 jobs:
