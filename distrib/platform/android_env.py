@@ -43,6 +43,17 @@ def _validator(cfg, pokemon, wc8):
     return validate_offline
 
 
+def _enable_trace() -> None:
+    """Diagnóstico (D2): toda mensagem da placa nos dois sentidos em Android/data/<pkg>/files,
+    que o `adb shell cat` lê sem root."""
+    try:
+        ext = android_usb.get_java().context().getExternalFilesDir(None).getAbsolutePath()
+        os.environ.setdefault("POKELDN_ESP32_TRACE", os.path.join(ext, "esp32_trace.txt"))
+        print("[android] trace da placa em %s" % os.environ["POKELDN_ESP32_TRACE"], flush=True)
+    except Exception as exc:  # noqa: BLE001 - o trace é opcional
+        print(f"[android] trace da placa indisponível: {exc}", flush=True)
+
+
 def apply(cfg) -> None:
     global _applied
     if not IS_ANDROID:
@@ -51,6 +62,7 @@ def apply(cfg) -> None:
     if _applied:
         return
     os.environ["POKELDN_L2"] = "userspace"           # o padrão no Linux é tap, que exige root
+    _enable_trace()
     os.chdir(cfg.pokeldn_dir)                        # os hosts usam caminhos relativos ao pokeldn
     ensure_importable(cfg.pokeldn_dir)
     android_usb.prepare_esptool(cfg.data_dir)        # antes de qualquer import do esptool
