@@ -107,7 +107,12 @@ def test_fim_do_job_fecha_o_radio_do_pokeldn(tmp_path, monkeypatch):
     fake = types.ModuleType("pokeldn.ldn.esp32_wlan")
     fake._radio = radio
     monkeypatch.setitem(sys.modules, "pokeldn.ldn.esp32_wlan", fake)
+    ldn_wlan = types.ModuleType("ldn.wlan")
+    ldn_wlan.factory = "presa ao rádio velho"
+    ldn_wlan.set_factory = lambda f: setattr(ldn_wlan, "factory", f)
+    monkeypatch.setitem(sys.modules, "ldn.wlan", ldn_wlan)
     proc = inproc.InProcPopen(argv("quiet"), cwd=tmp_path, stderr=subprocess.STDOUT)
     list(proc.stdout)
     assert proc.wait(5) == 0
     assert radio.closed and fake._radio is None
+    assert ldn_wlan.factory is None

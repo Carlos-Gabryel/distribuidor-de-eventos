@@ -65,7 +65,12 @@ def _interrupt(tid: int) -> None:
 
 def _release_radio() -> None:
     """O pokeldn abre a placa uma vez e a guarda em esp32_wlan._radio (num processo próprio, ela
-    morre com ele). Em thread, o próximo job reaproveitaria uma conexão USB que o quiet já tomou."""
+    morre com ele). Em thread, o próximo job reaproveitaria uma conexão USB que o quiet já tomou.
+    O esp32_wlan.use() também registra em ldn.wlan uma factory presa a esse rádio: sem zerá-la,
+    o próximo host nem abre a placa e manda os comandos para o rádio fechado."""
+    ldn_wlan = sys.modules.get("ldn.wlan")
+    if ldn_wlan is not None:
+        ldn_wlan.set_factory(None)
     wlan = sys.modules.get("pokeldn.ldn.esp32_wlan")
     radio = getattr(wlan, "_radio", None)
     if radio is None:
