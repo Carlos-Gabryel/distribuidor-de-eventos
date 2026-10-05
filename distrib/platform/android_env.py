@@ -44,10 +44,12 @@ def _validator(cfg, pokemon, wc8):
 
 
 def _enable_trace() -> None:
-    """Diagnóstico (D2): toda mensagem da placa nos dois sentidos em Android/data/<pkg>/files,
-    que o `adb shell cat` lê sem root."""
+    """Diagnóstico: com um arquivo `esp32_trace.on` em Android/data/<pkg>/files (adb shell touch),
+    toda mensagem da placa nos dois sentidos vai para esp32_trace.txt ao lado, que o adb lê sem root."""
     try:
         ext = android_usb.get_java().context().getExternalFilesDir(None).getAbsolutePath()
+        if not os.path.exists(os.path.join(ext, "esp32_trace.on")):
+            return
         os.environ.setdefault("POKELDN_ESP32_TRACE", os.path.join(ext, "esp32_trace.txt"))
         print("[android] trace da placa em %s" % os.environ["POKELDN_ESP32_TRACE"], flush=True)
     except Exception as exc:  # noqa: BLE001 - o trace é opcional

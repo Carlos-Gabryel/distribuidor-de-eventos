@@ -60,10 +60,11 @@ jobs:
           KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
           DISTRIB_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
         run: |
-          if [ -n "$KEYSTORE_B64" ]; then
-            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/distribuidor.p12"
-            export DISTRIB_KEYSTORE="$RUNNER_TEMP/distribuidor.p12"
+          if [ -z "$KEYSTORE_B64" ] || [ -z "$DISTRIB_KEYSTORE_PASSWORD" ]; then
+            echo "::error::faltam os secrets ANDROID_KEYSTORE_B64/ANDROID_KEYSTORE_PASSWORD"; exit 1
           fi
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/distribuidor.p12"
+          export DISTRIB_KEYSTORE="$RUNNER_TEMP/distribuidor.p12"
           python build/pack_android.py --wheels android/wheels
       - uses: actions/upload-artifact@v4
         with:
