@@ -7,6 +7,8 @@ import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 
+from distrib.platform import IS_ANDROID
+
 APP_NAME = "Distribuidor"
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,6 +21,8 @@ def resource_root() -> Path:
 def default_data_dir() -> Path:
     if override := os.environ.get("DISTRIB_DATA_DIR"):
         return Path(override)
+    if IS_ANDROID:         # /data/user/0/<pacote>/files/data (confirmado na A1)
+        return Path(os.environ["FLET_APP_STORAGE_DATA"])
     base = os.environ.get("LOCALAPPDATA")
     return Path(base) / APP_NAME if base else Path.home() / f".{APP_NAME.lower()}"
 

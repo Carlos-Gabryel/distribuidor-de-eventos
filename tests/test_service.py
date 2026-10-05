@@ -213,3 +213,13 @@ def test_no_update_when_offline(cfg):
     svc, _, _ = make(cfg, latest=offline)
     svc.check_update()
     assert svc.snapshot().update_state == "none"
+
+
+def test_tela_ligada_so_durante_a_distribuicao(cfg):
+    calls = []
+    svc, _, _ = make(cfg, keep_screen_on=calls.append)
+    ready(svc, cfg)
+    svc.start("swsh", svc.groups("swsh")[0].events[0])
+    assert calls[-1] is True
+    svc.stop()
+    assert calls[-1] is False

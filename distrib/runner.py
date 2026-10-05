@@ -70,6 +70,10 @@ def child(argv: list[str], pokeldn_dir: Path, inproc: bool = False) -> None:
                 stream.reconfigure(encoding="utf-8", line_buffering=True)
     if not inproc and sys.stdin is not None and os.environ.get(MANAGED):
         threading.Thread(target=_interrupt_on_stdin_close, daemon=True).start()
+    if inproc and IS_ANDROID:       # idempotente; o app já aplicou no início
+        from distrib import config
+        from distrib.platform import android_env
+        android_env.apply(config.load())
     ensure_importable(pokeldn_dir)
     mode, target, *args = argv
     radio_spec = os.environ.get("POKELDN_RADIO", "")

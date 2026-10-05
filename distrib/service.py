@@ -81,12 +81,15 @@ class Service:
     def __init__(self, cfg: Config, adapters: dict | None = None, *, comports=None, hello=None,
                  make_distributor=None, sprites: SpriteCache | None = None,
                  latest=update.latest, download=update.download, exe_path: Path | None = None,
-                 clock=time.monotonic):
+                 clock=time.monotonic, keep_screen_on=None):
         if adapters is None:
             from distrib.games import ADAPTERS as adapters
         if comports is None:
             comports = radio.system_comports
         self.cfg, self.adapters, self.clock = cfg, adapters, clock
+        if keep_screen_on is None:
+            from distrib.platform.android_env import keep_screen_on
+        self._keep_screen_on = keep_screen_on       # tela ligada durante a distribuição (Android)
         self.comports = comports
         self.hello = hello or (lambda port: radio.hello(port, cfg))
         self.make_distributor = make_distributor or self._default_distributor
@@ -185,6 +188,7 @@ class Service:
             self._log.clear()
         self._distributor = self.make_distributor(game, event)
         self._publish(run=RunInfo(game, event), log=())
+        self._keep_screen_on(True)
         self._distributor.start()
 
     def pause(self) -> None:
@@ -201,6 +205,7 @@ class Service:
         distributor, self._distributor = self._distributor, None
         if distributor is not None:
             distributor.stop()
+        self._keep_screen_on(False)
         self._publish(run=None)
 
     def _sync_run(self) -> None:

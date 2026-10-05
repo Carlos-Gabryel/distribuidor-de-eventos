@@ -30,7 +30,7 @@ def main(argv=None):
     padrao = os.path.join(os.environ.get("LOCALAPPDATA", ""), "Distribuidor", "catalog", "swsh")
     ap = argparse.ArgumentParser()
     ap.add_argument("catalog", nargs="?", default=padrao)
-    ap.add_argument("-o", "--out", default=str(RAIZ / "android_spike" / "swsh_validated.json"))
+    ap.add_argument("-o", "--out", default=str(RAIZ / "distrib" / "swsh_validated.json"))
     args = ap.parse_args(argv)
 
     from distrib.pokeldn_path import ensure_importable

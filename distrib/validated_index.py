@@ -1,6 +1,9 @@
 """Índice dos .wc8 pré-validados pelo PKHeX no PC (sem efeitos colaterais)."""
 import hashlib
 import json
+from pathlib import Path
+
+NOME = "swsh_validated.json"
 
 
 def carregar(caminho):
@@ -19,3 +22,14 @@ def lookup(index, data):
         return True, ent.get("file", "")
     return False, ("Este .wc8 não está no catálogo validado pelo PKHeX no PC. "
                    "Motivo: %s" % ent.get("motivo", "?"))
+
+
+def achar(data_dir):
+    """Índice a usar: o baixado em `data_dir` (Release mais recente) ou, na falta dele, o embutido.
+    None se nenhum for legível."""
+    for caminho in (Path(data_dir) / NOME, Path(__file__).with_name(NOME)):
+        try:
+            return carregar(caminho)
+        except (OSError, ValueError):
+            continue
+    return None
