@@ -29,6 +29,16 @@ def _faulthandler():
 _CRASH_FILE = _faulthandler()
 
 
+def _sys_exit(code=0):
+    raise SystemExit(code)
+
+
+# O template Android do Flet troca sys.exit por flet_exit, que fecha o app inteiro.
+# Bibliotecas (o click do esptool, argparse) chamam sys.exit(0) no fim normal: devolve o
+# comportamento padrão, um SystemExit que quem chamou trata.
+sys.exit = _sys_exit
+
+
 def main(page: ft.Page):
     page.title = "distrib-probe"
     out = ft.Text(selectable=True, size=12)
