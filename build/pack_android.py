@@ -72,7 +72,13 @@ def stage(wheels: Path) -> None:
 
 
 def build() -> None:
-    subprocess.run(["flet", "build", "apk", "--yes", "--no-rich-output", "-v"], cwd=APP, check=True,
+    cmd = ["flet", "build", "apk", "--yes", "--no-rich-output", "-v"]
+    keystore = os.environ.get("DISTRIB_KEYSTORE")
+    if keystore:                                    # no CI, pelo secret ANDROID_KEYSTORE_B64
+        password = os.environ["DISTRIB_KEYSTORE_PASSWORD"]
+        cmd += ["--android-signing-key-store", keystore, "--android-signing-key-alias", "distribuidor",
+                "--android-signing-key-store-password", password, "--android-signing-key-password", password]
+    subprocess.run(cmd, cwd=APP, check=True,
                    env={**os.environ, "PYTHONUTF8": "1", "PYTHONIOENCODING": "utf-8"})
     apks = sorted((APP / "build" / "apk").glob("*.apk"))
     if not apks:

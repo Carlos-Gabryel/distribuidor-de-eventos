@@ -55,7 +55,16 @@ jobs:
           pip install "flet==1.0.2" "flet-cli==1.0.2"
           python build/fetch_firmware.py
       - name: Montar o staging e rodar o flet build apk
-        run: python build/pack_android.py --wheels android/wheels
+        env:
+          # chave fixa: sem ela cada build sai com uma assinatura nova e o update por cima falha
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+          DISTRIB_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          if [ -n "$KEYSTORE_B64" ]; then
+            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/distribuidor.p12"
+            export DISTRIB_KEYSTORE="$RUNNER_TEMP/distribuidor.p12"
+          fi
+          python build/pack_android.py --wheels android/wheels
       - uses: actions/upload-artifact@v4
         with:
           name: distribuidor-apk
