@@ -17,6 +17,17 @@ Um programa só para Windows 10/11: sem WSL, sem instalação.
 
 O programa se atualiza sozinho. Seus dados ficam em `%LOCALAPPDATA%\Distribuidor`.
 
+## Android
+
+O mesmo app roda no celular Android (arm64), com a placa ESP32 ligada por um cabo/adaptador **OTG**.
+
+1. Baixe o `Distribuidor.apk` (artifact `distribuidor-apk` do GitHub Actions ou o Release) e abra no celular.
+2. Na primeira vez o Android pede para permitir a instalação de **fontes desconhecidas** para o app que você usou para abrir o arquivo (navegador ou gerenciador de arquivos). Permita e instale.
+3. Ligue a placa pelo OTG e aceite a permissão de acesso USB quando o Android perguntar.
+4. Se o celular não alimentar a placa (ela não acende ou fica reiniciando), use um **hub USB com energia própria** entre o celular e a placa.
+
+No Android o catálogo mostra só os eventos aprovados pelo PKHeX (validado no PC e embutido no app). O APK só é gerado no GitHub Actions (`.github/workflows/android-app.yml`, via `build/pack_android.py`): o `flet build` no Windows exige symlinks, então não roda na máquina local.
+
 ## Desenvolvimento
 
 ```bash

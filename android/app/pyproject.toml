@@ -1,0 +1,42 @@
+[project]
+name = "distribuidor"
+version = "2.1.0"
+description = "Distribuidor de eventos Pokémon pelo celular (placa ESP32 por OTG)"
+requires-python = ">=3.12"
+dependencies = [
+    "flet==1.0.2",
+    "pyjnius",
+    "pyserial==3.5",
+    "pycryptodome==3.23.0",
+    "trio==0.33.0",
+    "zstandard==0.25.0",
+    # esptool 5.4.0 é copiado pelo workflow para android/app/esptool (só há sdist); aqui vão as dependências dele
+    "bitstring>=3.1.6,!=4.2.0",
+    "cryptography>=43",
+    "reedsolo>=1.5.3,<1.8",
+    "pyyaml",
+    "intelhex",
+    "click<9",
+    "rich_click<2",
+    "rich",
+    "esp-pylib>=1.0.0",
+    # o pack_android.py troca C:/Users/gabry/AppData/Local/Temp/w pelo diretório absoluto dos wheels compilados (A3)
+    "unicorn @ file://@WHEELS@/unicorn-2.1.4-py3-none-android_24_arm64_v8a.whl",
+]
+
+[tool.flet]
+org = "com.carlosgabryel"
+product = "Distribuidor"
+company = "Carlos Gabryel"
+copyright = "MIT"
+
+[tool.flet.app]
+module = "main"
+
+[tool.flet.android]
+target_arch = ["arm64-v8a"]
+# unicorn procura a libunicorn.so por caminho de arquivo, não por importlib.resources
+extract_packages = ["unicorn"]
+
+[tool.flet.android.feature]
+"android.hardware.usb.host" = true

@@ -19,3 +19,13 @@ android/probe/pokeldn/
 android/probe/firmware/
 android/probe/distrib/
 android/probe/esptool/
+android/app/build/
+android/app/pokeldn/
+android/app/firmware/
+android/app/distrib/
+android/app/ui/
+android/app/vendor/
+android/app/esptool/
+android/app/assets/*
+!android/app/assets/icon.png
+android/app/LICENSE
