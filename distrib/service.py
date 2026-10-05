@@ -7,7 +7,6 @@ de qualquer thread.
 from __future__ import annotations
 
 import re
-import shutil
 import threading
 import time
 import traceback
@@ -107,7 +106,7 @@ class Service:
         self._ready_update: Path | None = None
         self._last_port: str | None = None
         self._stop = threading.Event()
-        self._snap = Snapshot(keys_ok=self._keys_valid(cfg.keys), catalog_ok=self._load_catalogs())
+        self._snap = Snapshot(keys_ok=self._stored_keys_ok(), catalog_ok=self._load_catalogs())
 
     # ---- estado ----
     def snapshot(self) -> Snapshot:
@@ -134,20 +133,25 @@ class Service:
 
     # ---- configuração ----
     @staticmethod
-    def _keys_valid(path: Path) -> bool:
-        try:
-            lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
-        except OSError:
-            return False
+    def _keys_valid(data: bytes) -> bool:
+        lines = data.decode("utf-8", errors="replace").splitlines()
         return sum(1 for line in lines if _KEY_LINE.match(line)) >= 10
 
-    def set_keys(self, source: Path) -> None:
-        if not self._keys_valid(source):
+    def _stored_keys_ok(self) -> bool:
+        try:
+            return self._keys_valid(self.cfg.keys.read_bytes())
+        except OSError:
+            return False
+
+    def set_keys(self, source: Path | bytes) -> None:
+        """Guarda o prod.keys. `source` é um caminho ou o conteúdo (no Android o seletor não dá caminho usável)."""
+        data = source if isinstance(source, bytes) else source.read_bytes()
+        if not self._keys_valid(data):
             raise ValueError("Esse arquivo não parece um prod.keys "
                              "(esperado: linhas 'nome = hexadecimal').")
         self.cfg.keys.parent.mkdir(parents=True, exist_ok=True)
-        if source.resolve() != self.cfg.keys.resolve():
-            shutil.copyfile(source, self.cfg.keys)
+        if isinstance(source, bytes) or source.resolve() != self.cfg.keys.resolve():
+            self.cfg.keys.write_bytes(data)
         self._publish(keys_ok=True)
 
     def _load_catalogs(self) -> bool:

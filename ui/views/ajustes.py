@@ -6,6 +6,7 @@ import os
 import flet as ft
 
 from distrib import __version__
+from distrib.platform import IS_ANDROID
 from ui import theme as t
 from ui.views.inicio import choose_keys, download_events
 
@@ -68,6 +69,9 @@ class AjustesView:
 
     def _logs(self, e) -> None:
         self.service.cfg.logs_dir.mkdir(parents=True, exist_ok=True)
+        if IS_ANDROID:      # sem explorador de arquivos: o caminho já aparece na linha
+            self.shell.toast(str(self.service.cfg.logs_dir))
+            return
         os.startfile(self.service.cfg.logs_dir)
 
     def _open(self, url: str) -> None:

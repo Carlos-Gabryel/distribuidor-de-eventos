@@ -15,6 +15,7 @@ from distrib.platform import IS_ANDROID, android_env
 from distrib.pokeldn_path import ensure_importable
 from distrib.service import Service, Snapshot
 from ui import theme as t
+from ui.layout import use_mobile
 
 ASSETS = resource_root() / "ui" / "assets"
 NAV = (("distribuir", "Distribuir", "gamepad-2"), ("placa", "Placa", "cpu"),
@@ -37,10 +38,19 @@ class Shell:
         self._pending = False
         self._pending_lock = threading.Lock()
         self.nav = ft.Column(spacing=4)
+        self.mobile = use_mobile(IS_ANDROID, page.width)
         self.board_card = ft.Container()
         self.update_bar = ft.Container(visible=False, bgcolor=t.CARD, padding=ft.Padding(24, 10, 24, 10),
                                        border=ft.Border(bottom=ft.BorderSide(1, t.BORDER)))
         self.body = ft.Container(expand=True, padding=24)
+        if self.mobile:
+            self._build_mobile(page)
+        else:
+            self._build_desktop(page)
+        service.subscribe(self._on_snapshot)
+        self.in_thread(self._ticker)
+
+    def _build_desktop(self, page: ft.Page) -> None:
         sidebar = ft.Container(
             width=t.SIDEBAR_WIDTH, bgcolor=t.SIDEBAR, padding=ft.Padding(12, 16, 12, 16),
             border=ft.Border(right=ft.BorderSide(1, t.BORDER)),
@@ -56,8 +66,19 @@ class Shell:
         page.window.on_event = self._on_window_event
         page.add(ft.Row([sidebar, ft.Column([self.title_bar, self.update_bar, self.body], spacing=0, expand=True)],
                         spacing=0, expand=True))
-        service.subscribe(self._on_snapshot)
-        self.in_thread(self._ticker)
+
+    def _build_mobile(self, page: ft.Page) -> None:
+        """Celular em retrato: faixa da placa no topo, tela no meio, barra de navegação embaixo."""
+        self.body.padding = 12
+        self.update_bar.padding = ft.Padding(12, 8, 12, 8)
+        self.navbar = ft.NavigationBar(
+            bgcolor=t.SIDEBAR, indicator_color=t.HOVER, selected_index=0,
+            destinations=[ft.NavigationBarDestination(icon=t.icon(icon, 22, t.MUTED), label=label,
+                                                      selected_icon=t.icon(icon, 22, t.TEXT))
+                          for _, label, icon in NAV],
+            on_change=lambda e: self.navigate(NAV[int(e.control.selected_index)][0]))
+        page.add(ft.SafeArea(ft.Column([self.board_card, self.update_bar, self.body, self.navbar],
+                                       spacing=0, expand=True), expand=True))
 
     # ---- barra de título própria (a do Windows fica escondida) ----
     def _window_button(self, content, on_click, danger: bool = False) -> ft.Container:
@@ -136,7 +157,9 @@ class Shell:
         snap = self.service.snapshot()
         self.nav.controls = [t.nav_item(label, icon, key == self.current,
                                         lambda e, k=key: self.navigate(k)) for key, label, icon in NAV]
-        self.board_card.content = t.board_card(snap.board)
+        self.board_card.content = t.board_card(snap.board, compact=self.mobile)
+        if self.mobile:
+            self.navbar.selected_index = [k for k, _, _ in NAV].index(self.current)
         self.update_bar.visible = snap.update_state in ("ready", "error", "available")
         if self.update_bar.visible:
             self.update_bar.content = self._update_row(snap)

@@ -5,16 +5,21 @@ from pathlib import Path
 
 import flet as ft
 
+from distrib.platform import IS_ANDROID
 from ui import theme as t
 
 
 async def choose_keys(shell) -> None:
-    files = await shell.picker.pick_files(allowed_extensions=["keys"],
-                                          file_type=ft.FilePickerFileType.CUSTOM)
+    # No Android o seletor não dá caminho usável (content://): lê os bytes. No PC segue o caminho.
+    files = await shell.picker.pick_files(allowed_extensions=["keys"], file_type=ft.FilePickerFileType.CUSTOM,
+                                          with_data=IS_ANDROID)
     if not files:
         return
     try:
-        shell.service.set_keys(Path(files[0].path))
+        picked = files[0]
+        if IS_ANDROID and picked.bytes is None:
+            raise ValueError("Não consegui ler o arquivo escolhido.")
+        shell.service.set_keys(picked.bytes if IS_ANDROID else Path(picked.path))
         shell.toast("prod.keys guardado.")
     except (ValueError, OSError) as exc:
         shell.toast(str(exc))

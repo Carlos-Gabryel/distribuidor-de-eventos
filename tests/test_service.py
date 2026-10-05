@@ -248,3 +248,12 @@ def test_android_oculta_os_recusados_do_swsh(cfg, monkeypatch):
     svc, _, _ = make(cfg, adapters={"swsh": Adapter(), "frlg": object()})
     assert svc.event_count("swsh") == 1 and svc.hidden_count("swsh") == 1
     assert svc.hidden_count("frlg") == 0
+
+
+def test_set_keys_accepts_bytes(cfg):
+    svc, _, _ = make(cfg)
+    svc.set_keys(KEYS.encode())
+    assert cfg.keys.read_text(encoding="utf-8") == KEYS and svc.snapshot().keys_ok
+    with pytest.raises(ValueError, match="prod.keys"):
+        svc.set_keys(b"\x00\xff" * 500)
+    assert cfg.keys.read_text(encoding="utf-8") == KEYS

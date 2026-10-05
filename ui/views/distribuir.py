@@ -11,6 +11,7 @@ import flet as ft
 
 from distrib.catalog import Event, Group
 from ui import theme as t
+from ui.layout import grid_extent
 from ui.sprites import SpriteSlots
 
 GAMES = (("swsh", "Sword / Shield", "Vários consoles ao mesmo tempo", 888, ("#2B3A67", "#4B2B67")),
@@ -41,7 +42,7 @@ class DistribuirView:
         self.search = ft.TextField(hint_text="Buscar Pokémon…", on_change=self._on_search,
                                    bgcolor=t.FIELD, border_color=t.BORDER, border_radius=t.RADIUS_SMALL,
                                    text_size=13, height=40, content_padding=ft.Padding(12, 8, 12, 8))
-        self.grid = ft.GridView(max_extent=160, child_aspect_ratio=0.78, spacing=10,
+        self.grid = ft.GridView(max_extent=grid_extent(shell.mobile), child_aspect_ratio=0.78, spacing=10,
                                 run_spacing=10, expand=True)
         self.run_title = t.text("", 18, bold=True)
         self.run_state = t.muted("")
