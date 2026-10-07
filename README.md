@@ -6,14 +6,14 @@
 
 **Eventos de Mystery Gift no seu Switch e no seu GBA, com uma placa ESP32 de poucos reais.**
 
-[![Última versão](https://img.shields.io/github/v/release/Carlos-Gabryel/pokeldn-distrib?label=vers%C3%A3o&color=e3350d)](https://github.com/Carlos-Gabryel/pokeldn-distrib/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/Carlos-Gabryel/pokeldn-distrib/total?color=3b4cca)](https://github.com/Carlos-Gabryel/pokeldn-distrib/releases)
+[![Última versão](https://img.shields.io/github/v/release/Carlos-Gabryel/distribuidor-de-eventos?label=vers%C3%A3o&color=e3350d)](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/Carlos-Gabryel/distribuidor-de-eventos/total?color=3b4cca)](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases)
 ![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0078d4?logo=windows)
 ![Android](https://img.shields.io/badge/Android-arm64-3ddc84?logo=android&logoColor=white)
 [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-ffcb05)](LICENSE)
 
-[**⬇ Baixar para Windows**](https://github.com/Carlos-Gabryel/pokeldn-distrib/releases/latest/download/Distribuidor.exe) ·
-[**⬇ Baixar para Android**](https://github.com/Carlos-Gabryel/pokeldn-distrib/releases/latest/download/Distribuidor.apk)
+[**⬇ Baixar para Windows**](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest/download/Distribuidor.exe) ·
+[**⬇ Baixar para Android**](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest/download/Distribuidor.apk)
 
 </div>
 
@@ -52,7 +52,7 @@ abrir terminal.
 
 ## 🚀 Primeiros passos no Windows
 
-1. **Baixe** o [`Distribuidor.exe`](https://github.com/Carlos-Gabryel/pokeldn-distrib/releases/latest/download/Distribuidor.exe) e abra.
+1. **Baixe** o [`Distribuidor.exe`](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest/download/Distribuidor.exe) e abra.
    > Se aparecer *"O Windows protegeu o computador"*, clique em **Mais informações → Executar assim mesmo**. O programa não tem assinatura digital, que é paga.
 2. **Configuração inicial**, feita uma vez só, em três passos:
    1. **Escolher prod.keys:** aponte para o arquivo extraído do seu Switch.
@@ -90,7 +90,7 @@ Um console por vez. Use **Pausar**, **Retomar** e **Parar** entre um e outro.
 
 O mesmo app roda no celular, com a placa ligada pelo USB‑C através de um adaptador OTG. Não precisa de root.
 
-1. Baixe o [`Distribuidor.apk`](https://github.com/Carlos-Gabryel/pokeldn-distrib/releases/latest/download/Distribuidor.apk) no celular e abra.
+1. Baixe o [`Distribuidor.apk`](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest/download/Distribuidor.apk) no celular e abra.
 2. Permita a instalação de **fontes desconhecidas** para o app que abriu o arquivo (o navegador ou o gerenciador de arquivos).
 3. Ligue a placa pelo OTG e aceite a permissão de USB.
 4. Siga as mesmas telas do PC: **Preparar placa**, **Baixar eventos** e **Distribuir**.
@@ -140,8 +140,8 @@ própria** entre o celular e a placa.
 Requer Python 3.14 e, para gerar o `.exe`, o .NET SDK.
 
 ```bash
-git clone --recurse-submodules https://github.com/Carlos-Gabryel/pokeldn-distrib
-cd pokeldn-distrib
+git clone --recurse-submodules https://github.com/Carlos-Gabryel/distribuidor-de-eventos
+cd distribuidor-de-eventos
 py -3.14 -m venv .venv
 .venv/Scripts/python.exe -m pip install -r requirements.txt
 

@@ -68,7 +68,7 @@ def board_card(info, compact: bool = False) -> ft.Container:
                            spacing=6, tight=True))
         return ft.Container(
             padding=ft.Padding(12, 8, 12, 8), bgcolor=CARD, border=ft.Border(bottom=ft.BorderSide(1, BORDER)),
-            content=ft.Row([brand(), pill], alignment=ft.MainAxisAlignment.SPACE_BETWEEN))
+            content=ft.Row([ft.Container(brand(13), expand=True), pill], spacing=8))
     return ft.Container(
         padding=10, border_radius=RADIUS_SMALL, bgcolor="#2A1519" if bad else CARD,
         border=border("#5A2630" if bad else BORDER),
@@ -77,9 +77,11 @@ def board_card(info, compact: bool = False) -> ft.Container:
                            muted(info.message, 11)], spacing=4))
 
 
-def brand() -> ft.Row:
-    return ft.Row([ft.Image(src="pokeball.svg", width=22, height=22),
-                   text("Distribuidor", 15, bold=True)], spacing=8)
+def brand(size: int = 15) -> ft.Row:
+    return ft.Row([ft.Image(src="pokeball.svg", width=size + 7, height=size + 7),
+                   text("Distribuidor de Eventos", size, bold=True),
+                   muted("by: Carlos Gabryel", size - 4)], spacing=8, run_spacing=0, wrap=True,
+                  vertical_alignment=ft.CrossAxisAlignment.CENTER)
 
 
 def nav_item(label: str, icon_name: str, selected: bool, on_click) -> ft.Container:

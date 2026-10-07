@@ -59,7 +59,7 @@ def build_gift(path: Path) -> WonderGift:
             body=("A special POKEMON from a past",
                   "event was sent straight to your",
                   "party."),
-            footer1="pokeldn-distrib",
+            footer1="Distribuidor",
             default_flag_id=FLAG_ID),
         intro_message="Thank you for using the MYSTERY\nGIFT System.",
         event=GiftSpec(repeatable=True),

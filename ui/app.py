@@ -54,11 +54,12 @@ class Shell:
         sidebar = ft.Container(
             width=t.SIDEBAR_WIDTH, bgcolor=t.SIDEBAR, padding=ft.Padding(12, 16, 12, 16),
             border=ft.Border(right=ft.BorderSide(1, t.BORDER)),
-            content=ft.Column([ft.WindowDragArea(t.brand()), ft.Container(height=12), self.nav,
+            content=ft.Column([ft.WindowDragArea(ft.Container(height=20)), self.nav,
                                ft.Container(expand=True), self.board_card], spacing=0, expand=True))
         self.max_icon = ft.Container(content=t.icon("square", 14))
         self.title_bar = ft.Row([
-            ft.WindowDragArea(ft.Container(height=36), expand=True),
+            ft.WindowDragArea(ft.Container(t.brand(), height=36, padding=ft.Padding(16, 0, 0, 0),
+                                           alignment=ft.Alignment.CENTER_LEFT), expand=True),
             self._window_button(t.icon("minus", 16), self._minimize),
             self._window_button(self.max_icon, self._toggle_max),
             self._window_button(t.icon("x", 16), self._close, danger=True),

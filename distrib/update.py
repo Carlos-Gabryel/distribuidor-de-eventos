@@ -16,7 +16,7 @@ from pathlib import Path
 
 from distrib.platform import IS_ANDROID
 
-REPO = "Carlos-Gabryel/pokeldn-distrib"
+REPO = "Carlos-Gabryel/distribuidor-de-eventos"
 API = f"https://api.github.com/repos/{REPO}/releases/latest"
 
 

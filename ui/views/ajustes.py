@@ -11,11 +11,7 @@ from ui import theme as t
 from ui.views.inicio import choose_keys, download_events
 
 CREDITS = (
-    ("pokeldn (AGPL-3.0), de Decryptu: o rádio e os hosts. Código-fonte:", "https://github.com/Decryptu/pokeldn"),
-    ("Events Gallery, do Project Pokémon: os arquivos dos eventos.", "https://github.com/projectpokemon/EventsGallery"),
-    ("Sprites e nomes: PokeAPI.", "https://github.com/PokeAPI/sprites"),
-    ("Ícones: Lucide (ISC).", "https://lucide.dev"),
-    ("Distribuidor (MIT):", "https://github.com/Carlos-Gabryel/pokeldn-distrib"),
+    ("Distribuidor de Eventos, por Carlos Gabryel:", "https://github.com/Carlos-Gabryel/distribuidor-de-eventos"),
 )
 UPDATE_TEXT = {"none": "Você está na versão mais recente que encontramos.",
                "downloading": "Baixando a versão nova…", "ready": "Versão nova pronta: use “Reiniciar” no topo.",
@@ -45,7 +41,7 @@ class AjustesView:
             self._row("Logs", str(self.service.cfg.logs_dir),
                       t.button("Abrir pasta", self._logs, primary=False, icon_name="folder-open")),
         ]
-        credits = t.card(ft.Column([t.text("Créditos e licenças", 14, bold=True)] + [
+        credits = t.card(ft.Column([t.text("Créditos", 14, bold=True)] + [
             ft.Row([t.muted(label, 12), ft.Container(t.text(url, 12, t.ACCENT), on_click=lambda e, u=url: self._open(u))],
                    spacing=6, wrap=True) for label, url in CREDITS], spacing=6))
         self.control.controls = [t.text("Ajustes", 22, bold=True), *rows, credits]
