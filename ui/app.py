@@ -201,7 +201,7 @@ class Shell:
             return ft.Row([t.icon("download", 16, t.GREEN),
                            t.text(f"Versão {snap.update_version} disponível.", 13),
                            ft.Container(expand=True),
-                           t.button("Baixar", lambda e: self.page.launch_url(snap.update_url))], spacing=10)
+                           t.button("Baixar", lambda e: self.page.run_task(self.launcher.launch_url, snap.update_url))], spacing=10)
         busy = snap.run is not None
         return ft.Row([t.icon("download", 16, t.GREEN),
                        t.text(f"Atualização {snap.update_version} pronta.", 13),
