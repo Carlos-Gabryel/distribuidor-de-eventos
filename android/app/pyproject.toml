@@ -49,6 +49,6 @@ extract_packages = ["unicorn"]
 [tool.flet.android.feature]
 "android.hardware.usb.host" = true
 
-# jni_flutter 1.0.4+1 (06/10/2026) exige jni ^1.1.0, mas o Flet 1.0.2 força jni 1.0.0.
+# jni_flutter 1.0.4 e 1.0.4+1 exigem jni ^1.1.0, mas o Flet 1.0.2 força jni 1.0.0.
 [tool.flet.flutter.pubspec.dependency_overrides]
-jni_flutter = "1.0.4"
+jni_flutter = "1.0.3"
