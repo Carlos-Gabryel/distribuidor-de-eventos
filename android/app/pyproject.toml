@@ -1,6 +1,6 @@
 [project]
 name = "distribuidor"
-version = "2.1.0"
+version = "2.1.1"
 description = "Distribuidor de eventos Pokémon pelo celular (placa ESP32 por OTG)"
 requires-python = ">=3.12"
 dependencies = [
