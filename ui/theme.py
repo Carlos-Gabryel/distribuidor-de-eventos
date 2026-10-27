@@ -8,7 +8,7 @@ from distrib.platform import IS_ANDROID
 BG, SIDEBAR, CARD, FIELD, HOVER = "#0E0F12", "#14161A", "#16181D", "#1A1D22", "#1F2329"
 BORDER, TEXT, MUTED, FAINT = "#23252B", "#E8E9EC", "#9AA0AA", "#6B717B"
 ACCENT, GREEN, AMBER = "#E8445A", "#3DD68C", "#F5A524"
-RADIUS, RADIUS_SMALL, GAP, SIDEBAR_WIDTH, CONTROL_HEIGHT = 12, 8, 12, 220, 36
+RADIUS, RADIUS_SMALL, GAP, SIDEBAR_WIDTH, CONTROL_HEIGHT = 12, 8, 12, 225, 36
 
 BOARD_TITLES = {"ready": "Placa pronta", "checking": "Procurando a placa", "none": "Sem placa",
                 "many": "Várias placas", "busy": "Placa ocupada", "silent": "Placa sem resposta",
@@ -34,11 +34,39 @@ def border(color: str = BORDER, width: int = 1) -> ft.Border:
     return ft.Border(top=side, right=side, bottom=side, left=side)
 
 
+CLICK = ft.MouseCursor.CLICK    # Linux/Flutter nao mostra a mao no cursor "clickable" padrao: setar explicito (no Windows e inofensivo)
+
+
+def clickable(c: ft.Container) -> ft.Control:
+    """Container com on_click ganha a mao: Container nao tem mouse_cursor, entao vai num GestureDetector.
+    O layout (expand/col) sobe para o wrapper; o Container segue dono do on_click/hover.
+    Sem ink: o InkWell tem cursor proprio e venceria o do GestureDetector (a mao so nas bordas)."""
+    if not c.on_click:
+        return c
+    c.ink = False
+    if c.on_hover is None:
+        _hover_bg(c)
+    wrapper = ft.GestureDetector(content=c, mouse_cursor=CLICK, expand=c.expand, col=c.col)
+    c.expand, c.col = None, None
+    return wrapper
+
+
+def _hover_bg(c: ft.Container) -> None:
+    """Destaque ao passar o mouse, no lugar do que o ink fazia."""
+    base = c.bgcolor
+    lit = "#262B32" if base == HOVER else HOVER
+
+    def on_hover(e):
+        c.bgcolor = lit if str(e.data).lower() == "true" else base
+        c.update()
+    c.on_hover = on_hover
+
+
 def card(content: ft.Control, padding: int = 14, on_click=None, selected: bool = False,
-         **kw) -> ft.Container:
-    return ft.Container(content=content, padding=padding, bgcolor=CARD, border_radius=RADIUS,
+         **kw) -> ft.Control:
+    return clickable(ft.Container(content=content, padding=padding, bgcolor=CARD, border_radius=RADIUS,
                         border=border(ACCENT if selected else BORDER), on_click=on_click,
-                        ink=on_click is not None, **kw)
+                        ink=on_click is not None, **kw))
 
 
 def button(label: str, on_click=None, primary: bool = True, icon_name: str | None = None,
@@ -47,6 +75,7 @@ def button(label: str, on_click=None, primary: bool = True, icon_name: str | Non
     style = ft.ButtonStyle(
         bgcolor={ft.ControlState.DISABLED: HOVER, ft.ControlState.DEFAULT: ACCENT if primary else HOVER},
         color={ft.ControlState.DISABLED: FAINT, ft.ControlState.DEFAULT: ink},
+        mouse_cursor={ft.ControlState.DISABLED: ft.MouseCursor.BASIC, ft.ControlState.DEFAULT: CLICK},
         shape=ft.StadiumBorder(), padding=ft.Padding(18, 8, 18, 8), elevation=0,
         text_style=ft.TextStyle(size=13, weight=ft.FontWeight.W_600))
     return ft.Button(label, icon=icon(icon_name, 16, ink) if icon_name else None,
@@ -79,16 +108,15 @@ def board_card(info, compact: bool = False) -> ft.Container:
 
 def brand(size: int = 15) -> ft.Row:
     return ft.Row([ft.Image(src="pokeball.svg", width=size + 7, height=size + 7),
-                   text("Distribuidor de Eventos", size, bold=True),
-                   muted("by: Carlos Gabryel", size - 4)], spacing=8, run_spacing=0, wrap=True,
+                   text("Distribuidor de Eventos", size, bold=True, expand=True)], spacing=8,
                   vertical_alignment=ft.CrossAxisAlignment.CENTER)
 
 
-def nav_item(label: str, icon_name: str, selected: bool, on_click) -> ft.Container:
+def nav_item(label: str, icon_name: str, selected: bool, on_click) -> ft.Control:
     color = TEXT if selected else MUTED
-    return ft.Container(content=ft.Row([icon(icon_name, 16, color), text(label, 13, color)], spacing=10),
+    return clickable(ft.Container(content=ft.Row([icon(icon_name, 16, color), text(label, 14, color)], spacing=10),
                         padding=ft.Padding(10, 8, 10, 8), border_radius=RADIUS_SMALL,
-                        bgcolor=HOVER if selected else None, on_click=on_click, ink=True)
+                        bgcolor=HOVER if selected else None, on_click=on_click, ink=True))
 
 
 def crumbs(parts: list[tuple[str, object]]) -> ft.Row:
@@ -99,9 +127,9 @@ def crumbs(parts: list[tuple[str, object]]) -> ft.Row:
             items.append(muted("›", 12))
         last = index == len(parts) - 1
         # uma linha só: a etapa atual ocupa o que sobra e corta com reticências
-        items.append(ft.Container(text(label, 12, TEXT if last else MUTED, bold=last, max_lines=1,
-                                       overflow=ft.TextOverflow.ELLIPSIS, no_wrap=True),
-                                  on_click=None if last else on_click, expand=last))
+        items.append(clickable(ft.Container(text(label, 12, TEXT if last else MUTED, bold=last, max_lines=1,
+                                            overflow=ft.TextOverflow.ELLIPSIS, no_wrap=True),
+                                            on_click=None if last else on_click, expand=last)))
     return ft.Row(items, spacing=6)
 
 

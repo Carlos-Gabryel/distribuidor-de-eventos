@@ -11,6 +11,11 @@ BODY = b"novo exe" * 100
 SHA = hashlib.sha256(BODY).hexdigest()
 
 
+@pytest.fixture(autouse=True)
+def _windows(monkeypatch):
+    monkeypatch.setattr(update, "IS_LINUX", False)       # os testes do Linux ligam de volta
+
+
 class Resp(io.BytesIO):
     def __enter__(self):
         return self
@@ -102,3 +107,47 @@ def test_find_asset():
     other = {"name": "swsh_validated.json", "browser_download_url": "https://x/v.json", "size": 2}
     assert update.find_asset("swsh_validated.json", opener=api([ASSET, other])) == "https://x/v.json"
     assert update.find_asset("nada", opener=api([ASSET])) is None
+
+
+APPIMAGE = {**ASSET, "name": "Distribuidor-x86_64.AppImage", "browser_download_url": "https://x/D.AppImage"}
+
+
+def test_linux_escolhe_o_appimage(monkeypatch):
+    monkeypatch.setattr(update, "IS_LINUX", True)
+    assert update.asset_name() == "Distribuidor-x86_64.AppImage"
+    rel = update.latest(opener=api([ASSET, APPIMAGE]))
+    assert rel.url == "https://x/D.AppImage"
+
+
+def test_linux_fora_do_appimage_so_avisa(monkeypatch):
+    monkeypatch.setattr(update, "IS_LINUX", True)
+    monkeypatch.delenv("APPIMAGE", raising=False)
+    assert update.appimage() is None and update.notify_only()
+    rel = update.latest(opener=api([{**APPIMAGE, "digest": None}]))     # sem SHA-256: não baixa, então vale
+    assert rel is not None and rel.sha256 == ""
+
+
+def test_linux_no_appimage_baixa_ao_lado_e_troca(monkeypatch, tmp_path):
+    monkeypatch.setattr(update, "IS_LINUX", True)
+    image = tmp_path / "Distribuidor-x86_64.AppImage"
+    image.write_bytes(b"velho")
+    monkeypatch.setenv("APPIMAGE", str(image))
+    assert update.appimage() == image and not update.notify_only()
+    assert update.download_dir(tmp_path / "dados") == tmp_path
+    rel = update.latest(opener=api([APPIMAGE]))
+    new = update.download(rel, update.download_dir(tmp_path / "dados"), opener=lambda req, timeout: Resp(BODY))
+    assert new.name == "Distribuidor-v2.1.0.AppImage" and new.read_bytes() == BODY
+    launched = []
+    update.apply(new, image, launch=lambda argv, **kw: launched.append(argv))
+    assert image.read_bytes() == BODY and not new.exists()
+    assert image.stat().st_mode & 0o777 == 0o755
+    assert launched == [[str(image)]]
+    update.cleanup(image)       # sem .old no Linux: não faz nada
+
+
+def test_linux_download_que_nao_confere_nao_deixa_lixo(monkeypatch, tmp_path):
+    monkeypatch.setattr(update, "IS_LINUX", True)
+    bad = update.Release("v2.1.0", (2, 1, 0), "https://x/D.AppImage", len(BODY), "0" * 64)
+    with pytest.raises(update.UpdateError):
+        update.download(bad, tmp_path, opener=lambda req, timeout: Resp(BODY))
+    assert list(tmp_path.iterdir()) == []

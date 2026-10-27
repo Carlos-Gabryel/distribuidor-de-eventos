@@ -300,12 +300,12 @@ class Service:
             release = self._latest()
             if not update.newer(release, __version__):
                 return
-            if IS_ANDROID:       # instalar um .apk é com o usuário: o aviso abre a página do Release
+            if IS_ANDROID or update.notify_only():       # instalar um .apk (ou trocar o código-fonte) é com o usuário: o aviso abre a página do Release
                 self._publish(update_state="available", update_version=release.tag,
                               update_url=release.html_url or release.url)
                 return
             self._publish(update_state="downloading", update_version=release.tag)
-            self._ready_update = self._download(release, self.cfg.data_dir / "updates")
+            self._ready_update = self._download(release, update.download_dir(self.cfg.data_dir))
             self._publish(update_state="ready")
         except (OSError, ValueError, update.UpdateError):
             downloading = self.snapshot().update_state == "downloading"

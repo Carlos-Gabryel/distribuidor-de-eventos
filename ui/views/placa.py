@@ -1,9 +1,12 @@
 """Placa: estado, porta, ponte USB, "Preparar placa" (grava o firmware) e drivers."""
 from __future__ import annotations
 
+import sys
+
 import flet as ft
 
 from distrib import radio
+from distrib.platform import IS_ANDROID
 from ui import theme as t
 
 
@@ -40,6 +43,10 @@ class PlacaView:
         self.control.controls = controls
 
     def _drivers(self) -> ft.Container:
+        if sys.platform.startswith("linux") and not IS_ANDROID:
+            return t.card(ft.Column([
+                t.text("A placa está plugada e não aparece?", 14, bold=True),
+                t.muted(radio.LINUX_HINT + " Use um cabo de dados, não só de carga.")], spacing=8))
         links = [t.button(name, lambda e, url=url: self._open(url), primary=False, icon_name="external-link")
                  for name, url in radio.DRIVERS.items()]
         return t.card(ft.Column([

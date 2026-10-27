@@ -54,3 +54,11 @@ def test_run_mode_runs_a_pokeldn_script():
     out, _ = proc.communicate(timeout=120)
     assert proc.returncode == 0, out
     assert "--record" in out
+
+
+def test_child_env_defaults_to_userspace_l2_on_linux(monkeypatch):
+    monkeypatch.setattr(sys, "platform", "linux")
+    monkeypatch.delenv("POKELDN_L2", raising=False)
+    assert runner.child_env()["POKELDN_L2"] == "userspace"
+    monkeypatch.setenv("POKELDN_L2", "tap")
+    assert runner.child_env()["POKELDN_L2"] == "tap"

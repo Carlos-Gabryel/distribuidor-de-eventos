@@ -1,6 +1,8 @@
 """Mantém o host no ar: sobe o processo, lê o log, reinicia quando cai. Nada de interface."""
 from __future__ import annotations
 
+import os
+import signal
 import subprocess
 import threading
 import time
@@ -114,7 +116,10 @@ class Distributor:
                 except OSError:
                     pass
 
-            for send, wait in ((close_stdin, self.stop_grace), (proc.terminate, 5), (proc.kill, None)):
+            steps = [(close_stdin, self.stop_grace), (proc.terminate, 5), (proc.kill, None)]
+            if os.name != "nt":     # SIGTERM não desmonta a rede na placa; SIGINT sim
+                steps.insert(1, (lambda: proc.send_signal(signal.SIGINT), self.stop_grace))
+            for send, wait in steps:
                 send()
                 try:
                     proc.wait(timeout=wait)

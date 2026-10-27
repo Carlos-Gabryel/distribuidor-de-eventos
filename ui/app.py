@@ -1,6 +1,7 @@
 """A janela: barra lateral (abas + cartão da placa), faixa de atualização e a view da aba atual."""
 from __future__ import annotations
 
+import os
 import sys
 import threading
 import time
@@ -9,7 +10,7 @@ from pathlib import Path
 
 import flet as ft
 
-from distrib import update
+from distrib import __version__, update
 from distrib.config import load, resource_root
 from distrib.platform import IS_ANDROID, android_env
 from distrib.pokeldn_path import ensure_importable
@@ -54,12 +55,11 @@ class Shell:
         sidebar = ft.Container(
             width=t.SIDEBAR_WIDTH, bgcolor=t.SIDEBAR, padding=ft.Padding(12, 16, 12, 16),
             border=ft.Border(right=ft.BorderSide(1, t.BORDER)),
-            content=ft.Column([ft.WindowDragArea(ft.Container(height=20)), self.nav,
-                               ft.Container(expand=True), self.board_card], spacing=0, expand=True))
+            content=ft.Column([ft.WindowDragArea(ft.Container(t.brand(), padding=ft.Padding(6, 0, 0, 14))), self.nav,
+                               ft.Container(expand=True), self.board_card, self._credit()], spacing=0, expand=True))
         self.max_icon = ft.Container(content=t.icon("square", 14))
         self.title_bar = ft.Row([
-            ft.WindowDragArea(ft.Container(t.brand(), height=36, padding=ft.Padding(16, 0, 0, 0),
-                                           alignment=ft.Alignment.CENTER_LEFT), expand=True),
+            ft.WindowDragArea(ft.Container(height=36), expand=True),
             self._window_button(t.icon("minus", 16), self._minimize),
             self._window_button(self.max_icon, self._toggle_max),
             self._window_button(t.icon("x", 16), self._close, danger=True),
@@ -102,15 +102,24 @@ class Shell:
         view = self._active_view(snap)
         return view.back(snap) if hasattr(view, "back") else False
 
+    def _credit(self) -> ft.Control:
+        """Linha discreta de crédito (como no SwitchKBM): abre o repositório no navegador."""
+        url = f"https://github.com/{update.REPO}"
+        row = ft.Row([t.muted("By Carlos Gabryel", 11), t.icon("external-link", 11, t.FAINT),
+                      t.text(f"v{__version__}", size=10, color=t.FAINT)],
+                     spacing=5, alignment=ft.MainAxisAlignment.CENTER)
+        return ft.Container(ft.GestureDetector(row, on_tap=lambda e: self.page.run_task(self.launcher.launch_url, url),
+                                               mouse_cursor=t.CLICK), padding=ft.Padding(0, 10, 0, 0), tooltip=url)
+
     # ---- barra de título própria (a do Windows fica escondida) ----
-    def _window_button(self, content, on_click, danger: bool = False) -> ft.Container:
+    def _window_button(self, content, on_click, danger: bool = False) -> ft.Control:
         hover = "#C42B1C" if danger else t.HOVER
 
         def on_hover(e):
             e.control.bgcolor = hover if e.data in (True, "true") else None
             e.control.update()
-        return ft.Container(content=content, width=46, height=36, alignment=ft.Alignment.CENTER,
-                            on_click=on_click, on_hover=on_hover)
+        return t.clickable(ft.Container(content=content, width=46, height=36, alignment=ft.Alignment.CENTER,
+                                        on_click=on_click, on_hover=on_hover))
 
     def _minimize(self, e=None) -> None:
         self.page.window.minimized = True
@@ -235,6 +244,8 @@ def run() -> None:
     if IS_ANDROID:
         android_env.apply(cfg)
     exe = Path(sys.executable) if getattr(sys, "frozen", False) else None
+    if update.IS_LINUX:        # no AppImage quem se atualiza é o próprio arquivo, não o binário extraído
+        exe = update.appimage()
     if exe is not None:
         update.cleanup(exe)
     _log_crashes(cfg)
@@ -242,9 +253,9 @@ def run() -> None:
 
     def main(page: ft.Page) -> None:
         t.apply_page(page)
-        page.window.icon = str(ASSETS / "icon.ico")
+        page.window.icon = str(ASSETS / ("icon.ico" if os.name == "nt" else "icon.png"))
         Shell(page, service)
-        service.start_background(updates=exe is not None or IS_ANDROID)
+        service.start_background(updates=exe is not None or update.notify_only())
 
     try:
         ft.run(main, assets_dir=str(ASSETS))

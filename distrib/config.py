@@ -1,4 +1,5 @@
-"""Configuração e caminhos do Windows: os dados do usuário ficam em %LOCALAPPDATA%\\Distribuidor."""
+"""Configuração e caminhos: os dados do usuário ficam em %LOCALAPPDATA%\\Distribuidor (Windows)
+ou em $XDG_DATA_HOME/Distribuidor (Linux)."""
 from __future__ import annotations
 
 import os
@@ -24,7 +25,13 @@ def default_data_dir() -> Path:
     if IS_ANDROID:         # /data/user/0/<pacote>/files/data (confirmado na A1)
         return Path(os.environ["FLET_APP_STORAGE_DATA"])
     base = os.environ.get("LOCALAPPDATA")
-    return Path(base) / APP_NAME if base else Path.home() / f".{APP_NAME.lower()}"
+    legacy = Path.home() / f".{APP_NAME.lower()}"
+    if base:
+        return Path(base) / APP_NAME
+    if sys.platform.startswith("linux") and not legacy.exists():
+        xdg = os.environ.get("XDG_DATA_HOME")
+        return (Path(xdg) if xdg else Path.home() / ".local" / "share") / APP_NAME
+    return legacy
 
 
 @dataclass(frozen=True)

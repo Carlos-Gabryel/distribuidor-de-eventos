@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import subprocess
 
 import flet as ft
 
@@ -42,7 +43,7 @@ class AjustesView:
                       t.button("Abrir pasta", self._logs, primary=False, icon_name="folder-open")),
         ]
         credits = t.card(ft.Column([t.text("Créditos", 14, bold=True)] + [
-            ft.Row([t.muted(label, 12), ft.Container(t.text(url, 12, t.ACCENT), on_click=lambda e, u=url: self._open(u))],
+            ft.Row([t.muted(label, 12), t.clickable(ft.Container(t.text(url, 12, t.ACCENT), on_click=lambda e, u=url: self._open(u)))],
                    spacing=6, wrap=True) for label, url in CREDITS], spacing=6))
         self.control.controls = [t.text("Ajustes", 22, bold=True), *rows, credits]
 
@@ -68,7 +69,12 @@ class AjustesView:
         if IS_ANDROID:      # sem explorador de arquivos: o caminho já aparece na linha
             self.shell.toast(str(self.service.cfg.logs_dir))
             return
-        os.startfile(self.service.cfg.logs_dir)
+        if os.name == "nt":
+            os.startfile(self.service.cfg.logs_dir)
+        else:
+            subprocess.Popen(["xdg-open", str(self.service.cfg.logs_dir)], close_fds=True,
+                             stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                             stderr=subprocess.DEVNULL, start_new_session=True)
 
     def _open(self, url: str) -> None:
         self.shell.page.run_task(self.shell.launcher.launch_url, url)

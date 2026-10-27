@@ -48,3 +48,15 @@ def test_default_data_dir_no_android(monkeypatch, tmp_path):
     monkeypatch.setenv("FLET_APP_STORAGE_DATA", str(tmp_path / "files" / "data"))
     monkeypatch.setattr(configmod, "IS_ANDROID", True)
     assert configmod.default_data_dir() == tmp_path / "files" / "data"
+
+
+def test_linux_data_dir_follows_xdg_and_keeps_the_legacy_folder(tmp_path, monkeypatch):
+    monkeypatch.setattr(sys, "platform", "linux")
+    for var in ("DISTRIB_DATA_DIR", "LOCALAPPDATA", "XDG_DATA_HOME"):
+        monkeypatch.delenv(var, raising=False)
+    monkeypatch.setattr(Path, "home", lambda: tmp_path)
+    assert configmod.default_data_dir() == tmp_path / ".local" / "share" / "Distribuidor"
+    monkeypatch.setenv("XDG_DATA_HOME", str(tmp_path / "xdg"))
+    assert configmod.default_data_dir() == tmp_path / "xdg" / "Distribuidor"
+    (tmp_path / ".distribuidor").mkdir()
+    assert configmod.default_data_dir() == tmp_path / ".distribuidor"

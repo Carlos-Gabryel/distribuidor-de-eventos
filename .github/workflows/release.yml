@@ -1,0 +1,71 @@
+name: release
+
+# Uma tag v* gera o Distribuidor.exe (Windows), o AppImage (Linux) e o .apk (Android) e os publica
+# no Release. O app confere o SHA-256 que o próprio GitHub calcula para cada arquivo enviado
+# (campo `digest` da API), então basta anexar os arquivos.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            asset: Distribuidor.exe
+          - os: ubuntu-22.04        # glibc antiga: o AppImage roda também em distros mais velhas
+            asset: Distribuidor-x86_64.AppImage
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Dependências
+        run: python -m pip install -r requirements.txt
+      - name: Testes
+        if: runner.os == 'Linux'
+        run: python -m pytest -q -p no:cacheprovider
+      - name: Firmwares
+        run: python build/fetch_firmware.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Empacotar
+        run: python build/pack.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset }}
+          path: dist/${{ matrix.asset }}
+          if-no-files-found: error
+
+  android:
+    uses: ./.github/workflows/android-app.yml
+    secrets: inherit
+
+  release:
+    needs: [build, android]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4       # o swsh_validated.json (catálogo do Android) vem do repositório
+      - uses: actions/download-artifact@v4
+        with:
+          path: assets
+          merge-multiple: true
+      # gh (do próprio GitHub) em vez de uma action de terceiros com permissão de escrita
+      - name: Publicar o Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" --verify-tag --title "Distribuidor de Eventos ${GITHUB_REF_NAME#v}" --notes ""
+          assets/Distribuidor.exe assets/Distribuidor-x86_64.AppImage assets/Distribuidor.apk distrib/swsh_validated.json

@@ -7,6 +7,12 @@ from distrib.catalog import Catalog, Event, save_index
 from distrib.distributor import Status
 from distrib.service import Service
 
+
+@pytest.fixture(autouse=True)
+def _not_linux_notify_only(monkeypatch):
+    monkeypatch.setattr(update, "IS_LINUX", False)      # fora do AppImage o Linux só avisaria
+
+
 KEYS = "".join(f"key_{i:02d} = {'ab' * 16}\n" for i in range(12))
 
 

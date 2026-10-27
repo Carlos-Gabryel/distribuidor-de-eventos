@@ -1,4 +1,4 @@
-"""Gera ui/assets/icon.ico (Poké Ball) para o .exe."""
+"""Gera ui/assets/icon.ico (Poké Ball) para o .exe e icon.png para o Linux."""
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -19,6 +19,7 @@ def main() -> None:
     d.ellipse((c - r, c - r, c + r, c + r), fill="#0E0F12")
     d.ellipse((c - r + 16, c - r + 16, c + r - 16, c + r - 16), fill="#F4F5F7")
     img.save(OUT, sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
+    img.save(OUT.with_suffix(".png"))
     print(OUT)
 
 

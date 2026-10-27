@@ -2,6 +2,7 @@ name: Android app APK
 
 on:
   workflow_dispatch:
+  workflow_call:          # o release.yml chama para anexar o .apk ao Release
   push:
     branches: [master, android-spike]
     paths: ["distrib/**", "ui/**", "android/app/**", "build/pack_android.py", ".github/workflows/android-app.yml"]

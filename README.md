@@ -9,10 +9,12 @@
 [![Última versão](https://img.shields.io/github/v/release/Carlos-Gabryel/distribuidor-de-eventos?label=vers%C3%A3o&color=e3350d)](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/Carlos-Gabryel/distribuidor-de-eventos/total?color=3b4cca)](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases)
 ![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0078d4?logo=windows)
+![Linux](https://img.shields.io/badge/Linux-x86__64-fcc624?logo=linux&logoColor=black)
 ![Android](https://img.shields.io/badge/Android-arm64-3ddc84?logo=android&logoColor=white)
 [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-ffcb05)](LICENSE)
 
 [**⬇ Baixar para Windows**](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest/download/Distribuidor.exe) ·
+[**⬇ Baixar para Linux**](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest/download/Distribuidor-x86_64.AppImage) ·
 [**⬇ Baixar para Android**](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest/download/Distribuidor.apk)
 
 </div>
@@ -33,6 +35,7 @@ abrir terminal.
 | **Consoles ao mesmo tempo** | Vários | Um por vez |
 | **Eventos** | Catálogo do Events Gallery, validados pelo PKHeX | Wonder Cards oficiais, com rodízio de PID |
 | **Windows** | ✅ | ✅ |
+| **Linux** | ✅ | ✅ |
 | **Android** | ✅ (só os eventos pré-validados) | ✅ |
 
 - **Tudo num programa só:** sem instalação, sem WSL, sem Python e sem .NET.
@@ -48,7 +51,7 @@ abrir terminal.
 | **Placa ESP32** | ESP32 clássica, ESP32‑S3, ESP32‑C3 ou ESP32‑C6. As DevKit comuns servem. |
 | **Cabo USB de dados** | Cabo só de carga não funciona. No Android, use também um adaptador **OTG**. |
 | **`prod.keys`** | Extraído **do seu próprio Switch** (por exemplo, com o Lockpick_RCM). Não é distribuído aqui. |
-| **Um computador ou celular** | Windows 10/11 x64 ou Android arm64. |
+| **Um computador ou celular** | Windows 10/11 x64, Linux x86_64 ou Android arm64. |
 
 ## 🚀 Primeiros passos no Windows
 
@@ -61,6 +64,19 @@ abrir terminal.
 3. **Distribua:** **Distribuir → jogo → Pokémon → evento → Distribuir.**
 
 Seus dados ficam em `%LOCALAPPDATA%\Distribuidor`.
+
+### 🐧 No Linux
+
+1. **Baixe** o [`Distribuidor-x86_64.AppImage`](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest/download/Distribuidor-x86_64.AppImage), dê permissão com `chmod +x Distribuidor-x86_64.AppImage` e abra. Ele se atualiza sozinho, como o `.exe`.
+   > Precisa de GTK 3, `libsecret` e `jsoncpp`, que já vêm nas distros com desktop (Bazzite, Fedora, Ubuntu). Se o app não abrir numa instalação mínima, instale `libgtk-3-0 libsecret-1-0 libjsoncpp25` (Debian/Ubuntu) ou `gtk3 libsecret jsoncpp` (Fedora).
+2. **Permissão da porta serial:** os drivers já vêm no kernel (a placa aparece como `/dev/ttyUSB*` ou `/dev/ttyACM*`), mas o seu usuário precisa poder abri-la. Entre no grupo `dialout` (`sudo usermod -aG dialout $USER`) e saia da sessão e entre de novo, **ou** instale a regra udev do projeto:
+
+   ```
+   sudo cp packaging/linux/60-distribuidor-serial.rules /etc/udev/rules.d/
+   sudo udevadm control --reload && sudo udevadm trigger
+   ```
+   > No Fedora Atomic / Bazzite o grupo `dialout` fica em `/usr/lib/group`. Antes do `usermod`, rode: `grep -E '^dialout:' /usr/lib/group | sudo tee -a /etc/group`
+3. O restante é igual ao Windows. Seus dados ficam em `~/.local/share/Distribuidor` (ou em `~/.distribuidor`, se essa pasta já existir).
 
 ### No console
 

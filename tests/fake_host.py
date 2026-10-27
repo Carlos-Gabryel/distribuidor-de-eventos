@@ -18,7 +18,10 @@ script = [item for item in script if item != "deaf"]
 
 def _watch_stdin():
     sys.stdin.read()
-    signal.raise_signal(signal.SIGINT)
+    if os.name == "nt":
+        signal.raise_signal(signal.SIGINT)
+    else:
+        signal.pthread_kill(threading.main_thread().ident, signal.SIGINT)
 
 
 if os.environ.get("DISTRIB_MANAGED_RUN") and sys.stdin is not None and not deaf:

@@ -37,6 +37,8 @@ def command(*argv: str) -> list[str]:
 
 def child_env(extra: dict[str, str] | None = None, managed: bool = True) -> dict[str, str]:
     env = {**os.environ, "PYTHONUNBUFFERED": "1", "PYTHONIOENCODING": "utf-8", **(extra or {})}
+    if sys.platform.startswith("linux") and not IS_ANDROID:
+        env.setdefault("POKELDN_L2", "userspace")      # o padrão do pokeldn no Linux é tap, que exige root
     if managed:
         env[MANAGED] = "1"
     else:
@@ -59,7 +61,10 @@ def _interrupt_on_stdin_close() -> None:
         sys.stdin.read()
     except (OSError, ValueError):
         pass
-    signal.raise_signal(signal.SIGINT)
+    if os.name == "nt":
+        signal.raise_signal(signal.SIGINT)
+    else:       # no POSIX o sinal cairia nesta thread e não interromperia a principal
+        signal.pthread_kill(threading.main_thread().ident, signal.SIGINT)
 
 
 def child(argv: list[str], pokeldn_dir: Path, inproc: bool = False) -> None:

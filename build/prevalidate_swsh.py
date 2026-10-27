@@ -27,7 +27,8 @@ def classify(rec, validate, error_type):
 
 
 def main(argv=None):
-    padrao = os.path.join(os.environ.get("LOCALAPPDATA", ""), "Distribuidor", "catalog", "swsh")
+    from distrib import config
+    padrao = str(config.default_data_dir() / "catalog" / "swsh")
     ap = argparse.ArgumentParser()
     ap.add_argument("catalog", nargs="?", default=padrao)
     ap.add_argument("-o", "--out", default=str(RAIZ / "distrib" / "swsh_validated.json"))

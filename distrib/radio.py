@@ -21,6 +21,11 @@ BRIDGES = {
     (0x0403, 0x6001): "FT232R",
     (0x303A, 0x1001): "USB nativo do ESP32",
 }
+# No Linux os drivers já vêm no kernel; o que falta é a permissão na porta serial.
+LINUX_HINT = ("No Linux os drivers já vêm no kernel (as portas aparecem como /dev/ttyUSB* ou /dev/ttyACM*). "
+              "Falta a permissão de acesso à serial: entre no grupo dialout "
+              "(sudo usermod -aG dialout $USER) ou instale a regra udev do projeto "
+              "(packaging/linux/60-distribuidor-serial.rules), saia da sessão e entre de novo.")
 DRIVERS = {
     "CP210x": "https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers",
     "CH340": "https://www.wch-ic.com/downloads/CH341SER_EXE.html",
