@@ -41,7 +41,7 @@ def clickable(c: ft.Container) -> ft.Control:
     """Container com on_click ganha a mao: Container nao tem mouse_cursor, entao vai num GestureDetector.
     O layout (expand/col) sobe para o wrapper; o Container segue dono do on_click/hover.
     Sem ink: o InkWell tem cursor proprio e venceria o do GestureDetector (a mao so nas bordas)."""
-    if not c.on_click:
+    if not c.on_click or IS_ANDROID:     # celular: sem mouse; o ink é o retorno do toque
         return c
     c.ink = False
     if c.on_hover is None:
