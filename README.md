@@ -36,6 +36,7 @@ abrir terminal.
 | **Eventos** | Catálogo do Events Gallery, validados pelo PKHeX | Wonder Cards oficiais, com rodízio de PID |
 | **Windows** | ✅ | ✅ |
 | **Linux** | ✅ | ✅ |
+| **macOS** (Apple Silicon) | ✅ | ✅ |
 | **Android** | ✅ (só os eventos pré-validados) | ✅ |
 
 - **Tudo num programa só:** sem instalação, sem WSL, sem Python e sem .NET.
@@ -51,7 +52,7 @@ abrir terminal.
 | **Placa ESP32** | ESP32 clássica, ESP32‑S3, ESP32‑C3 ou ESP32‑C6. As DevKit comuns servem. |
 | **Cabo USB de dados** | Cabo só de carga não funciona. No Android, use também um adaptador **OTG**. |
 | **`prod.keys`** | Extraído **do seu próprio Switch** (por exemplo, com o Lockpick_RCM). Não é distribuído aqui. |
-| **Um computador ou celular** | Windows 10/11 x64, Linux x86_64 ou Android arm64. |
+| **Um computador ou celular** | Windows 10/11 x64, Linux x86_64, macOS (Apple Silicon) ou Android arm64. |
 
 ## 🚀 Primeiros passos no Windows
 
@@ -77,6 +78,13 @@ Seus dados ficam em `%LOCALAPPDATA%\Distribuidor`.
    ```
    > No Fedora Atomic / Bazzite o grupo `dialout` fica em `/usr/lib/group`. Antes do `usermod`, rode: `grep -E '^dialout:' /usr/lib/group | sudo tee -a /etc/group`
 3. O restante é igual ao Windows. Seus dados ficam em `~/.local/share/Distribuidor` (ou em `~/.distribuidor`, se essa pasta já existir).
+
+### 🍎 No macOS (Apple Silicon)
+
+1. **Baixe** o [`Distribuidor-macos-arm64.zip`](https://github.com/Carlos-Gabryel/distribuidor-de-eventos/releases/latest/download/Distribuidor-macos-arm64.zip), extraia e mova o `Distribuidor.app` para a pasta Aplicativos.
+2. **Primeira abertura:** o app não é assinado pela Apple, então o macOS o bloqueia. Vá em Ajustes > Privacidade e Segurança e clique em "Abrir mesmo assim", **ou** rode no Terminal: `xattr -dr com.apple.quarantine /Applications/Distribuidor.app`
+3. Os drivers da placa já vêm no sistema (ela aparece como `/dev/cu.*`). O restante é igual ao Windows.
+4. Macs com processador Intel não são suportados. As atualizações baixam o `.zip` novo e o mostram no Finder, para você substituir o app.
 
 ### No console
 

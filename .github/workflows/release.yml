@@ -1,6 +1,6 @@
 name: release
 
-# Uma tag v* gera o Distribuidor.exe (Windows), o AppImage (Linux) e o .apk (Android) e os publica
+# Uma tag v* gera o Distribuidor.exe (Windows), o AppImage (Linux), o .zip (macOS) e o .apk (Android) e os publica
 # no Release. O app confere o SHA-256 que o próprio GitHub calcula para cada arquivo enviado
 # (campo `digest` da API), então basta anexar os arquivos.
 on:
@@ -40,10 +40,44 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Empacotar
         run: python build/pack.py
+      - name: Selfcheck do binário
+        if: runner.os == 'Linux'
+        run: dist/Distribuidor --module distrib.runners.selfcheck
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.asset }}
           path: dist/${{ matrix.asset }}
+          if-no-files-found: error
+
+  build-macos:
+    runs-on: macos-14
+    continue-on-error: true   # um Mac quebrado não trava a release das outras plataformas
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Dependências
+        run: python -m pip install -r requirements.txt
+      - name: Testes
+        run: python -m pytest -q -p no:cacheprovider
+      - name: Firmwares
+        run: python build/fetch_firmware.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Empacotar
+        run: python build/pack.py
+      - name: Conferir o .app
+        run: python build/check_macos.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Distribuidor-macos-arm64.zip
+          path: dist/Distribuidor-macos-arm64.zip
           if-no-files-found: error
 
   android:
@@ -51,8 +85,8 @@ jobs:
     secrets: inherit
 
   release:
-    needs: [build, android]
-    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [build, android, build-macos]
+    if: always() && startsWith(github.ref, 'refs/tags/v') && needs.build.result == 'success' && needs.android.result == 'success'
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -66,6 +100,7 @@ jobs:
       - name: Publicar o Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: >
-          gh release create "$GITHUB_REF_NAME" --verify-tag --title "Distribuidor de Eventos ${GITHUB_REF_NAME#v}" --notes ""
-          assets/Distribuidor.exe assets/Distribuidor-x86_64.AppImage assets/Distribuidor.apk distrib/swsh_validated.json
+        run: |
+          files=(assets/Distribuidor.exe assets/Distribuidor-x86_64.AppImage assets/Distribuidor.apk distrib/swsh_validated.json)
+          if [ -f assets/Distribuidor-macos-arm64.zip ]; then files+=(assets/Distribuidor-macos-arm64.zip); fi
+          gh release create "$GITHUB_REF_NAME" --verify-tag --title "Distribuidor de Eventos ${GITHUB_REF_NAME#v}" --notes "" "${files[@]}"
