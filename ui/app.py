@@ -206,7 +206,7 @@ class Shell:
     def _update_row(self, snap: Snapshot) -> ft.Row:
         if snap.update_state == "error":
             return ft.Row([t.icon("triangle-alert", 16, t.AMBER),
-                           t.muted("A atualização falhou. Baixe a versão nova no GitHub e substitua o app." if update.IS_MACOS else "substitua o .exe.")])
+                           t.muted("A atualização falhou. Baixe a versão nova no GitHub e substitua o app.")])
         if snap.update_state == "available":
             return ft.Row([t.icon("download", 16, t.GREEN),
                            t.text(f"Versão {snap.update_version} disponível.", 13),
