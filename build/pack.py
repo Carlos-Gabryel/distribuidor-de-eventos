@@ -1,7 +1,9 @@
-"""Gera dist/Distribuidor.exe (Windows) ou dist/Distribuidor-x86_64.AppImage (Linux) com o flet pack
-(PyInstaller): app + pokeldn v0.5.0 + PKHeX + firmwares."""
+"""Gera dist/Distribuidor.exe (Windows), dist/Distribuidor-x86_64.AppImage (Linux) ou
+dist/Distribuidor-macos-arm64.zip (macOS, Apple Silicon) com o flet pack (PyInstaller):
+app + pokeldn v0.5.0 + PKHeX + firmwares."""
 import hashlib
 import os
+import plistlib
 import shutil
 import subprocess
 import sys
@@ -19,7 +21,10 @@ FLET = "import sys; from flet_cli.cli import main; sys.argv[0] = 'flet'; main()"
 # O flet pack apaga a pasta build/ do diretório atual: roda numa pasta de trabalho própria (ignorada pelo git).
 WORK = ROOT / ".pack"
 LINUX = sys.platform.startswith("linux")
-PKHEX_EXE = "pokeldn-pkhex" if LINUX else "pokeldn-pkhex.exe"
+MAC = sys.platform == "darwin"
+PKHEX_EXE = "pokeldn-pkhex" if LINUX or MAC else "pokeldn-pkhex.exe"
+APP = ROOT / "dist" / "Distribuidor.app"
+MAC_ZIP = ROOT / "dist" / "Distribuidor-macos-arm64.zip"
 APPIMAGE = ROOT / "dist" / "Distribuidor-x86_64.AppImage"
 # appimagetool fixo numa versão com tag (não o "continuous"), em cache em build/.cache (ignorado pelo git)
 TOOL_VERSION = "1.9.1"
@@ -30,7 +35,7 @@ CACHE = ROOT / "build" / ".cache"
 
 def publish_pkhex() -> None:
     """Compila o serviço .NET do PKHeX (autônomo: quem usa o app não precisa de .NET)."""
-    code = subprocess.run(["dotnet", "publish", str(PKHEX), "-c", "Release", "-r", "linux-x64" if LINUX else "win-x64",
+    code = subprocess.run(["dotnet", "publish", str(PKHEX), "-c", "Release", "-r", "osx-arm64" if MAC else "linux-x64" if LINUX else "win-x64",
                            "-o", str(PKHEX / "dist"), "-warnaserror"], cwd=ROOT).returncode
     if code != 0 or not (PKHEX / "dist" / PKHEX_EXE).is_file():
         raise SystemExit("dotnet publish do PKHeX falhou")
@@ -71,6 +76,34 @@ def build_appimage(binary: Path) -> None:
         raise SystemExit("O appimagetool não gerou dist/Distribuidor-x86_64.AppImage")
 
 
+def patch_serial_osx() -> Path:
+    """Copia o pacote serial para .pack/deps com o list_ports_osx.py apontando para find_library
+    (o caminho fixo dos frameworks não existe no macOS recente). Devolve a pasta deps."""
+    import serial
+    deps = WORK / "deps"
+    shutil.rmtree(deps, ignore_errors=True)
+    shutil.copytree(Path(serial.__file__).parent, deps / "serial", ignore=shutil.ignore_patterns("__pycache__"))
+    ports = deps / "serial" / "tools" / "list_ports_osx.py"
+    text = ports.read_text(encoding="utf-8").replace("import ctypes" + chr(10), "import ctypes" + chr(10) + "import ctypes.util" + chr(10))
+    for fw in ("IOKit", "CoreFoundation"):
+        text = text.replace(f"'/System/Library/Frameworks/{fw}.framework/{fw}'", f"ctypes.util.find_library('{fw}')")
+    ports.write_text(text, encoding="utf-8")
+    return deps
+
+
+def finish_macos() -> None:
+    """Versão no Info.plist, assinatura ad-hoc e .zip (ditto preserva o bundle)."""
+    info_path = APP / "Contents" / "Info.plist"
+    with info_path.open("rb") as f:
+        info = plistlib.load(f)
+    info.update(CFBundleShortVersionString=__version__, CFBundleVersion=__version__)
+    with info_path.open("wb") as f:
+        plistlib.dump(info, f)
+    subprocess.run(["codesign", "--force", "--deep", "--sign", "-", str(APP)], check=True)
+    MAC_ZIP.unlink(missing_ok=True)
+    subprocess.run(["ditto", "-c", "-k", "--keepParent", str(APP), str(MAC_ZIP)], check=True)
+
+
 def main() -> int:
     missing = [n for n in FIRMWARE.values() if not (ROOT / "firmware" / n).is_file()]
     if missing:
@@ -85,7 +118,9 @@ def main() -> int:
             (ROOT / "firmware", "firmware"),
             (ROOT / "ui" / "assets", "ui/assets"),
             (ROOT / "LICENSE", ".")]
-    build_args = ([] if LINUX else ["--console", "--hide-console=hide-early"]) + [
+    WORK.mkdir(exist_ok=True)
+    build_args = ([] if LINUX or MAC else ["--console", "--hide-console=hide-early"]) + (
+                 [f"--paths={patch_serial_osx()}"] if MAC else []) + [
                   f"--paths={ROOT}", f"--paths={POKELDN}", f"--paths={POKELDN / 'bin'}",
                   f"--paths={POKELDN / 'vendor' / 'LDN'}",
                   "--hidden-import=swsh_gift_host", "--hidden-import=frlg_mg_host",
@@ -93,22 +128,26 @@ def main() -> int:
                   "--collect-submodules=distrib", "--collect-submodules=ui",
                   "--collect-all=esptool", "--collect-all=esp_pylib",
                   "--exclude-module=pytest", "--exclude-module=textual"]
-    icon = ROOT / "ui" / "assets" / ("icon.png" if LINUX else "icon.ico")
-    args = [sys.executable, "-c", FLET, "pack", str(ROOT / "main.py"), "--name", "Distribuidor", "-y",
+    icon = ROOT / "ui" / "assets" / ("icon.png" if LINUX else "icon.icns" if MAC else "icon.ico")
+    # no Mac roda o pack_flet.py do upstream (mantém o entitlement do seletor de arquivos do viewer)
+    packer = [sys.executable, str(POKELDN / "scripts" / "pack_flet.py")] if MAC else [sys.executable, "-c", FLET]
+    args = [*packer, "pack", str(ROOT / "main.py"), "--name", "Distribuidor", "-y",
             "--distpath", str(ROOT / "dist"), "--icon", str(icon),
             *([] if LINUX else ["--product-name", "Distribuidor de Eventos", "--product-version", __version__,
                                 "--file-version", f"{__version__}.0"]),
+            *(["--bundle-id", "com.carlosgabryel.distribuidor"] if MAC else []),
             "--add-data",
             *[f"{src}{os.pathsep}{dest}" for src, dest in data],
             *[f"--pyinstaller-build-args={arg}" for arg in build_args]]
-    WORK.mkdir(exist_ok=True)
     # o flet pack roda em .pack/ (o -y apaga ./build); o collect-submodules precisa achar os pacotes
     paths = [ROOT, POKELDN, POKELDN / "bin", POKELDN / "vendor" / "LDN"]
     env = {**os.environ, "PYTHONPATH": os.pathsep.join(map(str, paths))}
     code = subprocess.run(args, cwd=WORK, env=env).returncode
-    exe = ROOT / "dist" / ("Distribuidor" if LINUX else "Distribuidor.exe")
+    exe = APP if MAC else ROOT / "dist" / ("Distribuidor" if LINUX else "Distribuidor.exe")
     if code == 0 and not exe.exists():
         raise SystemExit(f"O flet pack terminou sem gerar dist/{exe.name}")
+    if code == 0 and MAC:
+        finish_macos()
     if code == 0 and LINUX:
         build_appimage(exe)
     return code
