@@ -1,5 +1,6 @@
 """Confere o dist/Distribuidor.app do macOS: entitlement do seletor de arquivos no viewer do Flet,
 assinatura e o selfcheck do próprio app. Só roda no macOS."""
+import os
 import plistlib
 import subprocess
 import sys
@@ -12,9 +13,12 @@ ENTITLEMENT = "com.apple.security.files.user-selected.read-write"
 
 
 def check_viewer_entitlement() -> None:
-    archives = list(APP.rglob("flet-macos.tar.gz"))
-    if len(archives) != 1:
-        raise SystemExit(f"Esperava um flet-macos.tar.gz no bundle, achei {len(archives)}")
+    archives = [Path(d) / n for d, _, names in os.walk(APP, followlinks=True) for n in names
+                if n == "flet-macos.tar.gz"]
+    if not archives:
+        found = [str(Path(d) / n) for d, _, names in os.walk(APP, followlinks=True) for n in names
+                 if "flet" in n.lower()][:40]
+        raise SystemExit(f"Nenhum flet-macos.tar.gz no bundle. Arquivos com 'flet': {found}")
     with tempfile.TemporaryDirectory(prefix="distrib-view-check-") as folder:
         with tarfile.open(archives[0]) as tar:
             tar.extractall(folder, filter="data")
