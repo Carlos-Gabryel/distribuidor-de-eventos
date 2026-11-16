@@ -25,12 +25,15 @@ from distrib.platform import IS_ANDROID
 REPO = "Carlos-Gabryel/distribuidor-de-eventos"
 API = f"https://api.github.com/repos/{REPO}/releases/latest"
 IS_LINUX = sys.platform.startswith("linux") and not IS_ANDROID
+IS_MACOS = sys.platform == "darwin" and not IS_ANDROID
 
 
 def asset_name() -> str:
-    """O arquivo do Release que este app instala: .apk no Android, AppImage no Linux, .exe no Windows."""
+    """O arquivo do Release que este app instala: .apk no Android, AppImage no Linux, .zip no macOS, .exe no Windows."""
     if IS_ANDROID:
         return "Distribuidor.apk"
+    if IS_MACOS:
+        return "Distribuidor-macos-arm64.zip"
     return "Distribuidor-x86_64.AppImage" if IS_LINUX else "Distribuidor.exe"
 
 
@@ -105,6 +108,10 @@ def newer(release: Release | None, current: str) -> bool:
     return release is not None and release.version > parse_version(current)
 
 
+def _suffix() -> str:
+    return ".AppImage" if IS_LINUX else ".zip" if IS_MACOS else ".exe"
+
+
 def download(release: Release, folder: Path, opener=urllib.request.urlopen) -> Path:
     folder.mkdir(parents=True, exist_ok=True)
     part = folder / (asset_name() + ".part")
@@ -118,9 +125,14 @@ def download(release: Release, folder: Path, opener=urllib.request.urlopen) -> P
     if size != release.size or digest.hexdigest() != release.sha256.lower():
         part.unlink(missing_ok=True)
         raise UpdateError("o download não confere (tamanho ou SHA-256)")
-    ready = folder / f"Distribuidor-{release.tag}{'.AppImage' if IS_LINUX else '.exe'}"
+    ready = folder / f"Distribuidor-{release.tag}{_suffix()}"
     part.replace(ready)
     return ready
+
+
+def reveal(path: Path, launch=subprocess.Popen) -> None:
+    """macOS: mostra o .zip baixado no Finder (o app não se troca sozinho)."""
+    launch(["open", "-R", str(path)], close_fds=True)
 
 
 def apply(new_exe: Path, exe: Path, launch=subprocess.Popen) -> None:

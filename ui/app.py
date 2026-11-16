@@ -206,13 +206,19 @@ class Shell:
     def _update_row(self, snap: Snapshot) -> ft.Row:
         if snap.update_state == "error":
             return ft.Row([t.icon("triangle-alert", 16, t.AMBER),
-                           t.muted("A atualização falhou. Baixe a versão nova no GitHub e substitua o .exe.")])
+                           t.muted("A atualização falhou. Baixe a versão nova no GitHub e substitua o app." if update.IS_MACOS else "substitua o .exe.")])
         if snap.update_state == "available":
             return ft.Row([t.icon("download", 16, t.GREEN),
                            t.text(f"Versão {snap.update_version} disponível.", 13),
                            ft.Container(expand=True),
                            t.button("Baixar", lambda e: self.page.run_task(self.launcher.launch_url, snap.update_url))], spacing=10)
         busy = snap.run is not None
+        if update.IS_MACOS:
+            return ft.Row([t.icon("download", 16, t.GREEN),
+                           t.text(f"Atualização {snap.update_version} baixada.", 13),
+                           t.muted("Extraia o .zip e troque o app na pasta Aplicativos."),
+                           ft.Container(expand=True),
+                           t.button("Mostrar no Finder", lambda e: self.service.apply_update())], spacing=10)
         return ft.Row([t.icon("download", 16, t.GREEN),
                        t.text(f"Atualização {snap.update_version} pronta.", 13),
                        t.muted("Reinicie quando a distribuição terminar." if busy else ""),

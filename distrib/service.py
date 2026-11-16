@@ -313,6 +313,13 @@ class Service:
 
     def apply_update(self) -> bool:
         """True quando a versão nova já foi aberta e este app deve fechar."""
+        if update.IS_MACOS:     # no macOS só mostra o .zip no Finder; o app não fecha
+            if self._ready_update is not None:
+                try:
+                    update.reveal(self._ready_update)
+                except OSError:
+                    self._publish(update_state="error")
+            return False
         if self._ready_update is None or self.exe_path is None or self.snapshot().run is not None:
             return False
         try:

@@ -14,6 +14,7 @@ SHA = hashlib.sha256(BODY).hexdigest()
 @pytest.fixture(autouse=True)
 def _windows(monkeypatch):
     monkeypatch.setattr(update, "IS_LINUX", False)       # os testes do Linux ligam de volta
+    monkeypatch.setattr(update, "IS_MACOS", False)
 
 
 class Resp(io.BytesIO):
@@ -151,3 +152,19 @@ def test_linux_download_que_nao_confere_nao_deixa_lixo(monkeypatch, tmp_path):
     with pytest.raises(update.UpdateError):
         update.download(bad, tmp_path, opener=lambda req, timeout: Resp(BODY))
     assert list(tmp_path.iterdir()) == []
+
+
+MACZIP = {"name": "Distribuidor-macos-arm64.zip", "browser_download_url": "https://x/D.zip",
+          "size": len(BODY), "digest": f"sha256:{SHA}"}
+
+
+def test_macos_escolhe_o_zip_baixa_e_mostra_no_finder(monkeypatch, tmp_path):
+    monkeypatch.setattr(update, "IS_MACOS", True)
+    assert update.asset_name() == "Distribuidor-macos-arm64.zip"
+    rel = update.latest(opener=api([ASSET, MACZIP]))
+    assert rel.url == "https://x/D.zip"
+    new = update.download(rel, tmp_path, opener=lambda req, timeout: Resp(BODY))
+    assert new.name == "Distribuidor-v2.1.0.zip" and new.read_bytes() == BODY
+    launched = []
+    update.reveal(new, launch=lambda argv, **kw: launched.append(argv))
+    assert launched == [["open", "-R", str(new)]]

@@ -263,3 +263,16 @@ def test_set_keys_accepts_bytes(cfg):
     with pytest.raises(ValueError, match="prod.keys"):
         svc.set_keys(b"\x00\xff" * 500)
     assert cfg.keys.read_text(encoding="utf-8") == KEYS
+
+
+def test_apply_update_no_macos_revela_e_nao_fecha(cfg, tmp_path, monkeypatch):
+    rel = update.Release("v9.0.0", (9, 0, 0), "u", 1, "x")
+    got = tmp_path / "novo.zip"
+    got.write_bytes(b"n")
+    svc, _, _ = make(cfg, latest=lambda: rel, download=lambda r, folder: got)
+    svc.check_update()
+    seen = []
+    monkeypatch.setattr(update, "IS_MACOS", True)
+    monkeypatch.setattr(update, "reveal", lambda path: seen.append(path))
+    assert svc.apply_update() is False
+    assert seen == [got]
