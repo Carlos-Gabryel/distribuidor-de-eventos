@@ -207,6 +207,7 @@ def test_apply_update_error_is_reported(cfg, tmp_path, monkeypatch):
     def boom(new, current):
         raise PermissionError("sem permissão")
 
+    monkeypatch.setattr(update, "IS_MACOS", False)   # no Mac o apply_update só mostra o .zip no Finder
     monkeypatch.setattr(update, "apply", boom)
     assert svc.apply_update() is False
     assert svc.snapshot().update_state == "error"
