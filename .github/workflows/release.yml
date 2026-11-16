@@ -8,6 +8,9 @@ on:
     tags: ['v*']
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     strategy:
@@ -31,13 +34,13 @@ jobs:
           dotnet-version: "10.0.x"
       - name: Dependências
         run: python -m pip install -r requirements.txt
-      - name: Testes
-        if: runner.os == 'Linux'
-        run: python -m pytest -q -p no:cacheprovider
       - name: Firmwares
         run: python build/fetch_firmware.py
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      - name: Testes
+        if: runner.os == 'Linux'
+        run: python -m pytest -q -p no:cacheprovider
       - name: Empacotar
         run: python build/pack.py
       - name: Selfcheck do binário
@@ -51,7 +54,7 @@ jobs:
 
   build-macos:
     runs-on: macos-14
-    continue-on-error: true   # um Mac quebrado não trava a release das outras plataformas
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
@@ -64,12 +67,12 @@ jobs:
           dotnet-version: "10.0.x"
       - name: Dependências
         run: python -m pip install -r requirements.txt
-      - name: Testes
-        run: python -m pytest -q -p no:cacheprovider
       - name: Firmwares
         run: python build/fetch_firmware.py
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      - name: Testes
+        run: python -m pytest -q -p no:cacheprovider
       - name: Empacotar
         run: python build/pack.py
       - name: Conferir o .app
@@ -86,7 +89,8 @@ jobs:
 
   release:
     needs: [build, android, build-macos]
-    if: always() && startsWith(github.ref, 'refs/tags/v') && needs.build.result == 'success' && needs.android.result == 'success'
+    if: >-
+      !cancelled() && startsWith(github.ref, 'refs/tags/v') && needs.build.result == 'success' && needs.android.result == 'success'
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -100,7 +104,8 @@ jobs:
       - name: Publicar o Release
         env:
           GH_TOKEN: ${{ github.token }}
+          MAC_OK: ${{ needs.build-macos.result == 'success' }}
         run: |
           files=(assets/Distribuidor.exe assets/Distribuidor-x86_64.AppImage assets/Distribuidor.apk distrib/swsh_validated.json)
-          if [ -f assets/Distribuidor-macos-arm64.zip ]; then files+=(assets/Distribuidor-macos-arm64.zip); fi
+          if [ "$MAC_OK" = true ] && [ -f assets/Distribuidor-macos-arm64.zip ]; then files+=(assets/Distribuidor-macos-arm64.zip); fi
           gh release create "$GITHUB_REF_NAME" --verify-tag --title "Distribuidor de Eventos ${GITHUB_REF_NAME#v}" --notes "" "${files[@]}"
