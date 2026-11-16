@@ -31,6 +31,8 @@ def default_data_dir() -> Path:
     if sys.platform.startswith("linux") and not legacy.exists():
         xdg = os.environ.get("XDG_DATA_HOME")
         return (Path(xdg) if xdg else Path.home() / ".local" / "share") / APP_NAME
+    if sys.platform == "darwin" and not legacy.exists():
+        return Path.home() / "Library" / "Application Support" / APP_NAME
     return legacy
 
 

@@ -26,6 +26,10 @@ LINUX_HINT = ("No Linux os drivers já vêm no kernel (as portas aparecem como /
               "Falta a permissão de acesso à serial: entre no grupo dialout "
               "(sudo usermod -aG dialout $USER) ou instale a regra udev do projeto "
               "(packaging/linux/60-distribuidor-serial.rules), saia da sessão e entre de novo.")
+# No macOS os drivers também já vêm no sistema.
+MACOS_HINT = ("No macOS os drivers de CP210x, CH340 e CH9102 já vêm no sistema (macOS 11 ou mais novo); "
+              "a porta aparece como /dev/cu.usbserial-* ou /dev/cu.wchusbserial*. "
+              "Se não aparecer, troque o cabo (tem que ser de dados) e replugue a placa.")
 DRIVERS = {
     "CP210x": "https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers",
     "CH340": "https://www.wch-ic.com/downloads/CH341SER_EXE.html",

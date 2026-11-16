@@ -5,3 +5,4 @@ import os
 import sys
 
 IS_ANDROID = sys.platform == "android" or "ANDROID_DATA" in os.environ
+IS_MACOS = sys.platform == "darwin"

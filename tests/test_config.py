@@ -60,3 +60,13 @@ def test_linux_data_dir_follows_xdg_and_keeps_the_legacy_folder(tmp_path, monkey
     assert configmod.default_data_dir() == tmp_path / "xdg" / "Distribuidor"
     (tmp_path / ".distribuidor").mkdir()
     assert configmod.default_data_dir() == tmp_path / ".distribuidor"
+
+
+def test_macos_data_dir_usa_application_support_e_mantem_o_legacy(tmp_path, monkeypatch):
+    monkeypatch.setattr(sys, "platform", "darwin")
+    for var in ("DISTRIB_DATA_DIR", "LOCALAPPDATA"):
+        monkeypatch.delenv(var, raising=False)
+    monkeypatch.setattr(Path, "home", lambda: tmp_path)
+    assert configmod.default_data_dir() == tmp_path / "Library" / "Application Support" / "Distribuidor"
+    (tmp_path / ".distribuidor").mkdir()
+    assert configmod.default_data_dir() == tmp_path / ".distribuidor"

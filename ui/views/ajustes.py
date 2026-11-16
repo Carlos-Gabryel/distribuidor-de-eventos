@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 import subprocess
+import sys
 
 import flet as ft
 
@@ -72,7 +73,8 @@ class AjustesView:
         if os.name == "nt":
             os.startfile(self.service.cfg.logs_dir)
         else:
-            subprocess.Popen(["xdg-open", str(self.service.cfg.logs_dir)], close_fds=True,
+            opener = "open" if sys.platform == "darwin" else "xdg-open"
+            subprocess.Popen([opener, str(self.service.cfg.logs_dir)], close_fds=True,
                              stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
                              stderr=subprocess.DEVNULL, start_new_session=True)
 

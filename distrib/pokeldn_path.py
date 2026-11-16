@@ -12,5 +12,5 @@ def ensure_importable(pokeldn_dir: Path) -> None:
     # No .exe o ROOT do pokeldn é o _MEIPASS, não vendor/pokeldn: aponta o PKHeX empacotado.
     name = "pokeldn-pkhex.exe" if sys.platform == "win32" else "pokeldn-pkhex"
     pkhex = pokeldn_dir / "services" / "pkhex" / "dist" / name
-    if sys.platform in ("win32", "linux") and pkhex.is_file():
+    if sys.platform in ("win32", "linux", "darwin") and pkhex.is_file():
         os.environ.setdefault("POKELDN_PKHEX", str(pkhex))

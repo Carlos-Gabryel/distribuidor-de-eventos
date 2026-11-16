@@ -47,6 +47,10 @@ class PlacaView:
             return t.card(ft.Column([
                 t.text("A placa está plugada e não aparece?", 14, bold=True),
                 t.muted(radio.LINUX_HINT + " Use um cabo de dados, não só de carga.")], spacing=8))
+        if sys.platform == "darwin" and not IS_ANDROID:
+            return t.card(ft.Column([
+                t.text("A placa está plugada e não aparece?", 14, bold=True),
+                t.muted(radio.MACOS_HINT)], spacing=8))
         links = [t.button(name, lambda e, url=url: self._open(url), primary=False, icon_name="external-link")
                  for name, url in radio.DRIVERS.items()]
         return t.card(ft.Column([
