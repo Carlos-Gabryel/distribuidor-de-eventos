@@ -1,6 +1,5 @@
 """Confere o dist/Distribuidor.app do macOS: entitlement do seletor de arquivos no viewer do Flet,
 assinatura e o selfcheck do próprio app. Só roda no macOS."""
-import os
 import plistlib
 import subprocess
 import sys
@@ -9,18 +8,19 @@ import tempfile
 from pathlib import Path
 
 APP = Path(__file__).resolve().parent.parent / "dist" / "Distribuidor.app"
+EXE = APP / "Contents" / "MacOS" / "Distribuidor"
 ENTITLEMENT = "com.apple.security.files.user-selected.read-write"
 
 
 def check_viewer_entitlement() -> None:
-    archives = [Path(d) / n for d, _, names in os.walk(APP, followlinks=True) for n in names
-                if n == "flet-macos.tar.gz"]
-    if not archives:
-        found = [str(Path(d) / n) for d, _, names in os.walk(APP, followlinks=True) for n in names
-                 if "flet" in n.lower()][:40]
-        raise SystemExit(f"Nenhum flet-macos.tar.gz no bundle. Arquivos com 'flet': {found}")
+    # o .app é onefile: o tar do viewer só existe na extração do PyInstaller, com o app rodando
     with tempfile.TemporaryDirectory(prefix="distrib-view-check-") as folder:
-        with tarfile.open(archives[0]) as tar:
+        archive = Path(folder) / "flet-macos.tar.gz"
+        got = subprocess.run([str(EXE), "--module", "distrib.runners.viewer_tar", str(archive)],
+                             capture_output=True, text=True, timeout=300)
+        if got.returncode != 0 or not archive.is_file():
+            raise SystemExit(f"Não consegui extrair o viewer do app: {got.stdout.strip()} {got.stderr.strip()[-800:]}")
+        with tarfile.open(archive) as tar:
             tar.extractall(folder, filter="data")
         viewer = next(Path(folder).glob("*.app"), None)
         if viewer is None:
@@ -41,7 +41,7 @@ def main() -> int:
     check_viewer_entitlement()
     subprocess.run(["codesign", "--verify", "--deep", "--strict", str(APP)], check=True)
     print("assinatura ok")
-    result = subprocess.run([str(APP / "Contents" / "MacOS" / "Distribuidor"), "--module",
+    result = subprocess.run([str(EXE), "--module",
                              "distrib.runners.selfcheck"], capture_output=True, text=True, timeout=300)
     print(result.stdout.strip()[-500:])
     if result.returncode != 0 or "selfcheck ok" not in result.stdout:
